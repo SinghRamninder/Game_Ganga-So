@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: Assembly-CSharp::GunData
   fireMode: 0
-  fireRate: 1
+  fireRate: 2
   range: 100
+  cameraShakeIntensity: 0.008
+  cameraShakeDuration: 0.4
+  recoilForce: 2
   impactPrefab: {fileID: 2593823017665926267, guid: ffa206500d46e8441b87b25b41e52ae1, type: 3}
   muzzleFlash: {fileID: 0}
   impactEffect: {fileID: 0}

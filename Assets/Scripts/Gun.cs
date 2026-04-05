@@ -1,23 +1,36 @@
 using UnityEngine;
 
+public enum FireMode
+{
+    SemiAuto,
+    FullAuto
+}
+
 public class Gun : MonoBehaviour
 {
-    [SerializeField] private GunData gunData;
+    [SerializeField] private FireMode fireMode;
+    [SerializeField] private float fireRate;
+    [SerializeField] private float range;
+    [SerializeField] private float cameraShakeIntensity;
+    [SerializeField] private float cameraShakeDuration;
+    [SerializeField] private float recoilForce = 2f;
+    [SerializeField] private GameObject impactPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private ParticleSystem muzzleFlash;
+    [SerializeField] private ParticleSystem impactEffectPrefab;
 
     private float nextTimeToFire = 0f;
 
     public void HandleFireInput()
     {
-        if (gunData.fireMode == FireMode.SemiAuto)
+        if (fireMode == FireMode.SemiAuto)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 TryFire();
             }
         }
-        else if (gunData.fireMode == FireMode.FullAuto)
+        else if (fireMode == FireMode.FullAuto)
         {
             if (Input.GetMouseButton(0))
             {
@@ -30,7 +43,7 @@ public class Gun : MonoBehaviour
     {
         if (Time.time < nextTimeToFire) return;
 
-        nextTimeToFire = Time.time + (1f / gunData.fireRate);
+        nextTimeToFire = Time.time + (1f / fireRate);
 
         Fire();
     }
@@ -42,18 +55,25 @@ public class Gun : MonoBehaviour
             muzzleFlash.Play();
         }
 
-        if (Physics.Raycast(firePoint.position, -firePoint.forward, out RaycastHit hit, gunData.range))
+        var playerController = GetComponentInParent<SimplePlayerController>();
+        if (playerController != null)
         {
-            if (gunData.impactPrefab != null)
+            playerController.TriggerCameraShake(cameraShakeIntensity, cameraShakeDuration);
+            playerController.TriggerWeaponRecoil(recoilForce);
+        }
+
+        if (Physics.Raycast(firePoint.position, -firePoint.forward, out RaycastHit hit, range))
+        {
+            if (impactPrefab != null)
             {
                 Vector3 impactPosition = hit.point + hit.normal * 0.01f;
                 Quaternion impactRotation = Quaternion.LookRotation(hit.normal);
 
-                Instantiate(gunData.impactPrefab, impactPosition, impactRotation);
+                Instantiate(impactPrefab, impactPosition, impactRotation);
 
-                if (gunData.impactEffect != null)
+                if (impactEffectPrefab != null)
                 {
-                    ParticleSystem impactEffect = Instantiate(gunData.impactEffect, impactPosition, impactRotation);
+                    ParticleSystem impactEffect = Instantiate(impactEffectPrefab, impactPosition, impactRotation);
                     impactEffect.Play();
 
                     float totalDuration = impactEffect.main.duration + impactEffect.main.startLifetime.constantMax;
