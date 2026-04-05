@@ -20,7 +20,7 @@ public class PaintingInteraction : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerWeaponManager = other.GetComponent<PlayerWeaponManager>();
-            Debug.Log("Inside collider");
+            Debug.Log("Left control to equip the gun");
         }
     }
 

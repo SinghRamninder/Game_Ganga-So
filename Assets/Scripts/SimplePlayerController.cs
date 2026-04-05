@@ -60,23 +60,18 @@ public class SimplePlayerController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        // Rotate camera vertically
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
         playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 180f, 0f);
 
-        // Rotate and adjust position of the weapon so it acts like it's pivoting from the shoulder/hands
         if (weaponHolder != null)
         {
             weaponHolder.transform.localRotation = Quaternion.Euler(-verticalRotation, 0f, 0f);
 
-            // Calculate a positional offset based on how far we are looking up or down
             float angleRatio = verticalRotation / maxLookAngle; // -1 to 1
-            // Shift the weapon slightly up/down and forward/back to match natural arm movement
             weaponPitchOffset = new Vector3(0f, -angleRatio * 0.15f, Mathf.Abs(angleRatio) * -0.1f);
         }
 
-        // Rotate player horizontally
         transform.Rotate(Vector3.up * mouseX);
     }
 
@@ -96,12 +91,10 @@ public class SimplePlayerController : MonoBehaviour
     {
         if (playerCamera == null) return;
 
-        // Calculate player speed on the X and Z axes
         float speed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
 
         if (speed > 0.1f && controller.isGrounded)
         {
-            // Apply bobbing effect using Sine and Cosine waves
             bobTimer += Time.deltaTime * bobSpeed;
             float newY = Mathf.Sin(bobTimer) * bobAmount;
             float newX = Mathf.Cos(bobTimer / 2f) * bobAmount * 0.5f;
@@ -109,7 +102,6 @@ public class SimplePlayerController : MonoBehaviour
         }
         else
         {
-            // Smoothly return to the zero offset
             bobTimer = 0f;
             currentBobOffset = Vector3.Lerp(currentBobOffset, Vector3.zero, Time.deltaTime * 5f);
         }
@@ -138,7 +130,6 @@ public class SimplePlayerController : MonoBehaviour
 
         if (weaponHolder != null)
         {
-            // The weapon adopts the pitch offset, bobbing offset, and a slightly dampened shake offset
             weaponHolder.transform.localPosition = initialWeaponPosition + weaponPitchOffset + currentBobOffset + (currentShakeOffset * 0.5f);
         }
     }
@@ -151,7 +142,6 @@ public class SimplePlayerController : MonoBehaviour
 
     public void TriggerWeaponRecoil(float recoilForce)
     {
-        // Push the camera's pitch upwards to simulate weapon recoil
         verticalRotation -= recoilForce;
         verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
     }
