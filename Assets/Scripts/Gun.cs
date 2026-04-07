@@ -14,6 +14,9 @@ public class Gun : MonoBehaviour
     [SerializeField] private float cameraShakeIntensity;
     [SerializeField] private float cameraShakeDuration;
     [SerializeField] private float recoilForce = 2f;
+    [SerializeField, Range(0f, 1f)] private float rumbleLeftFrequency; 
+    [SerializeField, Range(0f, 1f)] private float rumbleRightFrequency; 
+    [SerializeField] private float rumbleTime; 
     [SerializeField] private GameObject impactPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private ParticleSystem muzzleFlash;
@@ -25,14 +28,14 @@ public class Gun : MonoBehaviour
     {
         if (fireMode == FireMode.SemiAuto)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (InputManager.instance.controls.Gun.Fire.WasPressedThisFrame())
             {
                 TryFire();
             }
         }
         else if (fireMode == FireMode.FullAuto)
         {
-            if (Input.GetMouseButton(0))
+            if (InputManager.instance.controls.Gun.Fire.IsPressed())
             {
                 TryFire();
             }
@@ -54,6 +57,8 @@ public class Gun : MonoBehaviour
         {
             muzzleFlash.Play();
         }
+
+        RumbleManager.instance.RumblePulse(rumbleLeftFrequency, rumbleRightFrequency, rumbleTime);
 
         var playerController = GetComponentInParent<SimplePlayerController>();
         if (playerController != null)

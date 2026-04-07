@@ -1458,7 +1458,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimplePlayerController
   moveSpeed: 1
-  mouseSensitivity: 120
+  mouseSensitivity: 0.1
+  controllerSensitivity: 150
   maxLookAngle: 39
   bobSpeed: 12
   bobAmount: 0.02

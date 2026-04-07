@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class SimplePlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
-    public float mouseSensitivity = 2f;
+    public float mouseSensitivity = 0.1f;
+    public float controllerSensitivity = 150f;
     public float maxLookAngle = 39f;
 
     [Header("Head Bob Settings")]
@@ -57,8 +59,14 @@ public class SimplePlayerController : MonoBehaviour
 
     private void HandleLook()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        Vector2 lookInput = InputManager.instance.controls.Player.Look.ReadValue<Vector2>();
+
+        bool isGamepad = InputManager.instance.controls.Player.Look.activeControl?.device is Gamepad;
+
+        float currentSensitivity = isGamepad ? (controllerSensitivity * Time.deltaTime) : mouseSensitivity;
+
+        float mouseX = lookInput.x * currentSensitivity;
+        float mouseY = lookInput.y * currentSensitivity;
 
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
