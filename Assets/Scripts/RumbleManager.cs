@@ -27,7 +27,7 @@ public class RumbleManager : MonoBehaviour
 
     public void RumblePulse (float lowFrequency, float highFrequency, float duration)
     {
-        if (currentControlScheme != "Gamepad") return;
+        //if (currentControlScheme != "Gamepad") return;
 
         gamepad = Gamepad.current;
 
