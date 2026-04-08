@@ -32,6 +32,7 @@ public class SimplePlayerController : MonoBehaviour
     private float shakeDuration = 0f;
     private float shakeIntensity = 0f;
 
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -85,8 +86,10 @@ public class SimplePlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        Vector2 moveInput = InputManager.instance.controls.Player.Move.ReadValue<Vector2>();
+
+        float moveX = moveInput.x;
+        float moveZ = moveInput.y;
 
         Vector3 move = -transform.right * moveX - transform.forward * moveZ;
         Vector3 gravity = Physics.gravity * Time.deltaTime;
