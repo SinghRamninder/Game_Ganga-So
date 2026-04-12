@@ -139,12 +139,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 248039951975568822}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.019999996, z: -0.358}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: -0.083875015, z: 0.16300002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1291982551539991287}
+  m_Father: {fileID: 6254238410583589388}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &458375579034037660
 GameObject:
@@ -1417,7 +1417,6 @@ Transform:
   m_Children:
   - {fileID: 3480612960825241359}
   - {fileID: 6254238410583589388}
-  - {fileID: 2481392034983712947}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &911940330352813454
@@ -1461,6 +1460,7 @@ MonoBehaviour:
   mouseSensitivity: 0.1
   controllerSensitivity: 150
   maxLookAngle: 39
+  gunSpeedModifier: 1
   bobSpeed: 12
   bobAmount: 0.02
   playerCamera: {fileID: 0}
@@ -1739,7 +1739,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.10387501, z: -0.195}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2481392034983712947}
   m_Father: {fileID: 1291982551539991287}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!20 &8619745468659069353

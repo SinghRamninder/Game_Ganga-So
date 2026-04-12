@@ -201,10 +201,21 @@ MonoBehaviour:
   rumbleLeftFrequency: 0.372
   rumbleRightFrequency: 0.313
   rumbleTime: 0.1
-  impactPrefab: {fileID: 2593823017665926267, guid: 1fd2b4380ddd8624bb0d770261d58ae4, type: 3}
+  healthModifier: 0
+  speedModifier: 1
+  damageToEnemy: 10
+  raysPerShot: 1
+  aoeSpread: 0
+  isMeleeWeapon: 0
+  maxAmmo: 30
+  reloadTime: 1.5
+  ammoText: {fileID: 0}
   firePoint: {fileID: 5263149871168198699}
   muzzleFlash: {fileID: 5671074941670597010}
-  impactEffectPrefab: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
+  impactPrefab: {fileID: 2593823017665926267, guid: 1fd2b4380ddd8624bb0d770261d58ae4, type: 3}
+  impactEffectNonEnemy: {fileID: 0}
+  impactEffectEnemy: {fileID: 0}
+  useSameImpactEffect: 0
 --- !u!1 &3771342242283054754
 GameObject:
   m_ObjectHideFlags: 0
