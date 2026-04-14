@@ -10,6 +10,8 @@ public class SimplePlayerController : MonoBehaviour
     public float controllerSensitivity = 150f;
     public float maxLookAngle = 39f;
 
+    [HideInInspector] public float gunSpeedModifier = 1f;
+
     [Header("Head Bob Settings")]
     public float bobSpeed = 10f;
     public float bobAmount = 0.05f;
@@ -21,12 +23,10 @@ public class SimplePlayerController : MonoBehaviour
     private float verticalRotation = 0f;
     private CharacterController controller;
     private float yVelocity;
-    private Vector3 initialWeaponPosition;
     private Vector3 initialCameraPosition;
     private float bobTimer = 0f;
 
     // Movement & Effects Offsets
-    private Vector3 weaponPitchOffset = Vector3.zero;
     private Vector3 currentBobOffset = Vector3.zero;
     private Vector3 currentShakeOffset = Vector3.zero;
     private float shakeDuration = 0f;
@@ -41,9 +41,6 @@ public class SimplePlayerController : MonoBehaviour
 
         if (playerCamera != null)
             initialCameraPosition = playerCamera.transform.localPosition;
-
-        if (weaponHolder != null)
-            initialWeaponPosition = weaponHolder.transform.localPosition;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -73,14 +70,6 @@ public class SimplePlayerController : MonoBehaviour
         verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
         playerCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 180f, 0f);
 
-        if (weaponHolder != null)
-        {
-            weaponHolder.transform.localRotation = Quaternion.Euler(-verticalRotation, 0f, 0f);
-
-            float angleRatio = verticalRotation / maxLookAngle; // -1 to 1
-            weaponPitchOffset = new Vector3(0f, -angleRatio * 0.15f, Mathf.Abs(angleRatio) * -0.1f);
-        }
-
         transform.Rotate(Vector3.up * mouseX);
     }
 
@@ -95,7 +84,7 @@ public class SimplePlayerController : MonoBehaviour
         Vector3 gravity = Physics.gravity * Time.deltaTime;
         yVelocity = controller.isGrounded ? -1f : yVelocity + gravity.y;
         move += new Vector3(0f, yVelocity, 0f);
-        controller.Move(move * (moveSpeed * Time.deltaTime));
+        controller.Move(move * ((moveSpeed * gunSpeedModifier) * Time.deltaTime));
     }
 
     private void HandleHeadBob()
@@ -138,11 +127,6 @@ public class SimplePlayerController : MonoBehaviour
         {
             playerCamera.transform.localPosition = initialCameraPosition + currentBobOffset + currentShakeOffset;
         }
-
-        if (weaponHolder != null)
-        {
-            weaponHolder.transform.localPosition = initialWeaponPosition + weaponPitchOffset + currentBobOffset + (currentShakeOffset * 0.5f);
-        }
     }
 
     public void TriggerCameraShake(float intensity, float duration)
@@ -155,5 +139,10 @@ public class SimplePlayerController : MonoBehaviour
     {
         verticalRotation -= recoilForce;
         verticalRotation = Mathf.Clamp(verticalRotation, -maxLookAngle, maxLookAngle);
+    }
+
+    public void SetSpeedModifier(float modifier)
+    {
+        gunSpeedModifier = modifier;
     }
 }
