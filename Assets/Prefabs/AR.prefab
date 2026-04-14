@@ -873,8 +873,9 @@ MonoBehaviour:
   muzzleFlash: {fileID: 247455129476477726}
   gunAnimator: {fileID: 0}
   impactPrefab: {fileID: 2593823017665926267, guid: e289bc6a6d977da4f9cdfd538edaa19f, type: 3}
-  impactEffectNonEnemy: {fileID: 0}
-  impactEffectEnemy: {fileID: 0}
+  impactPrefabEnemy: {fileID: 8390140630907516658, guid: 2d443f1fbacea3049bcef40c0428d908, type: 3}
+  impactEffectNonEnemy: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
+  impactEffectEnemy: {fileID: 8724896405505394418, guid: c03203f42fdac2c42b147dc13f64014f, type: 3}
   useSameImpactEffect: 0
 --- !u!1 &8232722742069501118
 GameObject:
@@ -1041,15 +1042,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1061,7 +1062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.262
+      value: -0.601
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalRotation.w

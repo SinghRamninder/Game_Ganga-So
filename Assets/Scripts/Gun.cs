@@ -49,6 +49,19 @@ public class Gun : MonoBehaviour
     private int currentAmmo;
     private bool isReloading = false;
 
+    private void Awake()
+    {
+        // Dynamically find the ammo text in the active scene if not assigned
+        if (ammoText == null)
+        {
+            GameObject obj = GameObject.Find("Bullet counter"); // Ensure your UI Text is named "AmmoText" in the Canvas
+            if (obj != null)
+            {
+                ammoText = obj.GetComponent<TMPro.TextMeshProUGUI>();
+            }
+        }
+    }
+
     private void Start()
     {
         currentAmmo = maxAmmo;
@@ -199,7 +212,7 @@ public class Gun : MonoBehaviour
                     enemy.TakeDamage(damageToEnemy);
                 }
 
-                if (impactPrefab != null)
+                if (impactPrefab != null && enemy == null)
                 {
                     Vector3 impactPos = hit.point + hit.normal * 0.01f;
                     Quaternion impactRot = Quaternion.LookRotation(hit.normal);
@@ -213,6 +226,7 @@ public class Gun : MonoBehaviour
                     Vector3 impactPos = hit.point + hit.normal * 0.01f;
                     Quaternion impactRot = Quaternion.LookRotation(hit.normal);
                     ParticleSystem instance = Instantiate(effectToPlay, impactPos, impactRot);
+
                     instance.Play();
                     float totalDuration = instance.main.duration + instance.main.startLifetime.constantMax;
                     Destroy(instance.gameObject, totalDuration);

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
 {
@@ -55,14 +56,13 @@ public class Enemy : MonoBehaviour
         if (playerTransform == null) return;
 
         float distance = Vector3.Distance(transform.position, playerTransform.position);
-        if (distance > attackRange)
-        {
-            // Move towards player
-            Vector3 moveDirection = (playerTransform.position - transform.position).normalized;
-            moveDirection.y = 0;
-            transform.position += moveDirection * speed * Time.deltaTime;
-        }
-        else
+        
+        // Continuously move towards player
+        Vector3 moveDirection = (playerTransform.position - transform.position).normalized;
+        moveDirection.y = 0;
+        transform.position += moveDirection * speed * Time.deltaTime;
+
+        if (distance <= attackRange)
         {
             // Attack
             if (Time.time >= nextAttackTime)
