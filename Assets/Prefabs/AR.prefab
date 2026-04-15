@@ -171,7 +171,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -873,7 +873,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 247455129476477726}
   gunAnimator: {fileID: 0}
   impactPrefab: {fileID: 2593823017665926267, guid: e289bc6a6d977da4f9cdfd538edaa19f, type: 3}
-  impactPrefabEnemy: {fileID: 8390140630907516658, guid: 2d443f1fbacea3049bcef40c0428d908, type: 3}
   impactEffectNonEnemy: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: c03203f42fdac2c42b147dc13f64014f, type: 3}
   useSameImpactEffect: 0
@@ -1028,13 +1027,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7824335089824173540}
     m_Modifications:
+    - target: {fileID: 1147103780343561910, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7187393022739837340, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7187393022739837341, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294025, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_Name

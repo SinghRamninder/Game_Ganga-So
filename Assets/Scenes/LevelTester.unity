@@ -10178,33 +10178,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8194632082880771969, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
+      propertyPath: healthText
+      value: 
+      objectReference: {fileID: 369769358}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6955562605806925438, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1397837812}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
---- !u!1 &1397837811 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6955562605806925438, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
-  m_PrefabInstance: {fileID: 1397837810}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1397837812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1397837811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbcd0f5a2c218284491d4d0b8d48e97a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthManager
-  baseMaxHealth: 100
-  healthText: {fileID: 369769358}
 --- !u!1 &1401944107
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4194094506529525544}
   - component: {fileID: 7912431187413357291}
   - component: {fileID: 3380310817031713962}
-  - component: {fileID: 8903554456363308991}
+  - component: {fileID: 6458104901873181042}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,9 +107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   maxHealth: 100
-  speed: 1
+  speed: 5
   damageToPlayer: 10
-  attackRange: 0.5
+  attackRange: 5
   attackRate: 1
   deathEffect: {fileID: 9111320563476075608, guid: c6fb71e58ec36784687d958bc39de3f2, type: 3}
   animator: {fileID: 0}
@@ -139,7 +139,7 @@ CapsuleCollider:
   m_Height: 15.36
   m_Direction: 1
   m_Center: {x: -0.4264066, y: 0, z: -1.2294593}
---- !u!54 &8903554456363308991
+--- !u!54 &6458104901873181042
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

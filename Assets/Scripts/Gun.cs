@@ -17,7 +17,8 @@ public class Gun : MonoBehaviour
     [SerializeField] private float recoilForce = 2f;
     [SerializeField, Range(0f, 1f)] private float rumbleLeftFrequency; 
     [SerializeField, Range(0f, 1f)] private float rumbleRightFrequency; 
-    [SerializeField] private float rumbleTime; 
+    [SerializeField] private float rumbleTime;
+    public Vector3 spawnOffset = Vector3.zero;
 
     [Header("Gun Passives")]
     public float healthModifier = 0f;
