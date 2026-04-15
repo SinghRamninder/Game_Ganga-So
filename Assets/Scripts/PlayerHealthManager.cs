@@ -40,6 +40,7 @@ public class PlayerHealthManager : MonoBehaviour
     public void RemoveHealthBonus(float amount)
     {
         currentMaxHealth -= amount;
+        currentHealth -= amount;
         if (currentHealth > currentMaxHealth) currentHealth = currentMaxHealth;
         UpdateUI();
     }

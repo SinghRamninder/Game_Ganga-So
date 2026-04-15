@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7730509440239488923}
   - component: {fileID: 1348115107554213983}
   m_Layer: 0
-  m_Name: BloodSplash_PS
+  m_Name: BloodSplashShotgun_PS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +224,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0, b: 0, a: 1}
+      maxColor: {r: 0, g: 0.23801422, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -612,7 +612,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4907,4 +4907,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9abf6a44292644d40bffe4248bb8bb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParticleCollisionSpawner
-  prefabToSpawn: {fileID: 8390140630907516658, guid: 2d443f1fbacea3049bcef40c0428d908, type: 3}
+  prefabToSpawn: {fileID: 8390140630907516658, guid: eb79584012108d54292b3ff29364b37a, type: 3}
