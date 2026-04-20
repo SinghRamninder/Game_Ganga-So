@@ -19,6 +19,8 @@ public class Gun : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float rumbleRightFrequency; 
     [SerializeField] private float rumbleTime;
     public Vector3 spawnOffset = Vector3.zero;
+    public TrailRenderer bulletTrail;
+    public Transform raySpawnPos;
 
     [Header("Gun Passives")]
     public float healthModifier = 0f;
@@ -52,10 +54,9 @@ public class Gun : MonoBehaviour
 
     private void Awake()
     {
-        // Dynamically find the ammo text in the active scene if not assigned
         if (ammoText == null)
         {
-            GameObject obj = GameObject.Find("Bullet counter"); // Ensure your UI Text is named "AmmoText" in the Canvas
+            GameObject obj = GameObject.Find("Bullet counter");
             if (obj != null)
             {
                 ammoText = obj.GetComponent<TMPro.TextMeshProUGUI>();
@@ -189,7 +190,6 @@ public class Gun : MonoBehaviour
             playerController.TriggerWeaponRecoil(recoilForce);
         }
 
-        // Use Camera for accurate aiming instead of firePoint if possible
         Vector3 rayOrigin = (cam != null) ? cam.transform.position : firePoint.position;
         Vector3 baseDirection = (cam != null) ? cam.transform.forward : -firePoint.forward;
 
@@ -211,28 +211,69 @@ public class Gun : MonoBehaviour
                 if (enemy != null)
                 {
                     enemy.TakeDamage(damageToEnemy);
+
+                    StartCoroutine(SpawnTracer(raySpawnPos.position, hit.point, hit.normal, true));
                 }
 
-                if (impactPrefab != null && enemy == null)
+                if (enemy == null)
                 {
-                    Vector3 impactPos = hit.point + hit.normal * 0.01f;
-                    Quaternion impactRot = Quaternion.LookRotation(hit.normal);
-                    Instantiate(impactPrefab, impactPos, impactRot);
+                    StartCoroutine(SpawnTracer(raySpawnPos.position, hit.point, hit.normal, false));
                 }
 
-                ParticleSystem effectToPlay = useSameImpactEffect ? impactEffectNonEnemy : ((enemy != null) ? impactEffectEnemy : impactEffectNonEnemy);
-
-                if (effectToPlay != null)
-                {
-                    Vector3 impactPos = hit.point + hit.normal * 0.01f;
-                    Quaternion impactRot = Quaternion.LookRotation(hit.normal);
-                    ParticleSystem instance = Instantiate(effectToPlay, impactPos, impactRot);
-
-                    instance.Play();
-                    float totalDuration = instance.main.duration + instance.main.startLifetime.constantMax;
-                    Destroy(instance.gameObject, totalDuration);
-                }
+                
+            }
+            else
+            {
+                Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
+                StartCoroutine(SpawnTracer(raySpawnPos.position, maxRangePoint, Vector3.zero, null));
             }
         }
+    }
+
+    private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos, Vector3 hitNormal, bool? isEnemyHit = null)
+    {
+        float time = 0;
+
+        TrailRenderer bulletTrailSpawned = Instantiate(bulletTrail, spawnPos, Quaternion.identity);
+
+        while (time < 1)
+        {
+            bulletTrailSpawned.transform.position = Vector3.Lerp(bulletTrailSpawned.transform.position, targetPos, time);
+            time += Time.deltaTime / bulletTrailSpawned.time;
+            yield return null;
+        }
+
+        bulletTrailSpawned.transform.position = targetPos;
+
+        ParticleSystem effectToPlay = null;
+
+        if (isEnemyHit == false)
+        {
+            if (impactPrefab != null)
+            {
+                Vector3 impactPos = targetPos + hitNormal * 0.01f;
+                Quaternion impactRot = Quaternion.LookRotation(hitNormal);
+                Instantiate(impactPrefab, impactPos, impactRot);
+            }
+
+            if (impactEffectNonEnemy != null) effectToPlay = impactEffectNonEnemy;
+        }
+        else if (isEnemyHit == true)
+        {
+            if (impactEffectEnemy != null) effectToPlay = impactEffectEnemy;
+        }
+
+        if (effectToPlay != null)
+        {
+            Vector3 impactPos = targetPos + hitNormal * 0.01f;
+            Quaternion impactRot = Quaternion.LookRotation(hitNormal);
+            ParticleSystem instance = Instantiate(effectToPlay, impactPos, impactRot);
+
+            instance.Play();
+            float totalDuration = instance.main.duration + instance.main.startLifetime.constantMax;
+            Destroy(instance.gameObject, totalDuration);
+        }
+
+        Destroy(bulletTrailSpawned.gameObject, bulletTrailSpawned.time);
     }
 }

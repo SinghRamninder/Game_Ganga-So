@@ -143,6 +143,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 247455129476477727}
+  - {fileID: 6592937034079664169}
   m_Father: {fileID: 3626282877688058315}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8499430978957560688
@@ -860,6 +861,9 @@ MonoBehaviour:
   rumbleLeftFrequency: 0.468
   rumbleRightFrequency: 0.634
   rumbleTime: 0.1
+  spawnOffset: {x: 0, y: 0, z: 0}
+  bulletTrail: {fileID: 3907609751552455704, guid: f7cb3044f59937d479e4a7c86594ddcb, type: 3}
+  raySpawnPos: {fileID: 6592937034079664169}
   healthModifier: 0
   speedModifier: 1
   damageToEnemy: 10
@@ -876,6 +880,37 @@ MonoBehaviour:
   impactEffectNonEnemy: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: c03203f42fdac2c42b147dc13f64014f, type: 3}
   useSameImpactEffect: 0
+--- !u!1 &8230637527002019060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6592937034079664169}
+  m_Layer: 0
+  m_Name: TrailSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6592937034079664169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8230637527002019060}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7824335089824173540}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8232722742069501118
 GameObject:
   m_ObjectHideFlags: 0
