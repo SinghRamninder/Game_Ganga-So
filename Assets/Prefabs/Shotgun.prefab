@@ -747,7 +747,7 @@ MonoBehaviour:
   bulletTrail: {fileID: 3907609751552455704, guid: f7cb3044f59937d479e4a7c86594ddcb, type: 3}
   raySpawnPos: {fileID: 8153059505304991308}
   healthModifier: -50
-  speedModifier: 0.8
+  speedModifier: 0.5
   damageToEnemy: 50
   raysPerShot: 5
   aoeSpread: 0.1
@@ -758,7 +758,7 @@ MonoBehaviour:
   firePoint: {fileID: 7026650364615171166}
   muzzleFlash: {fileID: 1550787612747875285}
   gunAnimator: {fileID: 0}
-  impactPrefab: {fileID: 2593823017665926267, guid: ffa206500d46e8441b87b25b41e52ae1, type: 3}
+  impactPrefab: {fileID: 8390140630907516658, guid: eb79584012108d54292b3ff29364b37a, type: 3}
   impactEffectNonEnemy: {fileID: 7226583673155636403, guid: a2ab56839e1c9504ea9d141e95d0b16b, type: 3}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: c517420f5f3fb9d4ead7ef03b16c8007, type: 3}
   useSameImpactEffect: 0

@@ -9,6 +9,8 @@ public class SimplePlayerController : MonoBehaviour
     public float mouseSensitivity = 0.1f;
     public float controllerSensitivity = 150f;
     public float maxLookAngle = 39f;
+    public float jumpHeight = 1.5f;
+    public float gravityMultiplier = 2.5f;
 
     [HideInInspector] public float gunSpeedModifier = 1f;
 
@@ -81,10 +83,27 @@ public class SimplePlayerController : MonoBehaviour
         float moveZ = moveInput.y;
 
         Vector3 move = -transform.right * moveX - transform.forward * moveZ;
-        Vector3 gravity = Physics.gravity * Time.deltaTime;
-        yVelocity = controller.isGrounded ? -1f : yVelocity + gravity.y;
-        move += new Vector3(0f, yVelocity, 0f);
-        controller.Move(move * ((moveSpeed * gunSpeedModifier) * Time.deltaTime));
+
+        move *= (moveSpeed * gunSpeedModifier);
+
+        if (controller.isGrounded)
+        {
+            yVelocity = -2f;
+
+            if (InputManager.instance.controls.Player.Jump.WasPressedThisFrame())
+            {
+                Debug.Log("Jump called");
+                yVelocity = Mathf.Sqrt(jumpHeight * -2f * (Physics.gravity.y * gravityMultiplier));
+            }
+        }
+        else
+        {
+            yVelocity += (Physics.gravity.y * gravityMultiplier) * Time.deltaTime;
+        }
+
+        move.y = yVelocity;
+
+        controller.Move(move * Time.deltaTime);
     }
 
     private void HandleHeadBob()
