@@ -182324,7 +182324,9 @@ MonoBehaviour:
   spawnRate: 0.1
   randomSpawnFrequency: 0
   enemiesToSpawn:
-  - enemyPrefab: {fileID: 5655383073827375967, guid: 2496717bdcf691f45a96bdc526cb74e8, type: 3}
+  - enemyPrefab: {fileID: 5655383073827375967, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
+    spawnPercentage: 100
+  - enemyPrefab: {fileID: 5655383073827375967, guid: 9b1d4dc4f5dca49608f723447b3440f0, type: 3}
     spawnPercentage: 100
 --- !u!4 &1365498523
 Transform:
