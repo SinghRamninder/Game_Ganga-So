@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerHealthManager : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class PlayerHealthManager : MonoBehaviour
     
     [Header("UI")]
     public TextMeshProUGUI healthText;
+    public Image bloodImage;
+
+    private Coroutine playerHitEffect;
 
     private void Awake()
     {
@@ -48,10 +53,25 @@ public class PlayerHealthManager : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+
+        if (playerHitEffect != null)
+        {
+            StopCoroutine(playerHitEffect);
+        }
+
+        playerHitEffect = StartCoroutine(DisplayHitEffect());
+
         UpdateUI();
 
         if (currentHealth <= 0)
         {
+            if (bloodImage != null)
+            {
+                Color color = bloodImage.color;
+                color.a = 0f;
+                bloodImage.color = color;
+            }
+
             Die();
         }
     }
@@ -68,5 +88,32 @@ public class PlayerHealthManager : MonoBehaviour
     {
         Debug.Log("Player died!");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private IEnumerator DisplayHitEffect()
+    {
+        if (bloodImage != null)
+        {
+            Color color = bloodImage.color;
+
+            float startAlpha = 0.6f;
+            color.a = startAlpha;
+            bloodImage.color = color;
+
+            float time = 0f;
+            float fadeDuration = 5f;
+
+            while (time < fadeDuration)
+            {
+                time += Time.deltaTime;
+                color.a = Mathf.Lerp(color.a, 0f, time / fadeDuration);
+                bloodImage.color = color;
+
+                yield return null;
+            }
+
+            color.a = 0f;
+            bloodImage.color = color;
+        }
     }
 }

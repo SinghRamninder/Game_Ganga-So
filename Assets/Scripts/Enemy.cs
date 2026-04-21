@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -82,7 +84,6 @@ public class Enemy : MonoBehaviour
             PlayerHealthManager.instance.TakeDamage(damageToPlayer);
         }
         
-        // After attacking, optionally return to walking animation
         Invoke(nameof(ReturnToWalk), 1f / attackRate * 0.5f);
     }
 
