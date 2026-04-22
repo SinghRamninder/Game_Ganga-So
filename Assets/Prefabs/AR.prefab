@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7335615664279959068}
   - component: {fileID: 2680176830080695082}
   - component: {fileID: 8885518292956899564}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rifle (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7824335089824173540}
   - component: {fileID: 8499430978957560688}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 5497601486233104681}
   - component: {fileID: 2032819557834019369}
   - component: {fileID: 166254847886000830}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rifle (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 5211968415998750575}
   - component: {fileID: 500758865267281751}
   - component: {fileID: 564887685073594265}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cylinder (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -443,7 +443,7 @@ GameObject:
   - component: {fileID: 5043567092269816546}
   - component: {fileID: 940761547741167676}
   - component: {fileID: 1761081620660176641}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rifle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 581479220903582034}
   - component: {fileID: 2281540778064874232}
   - component: {fileID: 7427941454862331100}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -667,7 +667,7 @@ GameObject:
   - component: {fileID: 6350845292594013686}
   - component: {fileID: 129453262242516540}
   - component: {fileID: 1402117371453009247}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rifle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -776,7 +776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8574111949154527678}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3626282877688058315}
   - component: {fileID: 8102947890037738402}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -889,7 +889,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6592937034079664169}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TrailSpawnPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -923,7 +923,7 @@ GameObject:
   - component: {fileID: 6105710434599080335}
   - component: {fileID: 7641940259144865391}
   - component: {fileID: 5124420177641494661}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: rifle (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1032,7 +1032,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7845029936011850081}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1063,12 +1063,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 7824335089824173540}
     m_Modifications:
     - target: {fileID: 1147103780343561910, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147103780343561910, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1157317349632228395, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4574525854828118904, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7187393022739837340, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187393022739837341, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7187393022739837341, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_IsActive
@@ -1077,6 +1093,10 @@ PrefabInstance:
     - target: {fileID: 7187393024123294025, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_Name
       value: Smoke 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187393024123294025, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalScale.x
@@ -1137,6 +1157,10 @@ PrefabInstance:
     - target: {fileID: 7187393024123294135, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7306789290845440695, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
