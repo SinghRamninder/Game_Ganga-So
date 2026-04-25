@@ -7,50 +7,49 @@ public enum FireMode
     FullAuto
 }
 
-public class Gun : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
-    [SerializeField] private FireMode fireMode;
-    [SerializeField] private float fireRate;
-    [SerializeField] private float range;
-    [SerializeField] private float cameraShakeIntensity;
-    [SerializeField] private float cameraShakeDuration;
-    [SerializeField] private float recoilForce = 2f;
-    [SerializeField, Range(0f, 1f)] private float rumbleLeftFrequency; 
-    [SerializeField, Range(0f, 1f)] private float rumbleRightFrequency; 
-    [SerializeField] private float rumbleTime;
-    public Vector3 spawnOffset = Vector3.zero;
-    public TrailRenderer bulletTrail;
-    public Transform raySpawnPos;
+    [HideInInspector] public bool isMeleeWeapon = false;
 
-    [Header("Gun Passives")]
-    public float healthModifier = 0f;
-    public float speedModifier = 1f;
+    [HideInInspector] public FireMode fireMode;
+    [HideInInspector] public float fireRate;
+    [HideInInspector] public float range;
+    [HideInInspector] public float cameraShakeIntensity;
+    [HideInInspector] public float cameraShakeDuration;
+    [HideInInspector] public float recoilForce = 2f;
+    [HideInInspector] public float rumbleLeftFrequency;
+    [HideInInspector] public float rumbleRightFrequency; 
+    [HideInInspector] public float rumbleTime;
+    [HideInInspector] public TrailRenderer bulletTrail;
+    [HideInInspector] public Transform trailSpawnPos;
 
-    [Header("Damage & AoE")]
-    public float damageToEnemy = 10f;
-    public int raysPerShot = 1;
-    public float aoeSpread = 0f;
+    [HideInInspector] public float healthModifier = 0f;
+    [HideInInspector] public float speedModifier = 1f;
 
-    [Header("Ammo & Reload")]
-    public bool isMeleeWeapon = false;
-    public int maxAmmo = 30;
-    public float reloadTime = 1.5f;
-    public TMPro.TextMeshProUGUI ammoText;
+    [HideInInspector] public float damageToEnemy = 10f;
+    [HideInInspector] public int raysPerShot = 1;
+    [HideInInspector] public float aoeSpread = 0f;
 
-    [Header("Effects")]
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private ParticleSystem muzzleFlash;
-    public Animator gunAnimator;
+    [HideInInspector] public int maxAmmo = 30;
+    [HideInInspector] public float reloadTime = 1.5f;
+    [HideInInspector] public TMPro.TextMeshProUGUI ammoText;
 
-    [Header("Impact Effects")]
-    public GameObject impactPrefab;
-    public ParticleSystem impactEffectNonEnemy;
-    public ParticleSystem impactEffectEnemy;
-    public bool useSameImpactEffect = false;
+    private Transform firePoint;
+    [HideInInspector] public ParticleSystem muzzleFlash;
+    [HideInInspector] public Animator gunAnimator;
+
+    [HideInInspector] public GameObject impactPrefab;
+    [HideInInspector] public ParticleSystem impactEffectNonEnemy;
+    [HideInInspector] public ParticleSystem impactEffectEnemy;
+    [HideInInspector] public bool useSameImpactEffect = false;
     
     private float nextTimeToFire = 0f;
     private int currentAmmo;
     private bool isReloading = false;
+
+    public Vector3 weaponSpawnPosition = Vector3.zero;
+    public Quaternion weaponSpawnRotation = Quaternion.identity;
+    public Vector3 weaponSpawnScale = Vector3.one;
 
     private void Awake()
     {
@@ -212,12 +211,12 @@ public class Gun : MonoBehaviour
                 {
                     enemy.TakeDamage(damageToEnemy);
 
-                    StartCoroutine(SpawnTracer(raySpawnPos.position, hit.point, hit.normal, true));
+                    StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, true));
                 }
 
                 if (enemy == null)
                 {
-                    StartCoroutine(SpawnTracer(raySpawnPos.position, hit.point, hit.normal, false));
+                    StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, false));
                 }
 
                 
@@ -225,7 +224,7 @@ public class Gun : MonoBehaviour
             else
             {
                 Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
-                StartCoroutine(SpawnTracer(raySpawnPos.position, maxRangePoint, Vector3.zero, null));
+                StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, null));
             }
         }
     }
