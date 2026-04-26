@@ -21,6 +21,7 @@ public class WeaponCreator : EditorWindow
     private float areaOfEffect;
     private int maxAmmo;
     private float reloadTime;
+    private float recoilForce;
 
     private float playerHealthModifier;
     private float playerSpeedModifier = 1f;
@@ -86,6 +87,7 @@ public class WeaponCreator : EditorWindow
         areaOfEffect = EditorGUILayout.FloatField(new GUIContent("Area of Effect Spread", "Spread radius upon impact or multiple rays. Can be adjustable via scene visually with gizmos."), areaOfEffect);
         maxAmmo = EditorGUILayout.IntField(new GUIContent("Maximum Ammo", "Total ammunition capacity in a clip."), maxAmmo);
         reloadTime = EditorGUILayout.FloatField(new GUIContent("Reload Time", "Time in seconds required to reload."), reloadTime);
+        recoilForce = EditorGUILayout.FloatField(new GUIContent("Recoil Force", "The upward recoil force applied to the camera when shooting."), recoilForce);
 
         EditorGUILayout.Space();
         GUILayout.Label("Modifiers", EditorStyles.boldLabel);
@@ -197,6 +199,9 @@ public class WeaponCreator : EditorWindow
 
             var propReloadTime = serializedGun.FindProperty("reloadTime");
             if (propReloadTime != null) propReloadTime.floatValue = reloadTime;
+
+            var propRecoilForce = serializedGun.FindProperty("recoilForce");
+            if (propRecoilForce != null) propRecoilForce.floatValue = recoilForce;
 
             var propHealthMod = serializedGun.FindProperty("healthModifier");
             if (propHealthMod != null) propHealthMod.floatValue = playerHealthModifier;

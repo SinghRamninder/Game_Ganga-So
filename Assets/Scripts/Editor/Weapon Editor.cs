@@ -51,6 +51,7 @@ public class WeaponEditor : Editor
             weapon.aoeSpread = EditorGUILayout.FloatField(new GUIContent("Area of Effect Spread", "Spread radius upon impact or multiple rays. Can be adjustable via scene visually with gizmos."), weapon.aoeSpread);
             weapon.maxAmmo = EditorGUILayout.IntField(new GUIContent("Maximum Ammo", "Total ammunition capacity in a clip."), weapon.maxAmmo);
             weapon.reloadTime = EditorGUILayout.FloatField(new GUIContent("Reload Time", "Time in seconds required to reload."), weapon.reloadTime);
+            weapon.recoilForce = EditorGUILayout.FloatField(new GUIContent("Recoil Force", "The upward recoil force applied to the camera when shooting."), weapon.recoilForce);
 
             EditorGUILayout.Space();
             GUILayout.Label("Modifiers", EditorStyles.boldLabel);
@@ -73,6 +74,7 @@ public class WeaponEditor : Editor
             GUILayout.Label("Camera settings");
             weapon.cameraShakeIntensity = EditorGUILayout.FloatField(new GUIContent("Camera Shake Intensity", "Strength of camera shake on hit."), weapon.cameraShakeIntensity);
             weapon.cameraShakeDuration = EditorGUILayout.FloatField(new GUIContent("Camera Shake Duration", "Time in seconds camera shakes."), weapon.cameraShakeDuration);
+            
             EditorGUILayout.Space();
             GUILayout.Label("Controller vibration settings");
             weapon.rumbleLeftFrequency = EditorGUILayout.Slider(new GUIContent("Rumble Left Freq", "Controller left motor rumble frequency (0-1)."), weapon.rumbleLeftFrequency, 0f, 1f);
