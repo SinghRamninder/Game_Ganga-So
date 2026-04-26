@@ -20,8 +20,8 @@ public class WeaponEditor : Editor
 
             EditorGUILayout.Space();
             GUILayout.Label("Modifiers", EditorStyles.boldLabel);
-            weapon.healthModifier = EditorGUILayout.FloatField(new GUIContent("Player Health Modifier", "Alters player max health while equipped."), weapon.healthModifier);
-            weapon.speedModifier = EditorGUILayout.FloatField(new GUIContent("Player Speed Modifier", "Alters player movement speed while equipped."), weapon.speedModifier);
+            weapon.healthModifier = EditorGUILayout.FloatField(new GUIContent("Player Health Modifier", "Alters player max health while equipped (+ number increases health by that amount, - decreases it)."), weapon.healthModifier);
+            weapon.speedModifier = EditorGUILayout.FloatField(new GUIContent("Player Speed Modifier", "Alters player movement speed while equipped (< 1 decreases the speed, > 1 increases it)."), weapon.speedModifier);
 
             EditorGUILayout.Space();
             GUILayout.Label("Visuals & Effects", EditorStyles.boldLabel);
@@ -48,14 +48,14 @@ public class WeaponEditor : Editor
             weapon.range = EditorGUILayout.FloatField(new GUIContent("Fire Range", "The maximum distance the bullet can travel."), weapon.range);
             weapon.damageToEnemy = EditorGUILayout.FloatField(new GUIContent("Damage to Enemy", "Health removed from the enemy on hit."), weapon.damageToEnemy);
             weapon.raysPerShot = EditorGUILayout.IntField(new GUIContent("Bullets per shot", "Number of bullets fired in a single shot (e.g., for shotguns)."), weapon.raysPerShot);
-            weapon.aoeSpread = EditorGUILayout.FloatField(new GUIContent("Area of Effect Spread", "Spread radius upon impact or multiple rays."), weapon.aoeSpread);
+            weapon.aoeSpread = EditorGUILayout.FloatField(new GUIContent("Area of Effect Spread", "Spread radius upon impact or multiple rays. Can be adjustable via scene visually with gizmos."), weapon.aoeSpread);
             weapon.maxAmmo = EditorGUILayout.IntField(new GUIContent("Maximum Ammo", "Total ammunition capacity in a clip."), weapon.maxAmmo);
             weapon.reloadTime = EditorGUILayout.FloatField(new GUIContent("Reload Time", "Time in seconds required to reload."), weapon.reloadTime);
 
             EditorGUILayout.Space();
             GUILayout.Label("Modifiers", EditorStyles.boldLabel);
-            weapon.healthModifier = EditorGUILayout.FloatField(new GUIContent("Player Health Modifier", "Alters player max health while equipped."), weapon.healthModifier);
-            weapon.speedModifier = EditorGUILayout.FloatField(new GUIContent("Player Speed Modifier", "Alters player movement speed while equipped."), weapon.speedModifier);
+            weapon.healthModifier = EditorGUILayout.FloatField(new GUIContent("Player Health Modifier", "Alters player max health while equipped (+ number increases health by that amount, - decreases it)."), weapon.healthModifier);
+            weapon.speedModifier = EditorGUILayout.FloatField(new GUIContent("Player Speed Modifier", "Alters player movement speed while equipped (< 1 decreases the speed, > 1 increases it)."), weapon.speedModifier);
 
             EditorGUILayout.Space();
             GUILayout.Label("Visuals & Effects", EditorStyles.boldLabel);

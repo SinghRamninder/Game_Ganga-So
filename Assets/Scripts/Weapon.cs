@@ -275,4 +275,56 @@ public class Weapon : MonoBehaviour
 
         Destroy(bulletTrailSpawned.gameObject, bulletTrailSpawned.time);
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Camera cam = null;
+        var playerController = GetComponentInParent<SimplePlayerController>();
+        if (playerController != null)
+        {
+            cam = playerController.playerCamera;
+        }
+
+        Vector3 rayOrigin = transform.position;
+        Vector3 baseDirection = -transform.forward;
+
+        if (cam != null)
+        {
+            rayOrigin = cam.transform.position;
+            baseDirection = -cam.transform.forward;
+        }
+        else if (firePoint != null)
+        {
+            rayOrigin = firePoint.position;
+            baseDirection = -firePoint.forward;
+        }
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(rayOrigin, baseDirection * range);
+
+        if (aoeSpread > 0f)
+        {
+            Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
+
+            Vector3 upBound = (baseDirection + new Vector3(0, aoeSpread, 0)).normalized;
+            Vector3 downBound = (baseDirection + new Vector3(0, -aoeSpread, 0)).normalized;
+            Vector3 rightBound = (baseDirection + new Vector3(aoeSpread, 0, 0)).normalized;
+            Vector3 leftBound = (baseDirection + new Vector3(-aoeSpread, 0, 0)).normalized;
+
+            Gizmos.DrawRay(rayOrigin, upBound * range);
+            Gizmos.DrawRay(rayOrigin, downBound * range);
+            Gizmos.DrawRay(rayOrigin, rightBound * range);
+            Gizmos.DrawRay(rayOrigin, leftBound * range);
+
+            Vector3 endUp = rayOrigin + (upBound * range);
+            Vector3 endDown = rayOrigin + (downBound * range);
+            Vector3 endRight = rayOrigin + (rightBound * range);
+            Vector3 endLeft = rayOrigin + (leftBound * range);
+
+            Gizmos.DrawLine(endUp, endRight);
+            Gizmos.DrawLine(endRight, endDown);
+            Gizmos.DrawLine(endDown, endLeft);
+            Gizmos.DrawLine(endLeft, endUp);
+        }
+    }
 }

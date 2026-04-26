@@ -23,7 +23,7 @@ public class WeaponCreator : EditorWindow
     private float reloadTime;
 
     private float playerHealthModifier;
-    private float playerSpeedModifier;
+    private float playerSpeedModifier = 1f;
 
     private TrailRenderer bulletTrail;
     private Transform trailSpawnPos;
@@ -83,14 +83,14 @@ public class WeaponCreator : EditorWindow
         fireRange = EditorGUILayout.FloatField(new GUIContent("Fire Range", "The maximum distance the bullet can travel."), fireRange);
         damage = EditorGUILayout.FloatField(new GUIContent("Damage to Enemy", "Health removed from the enemy on hit."), damage);
         bulletsPerShot = EditorGUILayout.IntField(new GUIContent("Bullets per shot", "Number of bullets fired in a single shot (e.g., for shotguns)."), bulletsPerShot);
-        areaOfEffect = EditorGUILayout.FloatField(new GUIContent("Area of Effect Spread", "Spread radius upon impact or multiple rays."), areaOfEffect);
+        areaOfEffect = EditorGUILayout.FloatField(new GUIContent("Area of Effect Spread", "Spread radius upon impact or multiple rays. Can be adjustable via scene visually with gizmos."), areaOfEffect);
         maxAmmo = EditorGUILayout.IntField(new GUIContent("Maximum Ammo", "Total ammunition capacity in a clip."), maxAmmo);
         reloadTime = EditorGUILayout.FloatField(new GUIContent("Reload Time", "Time in seconds required to reload."), reloadTime);
 
         EditorGUILayout.Space();
         GUILayout.Label("Modifiers", EditorStyles.boldLabel);
-        playerHealthModifier = EditorGUILayout.FloatField(new GUIContent("Player Health Modifier", "Alters player max health while equipped."), playerHealthModifier);
-        playerSpeedModifier = EditorGUILayout.FloatField(new GUIContent("Player Speed Modifier", "Alters player movement speed while equipped."), playerSpeedModifier);
+        playerHealthModifier = EditorGUILayout.FloatField(new GUIContent("Player Health Modifier", "Alters player max health while equipped (+ number increases health by that amount, - decreases it)."), playerHealthModifier);
+        playerSpeedModifier = EditorGUILayout.FloatField(new GUIContent("Player Speed Modifier", "Alters player movement speed while equipped (< 1 decreases the speed, > 1 increases it)."), playerSpeedModifier);
 
         EditorGUILayout.Space();
         GUILayout.Label("Visuals & Effects", EditorStyles.boldLabel);
@@ -114,8 +114,8 @@ public class WeaponCreator : EditorWindow
 
         EditorGUILayout.Space();
         GUILayout.Label("Modifiers", EditorStyles.boldLabel);
-        playerHealthModifier = EditorGUILayout.FloatField(new GUIContent("Player Health Modifier", "Alters player max health while equipped."), playerHealthModifier);
-        playerSpeedModifier = EditorGUILayout.FloatField(new GUIContent("Player Speed Modifier", "Alters player movement speed while equipped."), playerSpeedModifier);
+        playerHealthModifier = EditorGUILayout.FloatField(new GUIContent("Player Health Modifier", "Alters player max health while equipped (+ number increases health by that amount, - decreases it)."), playerHealthModifier);
+        playerSpeedModifier = EditorGUILayout.FloatField(new GUIContent("Player Speed Modifier", "Alters player movement speed while equipped (< 1 decreases the speed, > 1 increases it)."), playerSpeedModifier);
 
         EditorGUILayout.Space();
         GUILayout.Label("Visuals & Effects", EditorStyles.boldLabel);
@@ -227,6 +227,16 @@ public class WeaponCreator : EditorWindow
 
             serializedGun.ApplyModifiedProperties();
 
+            int weaponLayer = LayerMask.NameToLayer("Weapon");
+            if (weaponLayer != -1)
+            {
+                SetLayerRecursively(gunObject, weaponLayer);
+            }
+            else
+            {
+                Debug.LogWarning("Layer 'Weapon' does not exist. Please add it in tags and layers manager.");
+            }
+
             string folderPath = "Assets/Prefabs/Weapons";
 
             if (!Directory.Exists(folderPath))
@@ -236,11 +246,45 @@ public class WeaponCreator : EditorWindow
 
             string prefabPath = $"{folderPath}/{weaponName}.prefab";
 
-            PrefabUtility.SaveAsPrefabAsset(gunObject, prefabPath);
+            GameObject savedPrefab = PrefabUtility.SaveAsPrefabAsset(gunObject, prefabPath);
             DestroyImmediate(gunObject);
 
             AssetDatabase.Refresh();
 
+            if (savedPrefab != null)
+            {
+                GameObject weaponInstance = (GameObject)PrefabUtility.InstantiatePrefab(savedPrefab);
+                GameObject player = GameObject.Find("Player");
+                if (player != null)
+                {
+                    Transform mainCam = player.transform.Find("Main Camera");
+                    if (mainCam != null)
+                    {
+                        Transform weaponHolder = mainCam.Find("WeaponHolder");
+                        if (weaponHolder != null)
+                        {
+                            weaponInstance.transform.SetParent(weaponHolder);
+                            weaponInstance.transform.localPosition = Vector3.zero;
+                            weaponInstance.transform.localRotation = Quaternion.identity;
+                            weaponInstance.transform.localScale = Vector3.one;
+                        }
+                        else Debug.LogWarning("WeaponHolder not found under Main Camera.");
+                    }
+                    else Debug.LogWarning("Main Camera not found under Player.");
+                }
+                else Debug.LogWarning("Player not found in the scene.");
+            }
+
             Debug.Log($"Gun prefab created: {prefabPath}");
         }
+
+    private void SetLayerRecursively(GameObject obj, int newLayer)
+    {
+        if (obj == null) return;
+        obj.layer = newLayer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursively(child.gameObject, newLayer);
+        }
     }
+}

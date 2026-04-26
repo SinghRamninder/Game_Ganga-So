@@ -92,7 +92,6 @@ public class SimplePlayerController : MonoBehaviour
 
             if (InputManager.instance.controls.Player.Jump.WasPressedThisFrame())
             {
-                Debug.Log("Jump called");
                 yVelocity = Mathf.Sqrt(jumpHeight * -2f * (Physics.gravity.y * gravityMultiplier));
             }
         }
