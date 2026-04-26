@@ -8,7 +8,7 @@ public class PaintingInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.instance.controls.Gun.Equip.WasPressedThisFrame() && playerWeaponManager != null)
+        if (InputManager.instance.controls.Weapon.Equip.WasPressedThisFrame() && playerWeaponManager != null)
         {
             playerWeaponManager.EquipGun(gun);
             Debug.Log("Gun Equiped");

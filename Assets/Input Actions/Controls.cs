@@ -89,11 +89,11 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     ""name"": ""Controls"",
     ""maps"": [
         {
-            ""name"": ""Gun"",
+            ""name"": ""Weapon"",
             ""id"": ""43a96ef1-854b-476b-b982-4fb206e011a5"",
             ""actions"": [
                 {
-                    ""name"": ""Fire"",
+                    ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""4eb16841-26ce-4c29-9b41-21e338f1f6d1"",
                     ""expectedControlType"": """",
@@ -109,6 +109,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ScrollWeapon"",
+                    ""type"": ""Value"",
+                    ""id"": ""a8b01193-ed04-4442-a23b-37a50cfb0bf6"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectWeapon"",
+                    ""type"": ""Value"",
+                    ""id"": ""79cb8d91-9e64-47d1-a8d2-9a16837fef8f"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -119,7 +137,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Mouse"",
-                    ""action"": ""Fire"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -130,7 +148,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""Fire"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -153,6 +171,116 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Equip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b2a7b59-0df1-4c55-a776-574ca0553919"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Mouse"",
+                    ""action"": ""ScrollWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67fd531c-8e65-415d-a14d-5e984e66e60a"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9e37101-81e7-4ac5-b303-849fbe8a4fa8"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3a4f7df-7498-4429-9c00-ee2ea48a961a"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee889d1b-b057-460d-aca7-c841540eaf27"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=4)"",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9973f13a-53eb-427b-b309-94c448729ef3"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=5)"",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""641d835b-879c-4090-bf12-ecba5f9df122"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=6)"",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3e50cd7-9f05-4d9c-9dcc-70732aa41cb0"",
+                    ""path"": ""<Keyboard>/7"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=7)"",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5301d064-ce05-4230-9ce2-ac82c61ebfdd"",
+                    ""path"": ""<Keyboard>/8"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=8)"",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb757e64-e376-4bc9-b19c-229e9c1cb237"",
+                    ""path"": ""<Keyboard>/9"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=9)"",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""SelectWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -340,10 +468,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // Gun
-        m_Gun = asset.FindActionMap("Gun", throwIfNotFound: true);
-        m_Gun_Fire = m_Gun.FindAction("Fire", throwIfNotFound: true);
-        m_Gun_Equip = m_Gun.FindAction("Equip", throwIfNotFound: true);
+        // Weapon
+        m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
+        m_Weapon_Attack = m_Weapon.FindAction("Attack", throwIfNotFound: true);
+        m_Weapon_Equip = m_Weapon.FindAction("Equip", throwIfNotFound: true);
+        m_Weapon_ScrollWeapon = m_Weapon.FindAction("ScrollWeapon", throwIfNotFound: true);
+        m_Weapon_SelectWeapon = m_Weapon.FindAction("SelectWeapon", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
@@ -353,7 +483,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
 
     ~@Controls()
     {
-        UnityEngine.Debug.Assert(!m_Gun.enabled, "This will cause a leak and performance issues, Controls.Gun.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Weapon.enabled, "This will cause a leak and performance issues, Controls.Weapon.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, Controls.Player.Disable() has not been called.");
     }
 
@@ -427,34 +557,44 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Gun
-    private readonly InputActionMap m_Gun;
-    private List<IGunActions> m_GunActionsCallbackInterfaces = new List<IGunActions>();
-    private readonly InputAction m_Gun_Fire;
-    private readonly InputAction m_Gun_Equip;
+    // Weapon
+    private readonly InputActionMap m_Weapon;
+    private List<IWeaponActions> m_WeaponActionsCallbackInterfaces = new List<IWeaponActions>();
+    private readonly InputAction m_Weapon_Attack;
+    private readonly InputAction m_Weapon_Equip;
+    private readonly InputAction m_Weapon_ScrollWeapon;
+    private readonly InputAction m_Weapon_SelectWeapon;
     /// <summary>
-    /// Provides access to input actions defined in input action map "Gun".
+    /// Provides access to input actions defined in input action map "Weapon".
     /// </summary>
-    public struct GunActions
+    public struct WeaponActions
     {
         private @Controls m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public GunActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public WeaponActions(@Controls wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Gun/Fire".
+        /// Provides access to the underlying input action "Weapon/Attack".
         /// </summary>
-        public InputAction @Fire => m_Wrapper.m_Gun_Fire;
+        public InputAction @Attack => m_Wrapper.m_Weapon_Attack;
         /// <summary>
-        /// Provides access to the underlying input action "Gun/Equip".
+        /// Provides access to the underlying input action "Weapon/Equip".
         /// </summary>
-        public InputAction @Equip => m_Wrapper.m_Gun_Equip;
+        public InputAction @Equip => m_Wrapper.m_Weapon_Equip;
+        /// <summary>
+        /// Provides access to the underlying input action "Weapon/ScrollWeapon".
+        /// </summary>
+        public InputAction @ScrollWeapon => m_Wrapper.m_Weapon_ScrollWeapon;
+        /// <summary>
+        /// Provides access to the underlying input action "Weapon/SelectWeapon".
+        /// </summary>
+        public InputAction @SelectWeapon => m_Wrapper.m_Weapon_SelectWeapon;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_Gun; }
+        public InputActionMap Get() { return m_Wrapper.m_Weapon; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -462,9 +602,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="GunActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="WeaponActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(GunActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(WeaponActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -472,17 +612,23 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="GunActions" />
-        public void AddCallbacks(IGunActions instance)
+        /// <seealso cref="WeaponActions" />
+        public void AddCallbacks(IWeaponActions instance)
         {
-            if (instance == null || m_Wrapper.m_GunActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_GunActionsCallbackInterfaces.Add(instance);
-            @Fire.started += instance.OnFire;
-            @Fire.performed += instance.OnFire;
-            @Fire.canceled += instance.OnFire;
+            if (instance == null || m_Wrapper.m_WeaponActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_WeaponActionsCallbackInterfaces.Add(instance);
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
             @Equip.started += instance.OnEquip;
             @Equip.performed += instance.OnEquip;
             @Equip.canceled += instance.OnEquip;
+            @ScrollWeapon.started += instance.OnScrollWeapon;
+            @ScrollWeapon.performed += instance.OnScrollWeapon;
+            @ScrollWeapon.canceled += instance.OnScrollWeapon;
+            @SelectWeapon.started += instance.OnSelectWeapon;
+            @SelectWeapon.performed += instance.OnSelectWeapon;
+            @SelectWeapon.canceled += instance.OnSelectWeapon;
         }
 
         /// <summary>
@@ -491,24 +637,30 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="GunActions" />
-        private void UnregisterCallbacks(IGunActions instance)
+        /// <seealso cref="WeaponActions" />
+        private void UnregisterCallbacks(IWeaponActions instance)
         {
-            @Fire.started -= instance.OnFire;
-            @Fire.performed -= instance.OnFire;
-            @Fire.canceled -= instance.OnFire;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
             @Equip.started -= instance.OnEquip;
             @Equip.performed -= instance.OnEquip;
             @Equip.canceled -= instance.OnEquip;
+            @ScrollWeapon.started -= instance.OnScrollWeapon;
+            @ScrollWeapon.performed -= instance.OnScrollWeapon;
+            @ScrollWeapon.canceled -= instance.OnScrollWeapon;
+            @SelectWeapon.started -= instance.OnSelectWeapon;
+            @SelectWeapon.performed -= instance.OnSelectWeapon;
+            @SelectWeapon.canceled -= instance.OnSelectWeapon;
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GunActions.UnregisterCallbacks(IGunActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="WeaponActions.UnregisterCallbacks(IWeaponActions)" />.
         /// </summary>
-        /// <seealso cref="GunActions.UnregisterCallbacks(IGunActions)" />
-        public void RemoveCallbacks(IGunActions instance)
+        /// <seealso cref="WeaponActions.UnregisterCallbacks(IWeaponActions)" />
+        public void RemoveCallbacks(IWeaponActions instance)
         {
-            if (m_Wrapper.m_GunActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_WeaponActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -518,21 +670,21 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="GunActions.AddCallbacks(IGunActions)" />
-        /// <seealso cref="GunActions.RemoveCallbacks(IGunActions)" />
-        /// <seealso cref="GunActions.UnregisterCallbacks(IGunActions)" />
-        public void SetCallbacks(IGunActions instance)
+        /// <seealso cref="WeaponActions.AddCallbacks(IWeaponActions)" />
+        /// <seealso cref="WeaponActions.RemoveCallbacks(IWeaponActions)" />
+        /// <seealso cref="WeaponActions.UnregisterCallbacks(IWeaponActions)" />
+        public void SetCallbacks(IWeaponActions instance)
         {
-            foreach (var item in m_Wrapper.m_GunActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_WeaponActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_GunActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_WeaponActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="GunActions" /> instance referencing this action map.
+    /// Provides a new <see cref="WeaponActions" /> instance referencing this action map.
     /// </summary>
-    public GunActions @Gun => new GunActions(this);
+    public WeaponActions @Weapon => new WeaponActions(this);
 
     // Player
     private readonly InputActionMap m_Player;
@@ -691,19 +843,19 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         }
     }
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Gun" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Weapon" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="GunActions.AddCallbacks(IGunActions)" />
-    /// <seealso cref="GunActions.RemoveCallbacks(IGunActions)" />
-    public interface IGunActions
+    /// <seealso cref="WeaponActions.AddCallbacks(IWeaponActions)" />
+    /// <seealso cref="WeaponActions.RemoveCallbacks(IWeaponActions)" />
+    public interface IWeaponActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Fire" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnFire(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Equip" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -711,6 +863,20 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnEquip(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ScrollWeapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnScrollWeapon(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectWeapon" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectWeapon(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.

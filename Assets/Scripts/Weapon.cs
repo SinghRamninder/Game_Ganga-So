@@ -107,14 +107,14 @@ public class Weapon : MonoBehaviour
     {
         if (fireMode == FireMode.SemiAuto)
         {
-            if (InputManager.instance.controls.Gun.Fire.WasPressedThisFrame())
+            if (InputManager.instance.controls.Weapon.Attack.WasPressedThisFrame())
             {
                 TryFire();
             }
         }
         else if (fireMode == FireMode.FullAuto)
         {
-            if (InputManager.instance.controls.Gun.Fire.IsPressed())
+            if (InputManager.instance.controls.Weapon.Attack.IsPressed())
             {
                 TryFire();
             }

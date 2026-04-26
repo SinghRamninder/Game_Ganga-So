@@ -856,6 +856,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56199429}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &58702222 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 248039951975568822, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
+  m_PrefabInstance: {fileID: 946928565}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &58702223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58702222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f84f0746044cf4e9e164554c8e7457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponsInventory
+  weaponPrefabs:
+  - {fileID: 7624311147068281431, guid: 69d5dc23585f27a459fb9808990f9450, type: 3}
+  - {fileID: 3710174924711777498, guid: fc6c620f0d087c4448bdee6a2dbd8a28, type: 3}
 --- !u!1 &64088771
 GameObject:
   m_ObjectHideFlags: 0
@@ -82384,7 +82404,7 @@ MonoBehaviour:
     m_ActionName: 'Gun/Fire[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Gun
+  m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &227007599
@@ -175843,7 +175863,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 248039951975568822, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 58702223}
   m_SourcePrefab: {fileID: 100100000, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
 --- !u!1 &951905663
 GameObject:
