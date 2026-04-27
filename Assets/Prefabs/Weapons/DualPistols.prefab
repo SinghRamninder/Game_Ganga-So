@@ -103,7 +103,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3626282877688058315}
   - component: {fileID: 8102947890037738402}
-  - component: {fileID: 5889660141477146962}
   - component: {fileID: 2338736507505805747}
   m_Layer: 7
   m_Name: DualPistols
@@ -161,7 +160,7 @@ MonoBehaviour:
   reloadTime: 1.5
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 247455129476477726}
-  gunAnimator: {fileID: 5889660141477146962}
+  gunAnimator: {fileID: 0}
   impactPrefab: {fileID: 8390140630907516658, guid: 2d443f1fbacea3049bcef40c0428d908, type: 3}
   impactEffectNonEnemy: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: c03203f42fdac2c42b147dc13f64014f, type: 3}
@@ -169,28 +168,6 @@ MonoBehaviour:
   weaponSpawnPosition: {x: 0, y: 0, z: 0}
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
   weaponSpawnScale: {x: 1, y: 1, z: 1}
---- !u!95 &5889660141477146962
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7624311147068281431}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f7faa4bc86f95c94db45934abb64e01a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &2338736507505805747
 SpriteRenderer:
   serializedVersion: 2
