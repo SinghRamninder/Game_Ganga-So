@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7824335089824173540}
   - component: {fileID: 8499430978957560688}
+  - component: {fileID: 4895555166562255248}
   m_Layer: 7
   m_Name: Visuals
   m_TagString: Untagged
@@ -93,6 +94,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &4895555166562255248
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354798159435328542}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f44c86ba16010e3488a4b16c94c094b7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7624311147068281431
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +182,7 @@ MonoBehaviour:
   reloadTime: 2
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 247455129476477726}
-  gunAnimator: {fileID: 0}
+  gunAnimator: {fileID: 4895555166562255248}
   impactPrefab: {fileID: 8390140630907516658, guid: 2d443f1fbacea3049bcef40c0428d908, type: 3}
   impactEffectNonEnemy: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: c03203f42fdac2c42b147dc13f64014f, type: 3}
