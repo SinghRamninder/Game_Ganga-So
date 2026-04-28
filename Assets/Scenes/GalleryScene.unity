@@ -175781,6 +175781,14 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5013384063038910842, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
+      propertyPath: acceleration
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5013384063038910842, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
+      propertyPath: deceleration
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5013384063038910842, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: gravityMultiplier
       value: 5
       objectReference: {fileID: 0}

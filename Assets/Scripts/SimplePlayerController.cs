@@ -11,6 +11,8 @@ public class SimplePlayerController : MonoBehaviour
     public float maxLookAngle = 39f;
     public float jumpHeight = 1.5f;
     public float gravityMultiplier = 2.5f;
+    public float acceleration = 15f;
+    public float deceleration = 20f;
 
     [HideInInspector] public float gunSpeedModifier = 1f;
 
@@ -27,6 +29,7 @@ public class SimplePlayerController : MonoBehaviour
     private float yVelocity;
     private Vector3 initialCameraPosition;
     private float bobTimer = 0f;
+    private Vector3 currentVelocity;
 
     // Movement & Effects Offsets
     private Vector3 currentBobOffset = Vector3.zero;
@@ -82,9 +85,15 @@ public class SimplePlayerController : MonoBehaviour
         float moveX = moveInput.x;
         float moveZ = moveInput.y;
 
-        Vector3 move = -transform.right * moveX - transform.forward * moveZ;
+        Vector3 inputDirection = -transform.right * moveX - transform.forward * moveZ;
+        inputDirection = Vector3.ClampMagnitude(inputDirection, 1f);
+        
+        Vector3 targetVelocity = inputDirection * (moveSpeed * gunSpeedModifier);
+        
+        float rate = inputDirection.magnitude > 0.1f ? acceleration : deceleration;
+        
+        currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, rate * Time.deltaTime);
 
-        move *= (moveSpeed * gunSpeedModifier);
 
         if (controller.isGrounded)
         {
@@ -100,9 +109,10 @@ public class SimplePlayerController : MonoBehaviour
             yVelocity += (Physics.gravity.y * gravityMultiplier) * Time.deltaTime;
         }
 
-        move.y = yVelocity;
+        Vector3 finalMove = currentVelocity;
+        finalMove.y = yVelocity;
 
-        controller.Move(move * Time.deltaTime);
+        controller.Move(finalMove * Time.deltaTime);
     }
 
     private void HandleHeadBob()
