@@ -63,7 +63,7 @@ public class WeaponEditor : Editor
             weapon.bulletTrail = (TrailRenderer)EditorGUILayout.ObjectField(new GUIContent("Bullet Trail", "The trail effect left by bullets."), weapon.bulletTrail, typeof(TrailRenderer), true);
             weapon.trailSpawnPos = (Transform)EditorGUILayout.ObjectField(new GUIContent("Bullet Trail Spawn Pos", "Where the bullet trail starts."), weapon.trailSpawnPos, typeof(Transform), true);
             weapon.muzzleFlash = (ParticleSystem)EditorGUILayout.ObjectField(new GUIContent("Muzzle flash effect", "Effect played at the barrel when firing."), weapon.muzzleFlash, typeof(ParticleSystem), true);
-            weapon.gunAnimator = (Animator)EditorGUILayout.ObjectField(new GUIContent("Gun Animator", "Animator used to play shooting animations on this weapon."), weapon.gunAnimator, typeof(Animator), true);
+            //weapon.gunAnimator = (Animator)EditorGUILayout.ObjectField(new GUIContent("Gun Animator", "Animator used to play shooting animations on this weapon."), weapon.gunAnimator, typeof(Animator), true);
             weapon.impactPrefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Bullet impact prefab", "Object spawned when a bullet hits."), weapon.impactPrefab, typeof(GameObject), true);
             weapon.impactEffectNonEnemy = (ParticleSystem)EditorGUILayout.ObjectField(new GUIContent("Impact (Not on enemy)", "Particle effect played on hitting the environment."), weapon.impactEffectNonEnemy, typeof(ParticleSystem), true);
             weapon.impactEffectEnemy = (ParticleSystem)EditorGUILayout.ObjectField(new GUIContent("Impact (On Enemy)", "Particle effect played on hitting an enemy."), weapon.impactEffectEnemy, typeof(ParticleSystem), true);
@@ -86,9 +86,55 @@ public class WeaponEditor : Editor
 
         base.OnInspectorGUI();
 
+        if (Application.isPlaying)
+        {
+            EditorGUILayout.Space();
+
+            if (GUILayout.Button("Save Changes"))
+            {
+                SaveToPrefab(weapon.gameObject);
+            }
+        }
+
         if (GUI.changed)
         {
             EditorUtility.SetDirty(weapon);
+        }
+    }
+
+    private void SaveToPrefab(GameObject instance)
+    {
+        GameObject originalPrefab = PrefabUtility.GetCorrespondingObjectFromSource(instance);
+
+        if (originalPrefab == null)
+        {
+            string cleanName = instance.name.Replace("(Clone)", "").Trim();
+            string[] guids = AssetDatabase.FindAssets($"{cleanName} t:GameObject", new[] { "Assets/Prefabs/Weapons" });
+
+            if (guids.Length > 0)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guids[0]);
+                originalPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            }
+        }
+
+        if (originalPrefab != null)
+        {
+            Weapon instanceWeapon = instance.GetComponent<Weapon>();
+            Weapon prefabWeapon = originalPrefab.GetComponent<Weapon>();
+
+            if (instanceWeapon != null && prefabWeapon != null)
+            {
+                EditorUtility.CopySerialized(instanceWeapon, prefabWeapon);
+                EditorUtility.SetDirty(originalPrefab);
+                AssetDatabase.SaveAssets();
+
+                Debug.Log($"Weapon changes successfully saved to prefab: {originalPrefab.name}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("GameObject is not connected to any prefab and could not be found in Assets/Prefabs/Weapons.");
         }
     }
 }

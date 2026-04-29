@@ -175774,7 +175774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5013384063038910842, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: moveSpeed
-      value: 23
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5013384063038910842, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: jumpHeight
@@ -175786,11 +175786,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5013384063038910842, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: deceleration
-      value: 45
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5013384063038910842, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: gravityMultiplier
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5087137016160868266, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: m_Layer
@@ -182366,7 +182366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1365498522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182385,7 +182385,7 @@ MonoBehaviour:
   enemiesToSpawn:
   - enemyPrefab: {fileID: 5655383073827375967, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
     spawnPercentage: 100
-  - enemyPrefab: {fileID: 5655383073827375967, guid: 9b1d4dc4f5dca49608f723447b3440f0, type: 3}
+  - enemyPrefab: {fileID: 5655383073827375967, guid: 2496717bdcf691f45a96bdc526cb74e8, type: 3}
     spawnPercentage: 100
 --- !u!4 &1365498523
 Transform:

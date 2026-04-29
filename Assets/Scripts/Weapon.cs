@@ -47,9 +47,9 @@ public class Weapon : MonoBehaviour
     private int currentAmmo;
     private bool isReloading = false;
 
-    public Vector3 weaponSpawnPosition = Vector3.zero;
-    public Quaternion weaponSpawnRotation = Quaternion.identity;
-    public Vector3 weaponSpawnScale = Vector3.one;
+    [HideInInspector] public Vector3 weaponSpawnPosition = Vector3.zero;
+    [HideInInspector] public Quaternion weaponSpawnRotation = Quaternion.identity;
+    [HideInInspector] public Vector3 weaponSpawnScale = Vector3.one;
 
     private void Awake()
     {

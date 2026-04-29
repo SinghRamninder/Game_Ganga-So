@@ -134,6 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6919497072448497027}
   - component: {fileID: 6635548875334075648}
+  - component: {fileID: -4070384091925224196}
   m_Layer: 7
   m_Name: Shotgun
   m_TagString: Untagged
@@ -198,6 +199,18 @@ MonoBehaviour:
   weaponSpawnPosition: {x: -0.1, y: 0, z: 0}
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
   weaponSpawnScale: {x: 0.18, y: 0.18, z: 0.18}
+--- !u!114 &-4070384091925224196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3710174924711777498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2328cad1ffdc8654c8cebd1806f8bb7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlockAnimator
 --- !u!1001 &8519472122846024290
 PrefabInstance:
   m_ObjectHideFlags: 0

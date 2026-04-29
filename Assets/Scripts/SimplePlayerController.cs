@@ -11,6 +11,7 @@ public class SimplePlayerController : MonoBehaviour
     public float maxLookAngle = 39f;
     public float jumpHeight = 1.5f;
     public float gravityMultiplier = 2.5f;
+    public bool simpleMovement = false; 
     public float acceleration = 15f;
     public float deceleration = 20f;
 
@@ -31,7 +32,6 @@ public class SimplePlayerController : MonoBehaviour
     private float bobTimer = 0f;
     private Vector3 currentVelocity;
 
-    // Movement & Effects Offsets
     private Vector3 currentBobOffset = Vector3.zero;
     private Vector3 currentShakeOffset = Vector3.zero;
     private float shakeDuration = 0f;
@@ -54,7 +54,18 @@ public class SimplePlayerController : MonoBehaviour
     private void Update()
     {
         HandleLook();
-        HandleMovement();
+
+        // Testing
+        if (!simpleMovement)
+        {
+            HandleMovement();
+        }
+        else
+        {
+            HandleMovementWithoutAD();
+        }
+        // Testing
+
         HandleHeadBob();
         HandleCameraShake();
         ApplyOffsets();
@@ -114,6 +125,38 @@ public class SimplePlayerController : MonoBehaviour
 
         controller.Move(finalMove * Time.deltaTime);
     }
+
+    // Testing
+    private void HandleMovementWithoutAD()
+    {
+        Vector2 moveInput = InputManager.instance.controls.Player.Move.ReadValue<Vector2>();
+
+        float moveX = moveInput.x;
+        float moveZ = moveInput.y;
+
+        Vector3 move = -transform.right * moveX - transform.forward * moveZ;
+
+        move *= (moveSpeed * gunSpeedModifier);
+
+        if (controller.isGrounded)
+        {
+            yVelocity = -2f;
+
+            if (InputManager.instance.controls.Player.Jump.WasPressedThisFrame())
+            {
+                yVelocity = Mathf.Sqrt(jumpHeight * -2f * (Physics.gravity.y * gravityMultiplier));
+            }
+        }
+        else
+        {
+            yVelocity += (Physics.gravity.y * gravityMultiplier) * Time.deltaTime;
+        }
+
+        move.y = yVelocity;
+
+        controller.Move(move * Time.deltaTime);
+    }
+    // Testing
 
     private void HandleHeadBob()
     {

@@ -301,6 +301,7 @@ public class WeaponCreator : EditorWindow
         GameObject gunObject = new GameObject(weaponName);
 
         Weapon gun = gunObject.AddComponent<Weapon>();
+        gunObject.AddComponent<BlockAnimator>();
 
         gun.cameraShakeIntensity = copiedCameraShakeIntensity;
         gun.cameraShakeDuration = copiedCameraShakeDuration;
