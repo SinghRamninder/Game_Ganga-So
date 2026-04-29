@@ -34,7 +34,19 @@ public class WeaponCreator : EditorWindow
     private ParticleSystem impactEffectNonEnemy;
     private ParticleSystem impactEffectEnemy;
 
+    private int selectedTemplateIndex = 0;
+    private string[] availableWeaponNames;
+    private GameObject[] availableWeaponPrefabs;
 
+    private float copiedCameraShakeIntensity;
+    private float copiedCameraShakeDuration;
+    private float copiedRumbleLeftFrequency;
+    private float copiedRumbleRightFrequency;
+    private float copiedRumbleTime;
+    private bool copiedUseSameImpactEffect;
+    private Vector3 copiedWeaponSpawnPosition = Vector3.zero;
+    private Quaternion copiedWeaponSpawnRotation = Quaternion.identity;
+    private Vector3 copiedWeaponSpawnScale = Vector3.one;
 
     private WeaponType weaponType = WeaponType.Gun;
 
@@ -44,14 +56,159 @@ public class WeaponCreator : EditorWindow
         GetWindow<WeaponCreator>("Weapon Creator");
     }
 
+    private void OnEnable()
+    {
+        LoadAvailableWeapons();
+    }
+
+    private void LoadAvailableWeapons()
+    {
+        string folderPath = "Assets/Prefabs/Weapons";
+        if (!Directory.Exists(folderPath))
+        {
+            availableWeaponNames = new string[] { "None" };
+            availableWeaponPrefabs = new GameObject[] { null };
+            return;
+        }
+
+        string[] guids = AssetDatabase.FindAssets("t:GameObject", new[] { folderPath });
+        availableWeaponPrefabs = new GameObject[guids.Length + 1];
+        availableWeaponNames = new string[guids.Length + 1];
+
+        availableWeaponNames[0] = "None";
+        availableWeaponPrefabs[0] = null;
+
+        for (int i = 0; i < guids.Length; i++)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            availableWeaponPrefabs[i + 1] = prefab;
+            if (prefab != null) availableWeaponNames[i + 1] = prefab.name;
+        }
+    }
+
+    private void CopyValuesFromWeapon(GameObject prefab)
+    {
+        if (prefab == null) return;
+        Weapon w = prefab.GetComponent<Weapon>();
+        if (w == null) return;
+
+        weaponType = w.isMeleeWeapon ? WeaponType.Melee : WeaponType.Gun;
+        fireMode = w.fireMode;
+        fireRate = w.fireRate;
+        fireRange = w.range;
+        damage = w.damageToEnemy;
+        bulletsPerShot = w.raysPerShot;
+        areaOfEffect = w.aoeSpread;
+        maxAmmo = w.maxAmmo;
+        reloadTime = w.reloadTime;
+        recoilForce = w.recoilForce;
+
+        playerHealthModifier = w.healthModifier;
+        playerSpeedModifier = w.speedModifier;
+
+        bulletTrail = w.bulletTrail;
+        muzzleFlash = w.muzzleFlash;
+        impactPrefab = w.impactPrefab;
+        impactEffectNonEnemy = w.impactEffectNonEnemy;
+        impactEffectEnemy = w.impactEffectEnemy;
+
+        copiedCameraShakeIntensity = w.cameraShakeIntensity;
+        copiedCameraShakeDuration = w.cameraShakeDuration;
+        copiedRumbleLeftFrequency = w.rumbleLeftFrequency;
+        copiedRumbleRightFrequency = w.rumbleRightFrequency;
+        copiedRumbleTime = w.rumbleTime;
+        copiedUseSameImpactEffect = w.useSameImpactEffect;
+        copiedWeaponSpawnPosition = w.weaponSpawnPosition;
+        copiedWeaponSpawnRotation = w.weaponSpawnRotation;
+        copiedWeaponSpawnScale = w.weaponSpawnScale;
+
+        Repaint();
+    }
+
+    private void ClearValues()
+    {
+        weaponName = "Weapon Name";
+        weaponSprite = null;
+
+        weaponType = WeaponType.Gun;
+        fireMode = FireMode.SemiAuto;
+        fireRate = 0f;
+        fireRange = 0f;
+        damage = 0f;
+        bulletsPerShot = 0;
+        areaOfEffect = 0f;
+        maxAmmo = 0;
+        reloadTime = 0f;
+        recoilForce = 0f;
+
+        playerHealthModifier = 0f;
+        playerSpeedModifier = 1f;
+
+        bulletTrail = null;
+        muzzleFlash = null;
+        impactPrefab = null;
+        impactEffectNonEnemy = null;
+        impactEffectEnemy = null;
+
+        copiedCameraShakeIntensity = 0f;
+        copiedCameraShakeDuration = 0f;
+        copiedRumbleLeftFrequency = 0f;
+        copiedRumbleRightFrequency = 0f;
+        copiedRumbleTime = 0f;
+        copiedUseSameImpactEffect = false;
+        copiedWeaponSpawnPosition = Vector3.zero;
+        copiedWeaponSpawnRotation = Quaternion.identity;
+        copiedWeaponSpawnScale = Vector3.one;
+
+        selectedTemplateIndex = 0;
+        Repaint();
+    }
+
     private void OnGUI()
     {
         EditorGUILayout.Space();
         GUILayout.Label("Create New Weapon", EditorStyles.boldLabel);
 
+        if (availableWeaponNames == null || availableWeaponNames.Length == 0) LoadAvailableWeapons();
+
         EditorGUILayout.BeginVertical("box");
+
         weaponName = EditorGUILayout.TextField(new GUIContent("Weapon Name", "The name of the new weapon prefab."), weaponName);
         weaponSprite = (Sprite)EditorGUILayout.ObjectField(new GUIContent("Weapon Sprite", "The visual sprite representing the weapon."), weaponSprite, typeof(Sprite), false);
+
+        EditorGUILayout.Space();
+
+        EditorGUILayout.BeginHorizontal();
+        int newIndex = EditorGUILayout.Popup(new GUIContent("Copy from Prefab", "Select an existing weapon prefab to copy values from."), selectedTemplateIndex, availableWeaponNames);
+        if (GUILayout.Button("Refresh", GUILayout.Width(60)))
+        {
+            LoadAvailableWeapons();
+            newIndex = 0;
+        }
+        if (GUILayout.Button("Clear", GUILayout.Width(60)))
+        {
+            ClearValues();
+            GUIUtility.ExitGUI();
+        }
+        EditorGUILayout.EndHorizontal();
+
+        if (newIndex != selectedTemplateIndex)
+        {
+            selectedTemplateIndex = newIndex;
+            if (selectedTemplateIndex > 0)
+            {
+                CopyValuesFromWeapon(availableWeaponPrefabs[selectedTemplateIndex]);
+            }
+            else if (selectedTemplateIndex == 0)
+            {
+                ClearValues();
+                GUIUtility.ExitGUI();
+            }
+        }
+
+        EditorGUILayout.Space();
+
         weaponType = (WeaponType)EditorGUILayout.EnumPopup(new GUIContent("Weapon Type", "Choose between Gun or Melee."), weaponType);
         EditorGUILayout.EndVertical();
 
@@ -144,6 +301,16 @@ public class WeaponCreator : EditorWindow
         GameObject gunObject = new GameObject(weaponName);
 
         Weapon gun = gunObject.AddComponent<Weapon>();
+
+        gun.cameraShakeIntensity = copiedCameraShakeIntensity;
+        gun.cameraShakeDuration = copiedCameraShakeDuration;
+        gun.rumbleLeftFrequency = copiedRumbleLeftFrequency;
+        gun.rumbleRightFrequency = copiedRumbleRightFrequency;
+        gun.rumbleTime = copiedRumbleTime;
+        gun.useSameImpactEffect = copiedUseSameImpactEffect;
+        gun.weaponSpawnPosition = copiedWeaponSpawnPosition;
+        gun.weaponSpawnRotation = copiedWeaponSpawnRotation;
+        gun.weaponSpawnScale = copiedWeaponSpawnScale;
 
         GameObject gunVisuals = new GameObject("Visuals");
         gunVisuals.transform.SetParent(gunObject.transform);
