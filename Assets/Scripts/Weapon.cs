@@ -51,6 +51,16 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public Quaternion weaponSpawnRotation = Quaternion.identity;
     [HideInInspector] public Vector3 weaponSpawnScale = Vector3.one;
 
+    //Temporary use one
+    public bool isDualPistol = false;
+    public Transform shootPoint1;
+    private bool isSP1 = true;
+    private bool isMP1 = true;
+    public Transform shootPoint2;
+    public ParticleSystem muzzleFlash1;
+    public ParticleSystem muzzleFlash2;
+    //Temporary use only
+
     private void Awake()
     {
         if (ammoText == null)
@@ -172,9 +182,22 @@ public class Weapon : MonoBehaviour
             gunAnimator.SetTrigger("Shoot");
         }
 
-        if (muzzleFlash != null)
+        if (muzzleFlash != null && !isDualPistol)
         {
             muzzleFlash.Play();
+        }
+        else if (isDualPistol)
+        {
+            if (isMP1)
+            {
+                muzzleFlash1.Play();
+                isMP1 = false;
+            }
+            else
+            {
+                muzzleFlash2.Play();
+                isMP1 = true;
+            }
         }
 
         if (RumbleManager.instance != null)
@@ -202,6 +225,20 @@ public class Weapon : MonoBehaviour
                     Random.Range(-aoeSpread, aoeSpread),
                     Random.Range(-aoeSpread, aoeSpread));
                 fireDirection.Normalize();
+            }
+
+            if (isDualPistol)
+            {
+                if (isSP1)
+                {
+                    trailSpawnPos = shootPoint1;
+                    isSP1 = false;
+                }
+                else
+                {
+                    trailSpawnPos = shootPoint2;
+                    isSP1 = true;
+                }
             }
 
             if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, range))
@@ -286,12 +323,12 @@ public class Weapon : MonoBehaviour
         }
 
         Vector3 rayOrigin = transform.position;
-        Vector3 baseDirection = -transform.forward;
+        Vector3 baseDirection = transform.forward;
 
         if (cam != null)
         {
             rayOrigin = cam.transform.position;
-            baseDirection = -cam.transform.forward;
+            baseDirection = cam.transform.forward;
         }
         else if (firePoint != null)
         {

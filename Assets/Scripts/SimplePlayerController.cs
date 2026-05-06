@@ -12,7 +12,7 @@ public class SimplePlayerController : MonoBehaviour
     public float jumpHeight = 1.5f;
     public float gravityMultiplier = 2.5f;
     public bool simpleMovement = false; 
-    public float acceleration = 15f;
+    //public float acceleration = 15f;
     public float deceleration = 20f;
 
     [HideInInspector] public float gunSpeedModifier = 1f;
@@ -101,10 +101,18 @@ public class SimplePlayerController : MonoBehaviour
         
         Vector3 targetVelocity = inputDirection * (moveSpeed * gunSpeedModifier);
         
-        float rate = inputDirection.magnitude > 0.1f ? acceleration : deceleration;
+        //float rate = inputDirection.magnitude > 0.1f ? acceleration : deceleration;
         
-        currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, rate * Time.deltaTime);
+        //currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, rate * Time.deltaTime);
 
+        if (inputDirection.magnitude > 0.1f)
+        {
+            currentVelocity = targetVelocity;
+        }
+        else
+        {
+            currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, deceleration * Time.deltaTime);
+        }
 
         if (controller.isGrounded)
         {

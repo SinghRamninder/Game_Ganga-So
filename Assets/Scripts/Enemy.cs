@@ -1,11 +1,15 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO.Pipes;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     [Header("Stats")]
+    public bool canShoot = false;
+    public float shootRange = 20f;
     public float maxHealth = 100f;
     public float speed = 3f;
     public float damageToPlayer = 10f;
@@ -14,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Effects")]
     public ParticleSystem deathEffect;
+    public TrailRenderer bulletTrail;
 
     [Header("Animations")]
     public Animator animator;
@@ -44,11 +49,10 @@ public class Enemy : MonoBehaviour
     {
         if (isDead) return;
 
-        // Billboard effect (face main camera)
         if (mainCam != null)
         {
             Vector3 lookDirection = transform.position - mainCam.transform.position;
-            lookDirection.y = 0; // Keep upright
+            lookDirection.y = 0;
             if (lookDirection != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(lookDirection);
@@ -58,19 +62,35 @@ public class Enemy : MonoBehaviour
         if (playerTransform == null) return;
 
         float distance = Vector3.Distance(transform.position, playerTransform.position);
-        
-        // Continuously move towards player
         Vector3 moveDirection = (playerTransform.position - transform.position).normalized;
         moveDirection.y = 0;
-        transform.position += moveDirection * speed * Time.deltaTime;
 
-        if (distance <= attackRange)
+        if (!canShoot)
         {
-            // Attack
-            if (Time.time >= nextAttackTime)
+            transform.position += moveDirection * speed * Time.deltaTime;
+
+            if (distance <= attackRange)
             {
-                Attack();
-                nextAttackTime = Time.time + (1f / attackRate);
+                if (Time.time >= nextAttackTime)
+                {
+                    Attack();
+                    nextAttackTime = Time.time + (1f / attackRate);
+                }
+            }
+        }
+        else
+        {
+            if (distance > shootRange)
+            {
+                transform.position += moveDirection * speed * Time.deltaTime;
+            }
+            else
+            {
+                if (Time.time >= nextAttackTime)
+                {
+                    Shoot(moveDirection);
+                    nextAttackTime = Time.time + (1f / attackRate);
+                }
             }
         }
     }
@@ -83,8 +103,24 @@ public class Enemy : MonoBehaviour
         {
             PlayerHealthManager.instance.TakeDamage(damageToPlayer);
         }
-        
+
         Invoke(nameof(ReturnToWalk), 1f / attackRate * 0.5f);
+    }
+
+    private void Shoot(Vector3 shootDirection)
+    {
+        if (Physics.Raycast(transform.position, shootDirection, out RaycastHit hit, shootRange))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                StartCoroutine(SpawnTracer(transform.position, hit.point, true));
+            }
+        }
+        else
+        {
+            Vector3 maxRangePoint = transform.position + (shootDirection * shootRange);
+            StartCoroutine(SpawnTracer(transform.position, maxRangePoint, false));
+        }
     }
 
     private void ReturnToWalk()
@@ -107,7 +143,7 @@ public class Enemy : MonoBehaviour
     {
         isDead = true;
         PlayAnimation(deathAnimString);
-        
+
         if (deathEffect != null)
         {
             ParticleSystem ps = Instantiate(deathEffect, transform.position, Quaternion.identity);
@@ -124,6 +160,33 @@ public class Enemy : MonoBehaviour
         if (animator != null && animator.isActiveAndEnabled && !string.IsNullOrEmpty(animName))
         {
             animator.Play(animName);
+        }
+    }
+
+    private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos, bool isPlayerHit)
+    {
+        if (bulletTrail == null)
+            yield return null;
+
+        float time = 0;
+
+        TrailRenderer bulletTrailSpawned = Instantiate(bulletTrail, spawnPos, Quaternion.identity);
+
+        while (time < 1)
+        {
+            bulletTrailSpawned.transform.position = Vector3.Lerp(bulletTrailSpawned.transform.position, targetPos, time);
+            time += Time.deltaTime / bulletTrailSpawned.time;
+            yield return null;
+        }
+
+        bulletTrailSpawned.transform.position = targetPos;
+
+        if (isPlayerHit)
+        {
+            if (PlayerHealthManager.instance != null)
+            {
+                PlayerHealthManager.instance.TakeDamage(damageToPlayer);
+            }
         }
     }
 }

@@ -106,12 +106,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feecf1dfbf81a2d4db952216bb4bfda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  canShoot: 0
+  shootRange: 20
   maxHealth: 100
   speed: 5
   damageToPlayer: 10
   attackRange: 5
   attackRate: 1
   deathEffect: {fileID: 9111320563476075608, guid: c6fb71e58ec36784687d958bc39de3f2, type: 3}
+  bulletTrail: {fileID: 3907609751552455704, guid: f7cb3044f59937d479e4a7c86594ddcb, type: 3}
   animator: {fileID: 0}
   walkAnimString: Walk
   attackAnimString: Attack
