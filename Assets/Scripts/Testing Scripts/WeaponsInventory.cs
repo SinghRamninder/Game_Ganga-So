@@ -7,23 +7,26 @@ public class WeaponsInventory : MonoBehaviour
     private bool oneEnabled = false;
     private int currentIndex = 0;
 
-    private void Start()
+    private void Awake()
     {
-        foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
             Destroy(child.gameObject);
         }
+    }
 
-        foreach (GameObject weapon in weaponPrefabs)
-        {
-            PlayerWeaponManager.instance.SpawnWeapon(weapon);
-        }
+    private void Start()
+    {
+        //foreach (GameObject weapon in weaponPrefabs)
+        //{
+        //    PlayerWeaponManager.instance.SpawnWeapon(weapon);
+        //}
 
-        if (!oneEnabled)
-        {
-            PlayerWeaponManager.instance.ChangeWeapon(PlayerWeaponManager.instance.weaponsSpawned[0]);
-            oneEnabled = true;
-        }
+        //if (!oneEnabled)
+        //{
+        //    PlayerWeaponManager.instance.ChangeWeapon(PlayerWeaponManager.instance.weaponsSpawned[0]);
+        //    oneEnabled = true;
+        //}
     }
 
     private void Update()

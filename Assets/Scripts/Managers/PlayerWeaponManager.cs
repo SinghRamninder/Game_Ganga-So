@@ -64,9 +64,17 @@ public class PlayerWeaponManager : MonoBehaviour
         Vector3 weaponSpawnScale = spawnedWeapon.GetComponent<Weapon>().weaponSpawnScale;
         spawnedWeapon.transform.SetLocalPositionAndRotation(weaponSpawnPosition, weaponSpawnRotation);
         spawnedWeapon.transform.localScale = weaponSpawnScale;
-        weaponsSpawned.Add(spawnedWeapon);
 
-        spawnedWeapon.SetActive(false);
+        if (weaponsSpawned.Count == 0)
+        {
+            ChangeWeapon(spawnedWeapon);
+        }
+        else
+        {
+            spawnedWeapon.SetActive(false);
+        }
+
+        weaponsSpawned.Add(spawnedWeapon);
     }
 
     public void ChangeWeapon(GameObject weaponGameobject)
