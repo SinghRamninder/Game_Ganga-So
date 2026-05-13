@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public enum FireMode
 {
@@ -59,6 +60,8 @@ public class Weapon : MonoBehaviour
     public Transform shootPoint2;
     public ParticleSystem muzzleFlash1;
     public ParticleSystem muzzleFlash2;
+
+    public Sprite gunSpriteexample;
     //Temporary use only
 
     private void Awake()
@@ -75,6 +78,11 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
+        if (gunAnimator == null)
+        {
+            gunAnimator = GetComponentInChildren<Animator>();
+        }
+
         currentAmmo = maxAmmo;
         UpdateAmmoUI();
     }
@@ -94,6 +102,13 @@ public class Weapon : MonoBehaviour
 
     private void OnDisable()
     {
+        if (gunAnimator != null) gunAnimator.SetBool("Reload", false);
+        if (gunSpriteexample != null)
+        {
+            SpriteRenderer thisObject = GetComponentInChildren<SpriteRenderer>();
+            thisObject.sprite = gunSpriteexample;
+        }
+
         if (PlayerHealthManager.instance != null && !isMeleeWeapon)
         {
             PlayerHealthManager.instance.RemoveHealthBonus(healthModifier);
@@ -150,11 +165,13 @@ public class Weapon : MonoBehaviour
     private IEnumerator Reload()
     {
         isReloading = true;
-        if (gunAnimator != null) gunAnimator.SetTrigger("Reload");
+        if (gunAnimator != null) gunAnimator.SetBool("Reload", true);
         if (ammoText != null) ammoText.text = "Reloading...";
         
         yield return new WaitForSeconds(reloadTime);
-        
+
+        if (gunAnimator != null) gunAnimator.SetBool("Reload", false);
+
         currentAmmo = maxAmmo;
         isReloading = false;
         UpdateAmmoUI();

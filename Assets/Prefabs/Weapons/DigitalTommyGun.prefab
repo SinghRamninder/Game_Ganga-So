@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2996897881636710133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.98, y: 0.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2822365853681979206}
   - component: {fileID: 2266699823341438972}
+  - component: {fileID: 1792221636728414782}
   m_Layer: 7
   m_Name: Visuals
   m_TagString: Untagged
@@ -123,6 +124,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &1792221636728414782
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3688253888421473051}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e92c83431ca6bd4db37097f70f4b964, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6059090230196945824
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +195,7 @@ MonoBehaviour:
   isMeleeWeapon: 0
   fireMode: 1
   fireRate: 30
-  range: 80
+  range: 200
   cameraShakeIntensity: 0.004
   cameraShakeDuration: 0.3
   recoilForce: 1
@@ -182,12 +205,12 @@ MonoBehaviour:
   bulletTrail: {fileID: 3907609751552455704, guid: f7cb3044f59937d479e4a7c86594ddcb, type: 3}
   trailSpawnPos: {fileID: 514678450805603501}
   healthModifier: 0
-  speedModifier: 0.8
+  speedModifier: 1
   damageToEnemy: 10
   raysPerShot: 1
   aoeSpread: 0
   maxAmmo: 100
-  reloadTime: 1.5
+  reloadTime: 1
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 247455129476477726, guid: 69d5dc23585f27a459fb9808990f9450, type: 3}
   gunAnimator: {fileID: 0}
@@ -203,6 +226,7 @@ MonoBehaviour:
   shootPoint2: {fileID: 0}
   muzzleFlash1: {fileID: 0}
   muzzleFlash2: {fileID: 0}
+  gunSpriteexample: {fileID: 21300000, guid: 08ce107d905f5c541a81a344542fcee3, type: 3}
 --- !u!114 &6320684322224097246
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,14 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.IO.Pipes;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     [Header("Stats")]
     public bool canShoot = false;
+    public bool canShootProjectile = false;
+    public Projectile projectile;
     public float shootRange = 20f;
     public float maxHealth = 100f;
     public float speed = 3f;
@@ -18,7 +16,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Effects")]
     public ParticleSystem deathEffect;
-    public TrailRenderer bulletTrail;
+    public BulletTrails bulletTrail;
 
     [Header("Animations")]
     public Animator animator;
@@ -111,15 +109,19 @@ public class Enemy : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, shootDirection, out RaycastHit hit, shootRange))
         {
+            Vector3 maxRangePoint = transform.position + (shootDirection * shootRange);
+
             if (hit.collider.CompareTag("Player"))
             {
-                StartCoroutine(SpawnTracer(transform.position, hit.point, true));
+                if (!canShootProjectile)
+                {
+                    StartCoroutine(SpawnTracer(transform.position, maxRangePoint));
+                }
+                else
+                {
+                    StartCoroutine(SpawnProjectile(transform.position, maxRangePoint));
+                }
             }
-        }
-        else
-        {
-            Vector3 maxRangePoint = transform.position + (shootDirection * shootRange);
-            StartCoroutine(SpawnTracer(transform.position, maxRangePoint, false));
         }
     }
 
@@ -163,30 +165,76 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos, bool isPlayerHit)
+    private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos)
     {
         if (bulletTrail == null)
             yield return null;
 
+        Vector3 startPos = Vector3.zero;
+
         float time = 0;
 
-        TrailRenderer bulletTrailSpawned = Instantiate(bulletTrail, spawnPos, Quaternion.identity);
+        BulletTrails bulletTrailSpawned = Instantiate(bulletTrail, spawnPos, Quaternion.identity);
+
+        if (bulletTrailSpawned != null)
+        {
+            bulletTrailSpawned.damageToPlayer = damageToPlayer;
+            startPos = bulletTrailSpawned.transform.position;
+        }
+
+        TrailRenderer spawnedTrail = bulletTrailSpawned.GetComponent<TrailRenderer>();
 
         while (time < 1)
         {
-            bulletTrailSpawned.transform.position = Vector3.Lerp(bulletTrailSpawned.transform.position, targetPos, time);
-            time += Time.deltaTime / bulletTrailSpawned.time;
+            if (bulletTrailSpawned == null) break;
+
+            bulletTrailSpawned.transform.position = Vector3.Lerp(startPos, targetPos, time);
+            time += Time.deltaTime / spawnedTrail.time;
             yield return null;
         }
 
-        bulletTrailSpawned.transform.position = targetPos;
-
-        if (isPlayerHit)
+        if (bulletTrailSpawned != null)
         {
-            if (PlayerHealthManager.instance != null)
-            {
-                PlayerHealthManager.instance.TakeDamage(damageToPlayer);
-            }
+            bulletTrailSpawned.transform.position = targetPos;
+            Destroy(bulletTrailSpawned.gameObject);
         }
     }
+
+    // Temporary (Can be merged with SpawnTracer)
+    private IEnumerator SpawnProjectile(Vector3 spawnPos, Vector3 targetPos)
+    {
+        if (projectile == null)
+            yield return null;
+
+        Vector3 startPos = Vector3.zero;
+
+        Projectile projectileSpawned = Instantiate(projectile, spawnPos, Quaternion.identity);
+
+        if (projectileSpawned != null)
+        {
+            projectileSpawned.damageToPlayer = damageToPlayer;
+            startPos = projectileSpawned.transform.position;
+        }
+
+        float elapsed = 0;
+        float duration = 3f;
+
+        while (elapsed < duration)
+        {
+            if (projectileSpawned == null) break;
+
+            float t = elapsed / duration;
+
+            projectileSpawned.transform.position = Vector3.Lerp(startPos, targetPos, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (projectileSpawned != null)
+        {
+            projectileSpawned.transform.position = targetPos;
+            Destroy(projectileSpawned.gameObject);
+        }
+    }
+    // Temporary (Can be merged with SpawnTracer)
 }

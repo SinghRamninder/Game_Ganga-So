@@ -183,7 +183,7 @@ MonoBehaviour:
   bulletTrail: {fileID: 3907609751552455704, guid: f7cb3044f59937d479e4a7c86594ddcb, type: 3}
   trailSpawnPos: {fileID: 8153059505304991308}
   healthModifier: -50
-  speedModifier: 0.5
+  speedModifier: 0.6
   damageToEnemy: 50
   raysPerShot: 5
   aoeSpread: 0.1
@@ -199,6 +199,11 @@ MonoBehaviour:
   weaponSpawnPosition: {x: -0.1, y: 0, z: 0}
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
   weaponSpawnScale: {x: 0.18, y: 0.18, z: 0.18}
+  isDualPistol: 0
+  shootPoint1: {fileID: 0}
+  shootPoint2: {fileID: 0}
+  muzzleFlash1: {fileID: 0}
+  muzzleFlash2: {fileID: 0}
 --- !u!114 &-4070384091925224196
 MonoBehaviour:
   m_ObjectHideFlags: 0

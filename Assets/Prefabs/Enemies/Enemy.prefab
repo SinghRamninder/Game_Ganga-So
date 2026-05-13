@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
+  m_LocalScale: {x: 0.74, y: 0.74, z: 0.74}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,7 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feecf1dfbf81a2d4db952216bb4bfda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  canShoot: 1
+  canShoot: 0
+  canShootProjectile: 0
+  projectile: {fileID: -2003739180757158627, guid: c4e118d2935508d4dabdead61b2a9984, type: 3}
   shootRange: 50
   maxHealth: 100
   speed: 5
@@ -114,7 +116,7 @@ MonoBehaviour:
   attackRange: 5
   attackRate: 1
   deathEffect: {fileID: 9111320563476075608, guid: c6fb71e58ec36784687d958bc39de3f2, type: 3}
-  bulletTrail: {fileID: 3907609751552455704, guid: f7cb3044f59937d479e4a7c86594ddcb, type: 3}
+  bulletTrail: {fileID: 7035760547371960665, guid: 3b66d421a699d3b4fbee1ddcdc8a6237, type: 3}
   animator: {fileID: 0}
   walkAnimString: Walk
   attackAnimString: Attack
