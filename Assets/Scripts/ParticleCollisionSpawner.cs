@@ -26,7 +26,7 @@ public class ParticleCollisionSpawner : MonoBehaviour
             if (normal != Vector3.zero)
             {
                 // Align with normal and add a random Z rotation
-                Quaternion rot = Quaternion.LookRotation(normal) * Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+                Quaternion rot = Quaternion.LookRotation(-normal) * Quaternion.Euler(0, 0, Random.Range(0f, 360f));
                 Instantiate(prefabToSpawn, pos, rot);
             }
         }

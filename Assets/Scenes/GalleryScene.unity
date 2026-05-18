@@ -321691,6 +321691,10 @@ PrefabInstance:
       propertyPath: 'm_Cameras.Array.data[0]'
       value: 
       objectReference: {fileID: 1541523989}
+    - target: {fileID: 3383594460346807538, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
+      propertyPath: 'm_Cameras.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3809039190050130837, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -321698,6 +321702,10 @@ PrefabInstance:
     - target: {fileID: 4148614641636511344, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352275933857255505, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 640
       objectReference: {fileID: 0}
     - target: {fileID: 4568984638087800744, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: m_Layer
@@ -321721,7 +321729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5013384063038910842, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: deceleration
-      value: 40
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5013384063038910842, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: gravityMultiplier
@@ -424343,7 +424351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1188336348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508281,7 +508289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1560439683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521602,7 +521610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1715125036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571319,7 +571327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1793619738
 MonoBehaviour:
   m_ObjectHideFlags: 0
