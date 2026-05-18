@@ -205,11 +205,11 @@ MonoBehaviour:
   rumbleLeftFrequency: 0.468
   rumbleRightFrequency: 0.634
   rumbleTime: 0.1
-  bulletTrail: {fileID: 3907609751552455704, guid: f7cb3044f59937d479e4a7c86594ddcb, type: 3}
+  bulletTrail: {fileID: 3907609751552455704, guid: 1e9dc4f117558cb4c85f3b129c3c9111, type: 3}
   trailSpawnPos: {fileID: 6592937034079664169}
   healthModifier: 0
   speedModifier: 1
-  damageToEnemy: 35
+  damageToEnemy: 40
   raysPerShot: 1
   aoeSpread: 0
   maxAmmo: 15
@@ -217,7 +217,7 @@ MonoBehaviour:
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 247455129476477726}
   gunAnimator: {fileID: 4895555166562255248}
-  impactPrefab: {fileID: 8390140630907516658, guid: 2d443f1fbacea3049bcef40c0428d908, type: 3}
+  impactPrefab: {fileID: 8390140630907516658, guid: dbd2d8f07ce9d2c4da6a9b6af0f3e0dc, type: 3}
   impactEffectNonEnemy: {fileID: 8724896405505394418, guid: 1e11061341dfbab42bb4c2d9f6bfd259, type: 3}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: 1e11061341dfbab42bb4c2d9f6bfd259, type: 3}
   useSameImpactEffect: 0
