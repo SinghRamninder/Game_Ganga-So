@@ -53,15 +53,16 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public Vector3 weaponSpawnScale = Vector3.one;
 
     //Temporary use one
-    public bool isDualPistol = false;
-    public Transform shootPoint1;
+    [HideInInspector] public bool isDualPistol = false;
+    [HideInInspector] public Transform shootPoint1;
     private bool isSP1 = true;
     private bool isMP1 = true;
-    public Transform shootPoint2;
-    public ParticleSystem muzzleFlash1;
-    public ParticleSystem muzzleFlash2;
+    [HideInInspector] public Transform shootPoint2;
+    //public ParticleSystem muzzleFlash1;
+    //public ParticleSystem muzzleFlash2;
 
-    public Sprite gunSpriteexample;
+    [HideInInspector] public Sprite gunFirstSprite;
+    private int layerNumber = 0;
     //Temporary use only
 
     private void Awake()
@@ -78,6 +79,12 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
+        if (gunFirstSprite == null)
+        {
+            SpriteRenderer thisChildSprite = GetComponentInChildren<SpriteRenderer>();
+            gunFirstSprite = thisChildSprite.sprite;
+        }
+
         if (gunAnimator == null)
         {
             gunAnimator = GetComponentInChildren<Animator>();
@@ -103,10 +110,10 @@ public class Weapon : MonoBehaviour
     private void OnDisable()
     {
         if (gunAnimator != null) gunAnimator.SetBool("Reload", false);
-        if (gunSpriteexample != null)
+        if (gunFirstSprite != null)
         {
             SpriteRenderer thisObject = GetComponentInChildren<SpriteRenderer>();
-            thisObject.sprite = gunSpriteexample;
+            thisObject.sprite = gunFirstSprite;
         }
 
         if (PlayerHealthManager.instance != null && !isMeleeWeapon)
@@ -207,12 +214,14 @@ public class Weapon : MonoBehaviour
         {
             if (isMP1)
             {
-                muzzleFlash1.Play();
+                muzzleFlash.transform.position = shootPoint1.position;
+                muzzleFlash.Play();
                 isMP1 = false;
             }
             else
             {
-                muzzleFlash2.Play();
+                muzzleFlash.transform.position = shootPoint2.position;
+                muzzleFlash.Play();
                 isMP1 = true;
             }
         }
@@ -273,7 +282,6 @@ public class Weapon : MonoBehaviour
                     StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, false));
                 }
 
-                
             }
             else
             {
@@ -304,9 +312,28 @@ public class Weapon : MonoBehaviour
         {
             if (impactPrefab != null)
             {
-                Vector3 impactPos = targetPos + hitNormal * 0.01f;
-                Quaternion impactRot = Quaternion.LookRotation(hitNormal);
-                Instantiate(impactPrefab, impactPos, impactRot);
+                if (IsFullyOnWall(targetPos, hitNormal, 1.5f))
+                {
+                    Vector3 impactPos = targetPos + hitNormal * 0.01f;
+                    Quaternion impactRot = Quaternion.LookRotation(-hitNormal);
+                    GameObject spawnedSplat = Instantiate(impactPrefab, impactPos, impactRot);
+                    //SpriteRenderer splatSprite = spawnedSplat.GetComponent<SpriteRenderer>();
+                    //if (splatSprite != null)
+                    //    splatSprite.sortingOrder = layerNumber;
+
+                    MeshRenderer splatMesh = spawnedSplat.GetComponent<MeshRenderer>();
+                    if (splatMesh != null)
+                    {
+                        splatMesh.material.renderQueue = 3000; // transparent queue
+                        splatMesh.sortingLayerName = "Splatter";
+                        splatMesh.sortingOrder = layerNumber;
+
+                        Debug.Log(splatMesh.sortingOrder);
+                    }
+
+                    layerNumber++;
+                }
+                
             }
 
             if (impactEffectNonEnemy != null) effectToPlay = impactEffectNonEnemy;
@@ -380,5 +407,37 @@ public class Weapon : MonoBehaviour
             Gizmos.DrawLine(endDown, endLeft);
             Gizmos.DrawLine(endLeft, endUp);
         }
+    }
+
+    bool IsFullyOnWall(Vector3 center, Vector3 normal, float size)
+    {
+        Vector3 right = Vector3.Cross(Vector3.up, normal).normalized;
+
+        if (right == Vector3.zero)
+            right = Vector3.Cross(Vector3.forward, normal).normalized;
+
+        Vector3 up = Vector3.Cross(normal, right);
+
+        float half = size * 0.5f;
+
+        Vector3[] corners =
+        {
+        center + right * half + up * half,
+        center - right * half + up * half,
+        center + right * half - up * half,
+        center - right * half - up * half
+    };
+
+        foreach (Vector3 corner in corners)
+        {
+            Vector3 start = corner + normal * 0.05f;
+
+            if (!Physics.Raycast(start, -normal, 0.1f))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
