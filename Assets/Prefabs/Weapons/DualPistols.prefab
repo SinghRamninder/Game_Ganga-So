@@ -217,8 +217,8 @@ MonoBehaviour:
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 247455129476477726}
   gunAnimator: {fileID: 4895555166562255248}
-  impactPrefab: {fileID: 8390140630907516658, guid: dbd2d8f07ce9d2c4da6a9b6af0f3e0dc, type: 3}
-  impactEffectNonEnemy: {fileID: 8724896405505394418, guid: 1e11061341dfbab42bb4c2d9f6bfd259, type: 3}
+  impactPrefab: {fileID: 8390140630907516658, guid: 8744311d6398d44308574d43fb805dc6, type: 3}
+  impactEffectNonEnemy: {fileID: 7226583673155636403, guid: 511d2f3077c274c08b7d604dd206e422, type: 3}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: 1e11061341dfbab42bb4c2d9f6bfd259, type: 3}
   useSameImpactEffect: 0
   weaponSpawnPosition: {x: -0.02, y: 0.36, z: 0}
@@ -227,7 +227,6 @@ MonoBehaviour:
   isDualPistol: 1
   shootPoint1: {fileID: 6592937034079664169}
   shootPoint2: {fileID: 4511447893634589185}
-  gunFirstSprite: {fileID: 0}
 --- !u!1 &8230637527002019060
 GameObject:
   m_ObjectHideFlags: 0
