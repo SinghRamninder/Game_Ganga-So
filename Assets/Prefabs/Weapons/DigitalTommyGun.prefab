@@ -194,15 +194,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   isMeleeWeapon: 0
   fireMode: 1
-  fireRate: 30
+  fireRate: 25
   range: 200
   cameraShakeIntensity: 0.004
   cameraShakeDuration: 0.3
-  recoilForce: 1
+  recoilForce: 0.4
   rumbleLeftFrequency: 0.468
   rumbleRightFrequency: 0.634
   rumbleTime: 0.1
-  bulletTrail: {fileID: 3907609751552455704, guid: f7cb3044f59937d479e4a7c86594ddcb, type: 3}
+  bulletTrail: {fileID: 3907609751552455704, guid: b01d0717711414601bb04586b45909e2, type: 3}
   trailSpawnPos: {fileID: 514678450805603501}
   healthModifier: 0
   speedModifier: 1
@@ -214,9 +214,9 @@ MonoBehaviour:
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 247455129476477726, guid: 69d5dc23585f27a459fb9808990f9450, type: 3}
   gunAnimator: {fileID: 0}
-  impactPrefab: {fileID: 8390140630907516658, guid: 2d443f1fbacea3049bcef40c0428d908, type: 3}
-  impactEffectNonEnemy: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
-  impactEffectEnemy: {fileID: 8724896405505394418, guid: c03203f42fdac2c42b147dc13f64014f, type: 3}
+  impactPrefab: {fileID: 8390140630907516658, guid: c65d0a62cb44e40e688c279a7f7bcad4, type: 3}
+  impactEffectNonEnemy: {fileID: 7226583673155636403, guid: a6f8d058839934cca801ace80200449f, type: 3}
+  impactEffectEnemy: {fileID: 8724896405505394418, guid: 31d5d886e931d4105b326f261d2634d8, type: 3}
   useSameImpactEffect: 0
   weaponSpawnPosition: {x: 0, y: 0, z: 0}
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -224,9 +224,7 @@ MonoBehaviour:
   isDualPistol: 0
   shootPoint1: {fileID: 0}
   shootPoint2: {fileID: 0}
-  muzzleFlash1: {fileID: 0}
-  muzzleFlash2: {fileID: 0}
-  gunSpriteexample: {fileID: 21300000, guid: 08ce107d905f5c541a81a344542fcee3, type: 3}
+  gunFirstSprite: {fileID: 0}
 --- !u!114 &6320684322224097246
 MonoBehaviour:
   m_ObjectHideFlags: 0

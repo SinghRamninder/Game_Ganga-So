@@ -1,9 +1,10 @@
-using UnityEngine;
 using System.Collections.Generic;
+using System.Drawing;
+using UnityEngine;
 
 public class ParticleCollisionSpawner : MonoBehaviour
 {
-    public GameObject prefabToSpawn;
+    [HideInInspector] public GameObject prefabToSpawn;
     private ParticleSystem ps;
     private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
 
@@ -23,12 +24,63 @@ public class ParticleCollisionSpawner : MonoBehaviour
             Vector3 pos = collisionEvents[i].intersection;
             Vector3 normal = collisionEvents[i].normal;
 
-            if (normal != Vector3.zero)
+            if (normal != Vector3.zero/* && IsFullyOnWall(pos, normal, 1.5f)*/)
             {
-                // Align with normal and add a random Z rotation
-                Quaternion rot = Quaternion.LookRotation(normal) * Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-                Instantiate(prefabToSpawn, pos, rot);
+                Debug.Log("Splatter spawned");
+
+                Quaternion rot = Quaternion.LookRotation(-normal) * Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+                GameObject spawnedSplat = Instantiate(prefabToSpawn, pos, rot);
+
+                MeshRenderer splatMesh = spawnedSplat.GetComponent<MeshRenderer>();
+                if (splatMesh != null)
+                {
+                    splatMesh.sortingLayerName = "Splatter";
+                    if (PlayerWeaponManager.instance != null)
+                        splatMesh.sortingOrder = PlayerWeaponManager.instance.weaponLayerNumber;
+
+                    Debug.Log(splatMesh.sortingLayerName);
+                    Debug.Log(splatMesh.sortingOrder);
+                }
+
+                if (PlayerWeaponManager.instance != null)
+                    PlayerWeaponManager.instance.weaponLayerNumber++;
+            }
+            else
+            {
+                Debug.Log("Not spawned!! Collision detected on Edge");
             }
         }
+    }
+
+    bool IsFullyOnWall(Vector3 center, Vector3 normal, float size)
+    {
+        Vector3 right = Vector3.Cross(Vector3.up, normal).normalized;
+
+        if (right == Vector3.zero)
+            right = Vector3.Cross(Vector3.forward, normal).normalized;
+
+        Vector3 up = Vector3.Cross(normal, right);
+
+        float half = size * 0.5f;
+
+        Vector3[] corners =
+        {
+        center + right * half + up * half,
+        center - right * half + up * half,
+        center + right * half - up * half,
+        center - right * half - up * half
+    };
+
+        foreach (Vector3 corner in corners)
+        {
+            Vector3 start = corner + normal * 0.05f;
+
+            if (!Physics.Raycast(start, -normal, 0.1f))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

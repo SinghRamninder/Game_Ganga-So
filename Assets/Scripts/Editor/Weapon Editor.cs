@@ -61,12 +61,11 @@ public class WeaponEditor : Editor
             EditorGUILayout.Space();
             GUILayout.Label("Visuals & Effects", EditorStyles.boldLabel);
             weapon.bulletTrail = (TrailRenderer)EditorGUILayout.ObjectField(new GUIContent("Bullet Trail", "The trail effect left by bullets."), weapon.bulletTrail, typeof(TrailRenderer), true);
-            weapon.trailSpawnPos = (Transform)EditorGUILayout.ObjectField(new GUIContent("Bullet Trail Spawn Pos", "Where the bullet trail starts."), weapon.trailSpawnPos, typeof(Transform), true);
             weapon.muzzleFlash = (ParticleSystem)EditorGUILayout.ObjectField(new GUIContent("Muzzle flash effect", "Effect played at the barrel when firing."), weapon.muzzleFlash, typeof(ParticleSystem), true);
             //weapon.gunAnimator = (Animator)EditorGUILayout.ObjectField(new GUIContent("Gun Animator", "Animator used to play shooting animations on this weapon."), weapon.gunAnimator, typeof(Animator), true);
-            weapon.impactPrefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Bullet impact prefab", "Object spawned when a bullet hits."), weapon.impactPrefab, typeof(GameObject), true);
+            weapon.impactPrefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Bullet impact prefab (Splatter)", "Object spawned when a bullet hits."), weapon.impactPrefab, typeof(GameObject), true);
+            weapon.impactEffectEnemy = (ParticleSystem)EditorGUILayout.ObjectField(new GUIContent("Impact (On Enemy) (Splatter effect)", "Particle effect played on hitting an enemy."), weapon.impactEffectEnemy, typeof(ParticleSystem), true);
             weapon.impactEffectNonEnemy = (ParticleSystem)EditorGUILayout.ObjectField(new GUIContent("Impact (Not on enemy)", "Particle effect played on hitting the environment."), weapon.impactEffectNonEnemy, typeof(ParticleSystem), true);
-            weapon.impactEffectEnemy = (ParticleSystem)EditorGUILayout.ObjectField(new GUIContent("Impact (On Enemy)", "Particle effect played on hitting an enemy."), weapon.impactEffectEnemy, typeof(ParticleSystem), true);
 
             EditorGUILayout.Space();
             GUILayout.Label("Feedback & Feel", EditorStyles.boldLabel);
@@ -80,6 +79,19 @@ public class WeaponEditor : Editor
             weapon.rumbleLeftFrequency = EditorGUILayout.Slider(new GUIContent("Rumble Left Freq", "Controller left motor rumble frequency (0-1)."), weapon.rumbleLeftFrequency, 0f, 1f);
             weapon.rumbleRightFrequency = EditorGUILayout.Slider(new GUIContent("Rumble Right Freq", "Controller right motor rumble frequency (0-1)."), weapon.rumbleRightFrequency, 0f, 1f);
             weapon.rumbleTime = EditorGUILayout.FloatField(new GUIContent("Rumble Time", "Controller rumble duration in seconds."), weapon.rumbleTime);
+
+            EditorGUILayout.Space();
+            GUILayout.Label("Advanced options");
+            weapon.isDualPistol = EditorGUILayout.Toggle(new GUIContent("Is Dual Pistol", "Is this gun a dual pistol?"), weapon.isDualPistol);
+            if (weapon.isDualPistol)
+            {
+                weapon.shootPoint1 = (Transform)EditorGUILayout.ObjectField(new GUIContent("Pistol 1 shooting position", "Where is the pistol 1 shooting position?"), weapon.shootPoint1, typeof(Transform), true);
+                weapon.shootPoint2 = (Transform)EditorGUILayout.ObjectField(new GUIContent("Pistol 2 shooting position", "Where is the pistol 2 shooting position?"), weapon.shootPoint2, typeof(Transform), true);
+            }
+            else
+            {
+                weapon.trailSpawnPos = (Transform)EditorGUILayout.ObjectField(new GUIContent("Bullet Trail Spawn Pos", "Where the bullet trail starts."), weapon.trailSpawnPos, typeof(Transform), true);
+            }
         }
 
         EditorGUILayout.Space();

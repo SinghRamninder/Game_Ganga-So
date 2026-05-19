@@ -163,11 +163,17 @@ MonoBehaviour:
   gunAnimator: {fileID: 0}
   impactPrefab: {fileID: 8390140630907516658, guid: 2d443f1fbacea3049bcef40c0428d908, type: 3}
   impactEffectNonEnemy: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
-  impactEffectEnemy: {fileID: 8724896405505394418, guid: c03203f42fdac2c42b147dc13f64014f, type: 3}
+  impactEffectEnemy: {fileID: 8724896405505394418, guid: 1e11061341dfbab42bb4c2d9f6bfd259, type: 3}
   useSameImpactEffect: 0
   weaponSpawnPosition: {x: 0, y: 0, z: 0}
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
   weaponSpawnScale: {x: 1, y: 1, z: 1}
+  isDualPistol: 0
+  shootPoint1: {fileID: 0}
+  shootPoint2: {fileID: 0}
+  muzzleFlash1: {fileID: 0}
+  muzzleFlash2: {fileID: 0}
+  gunSpriteexample: {fileID: 0}
 --- !u!114 &1503129237784939171
 MonoBehaviour:
   m_ObjectHideFlags: 0
