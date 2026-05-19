@@ -14,6 +14,8 @@ public class PlayerWeaponManager : MonoBehaviour
     private Weapon currentWeaponScript;
     private GameObject equipedWeapon;
 
+    [HideInInspector] public int weaponLayerNumber = 0;
+
     private void Awake()
     {
         if (instance == null)

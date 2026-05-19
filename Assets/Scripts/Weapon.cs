@@ -52,18 +52,13 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public Quaternion weaponSpawnRotation = Quaternion.identity;
     [HideInInspector] public Vector3 weaponSpawnScale = Vector3.one;
 
-    //Temporary use one
     [HideInInspector] public bool isDualPistol = false;
     [HideInInspector] public Transform shootPoint1;
     private bool isSP1 = true;
     private bool isMP1 = true;
     [HideInInspector] public Transform shootPoint2;
-    //public ParticleSystem muzzleFlash1;
-    //public ParticleSystem muzzleFlash2;
 
-    [HideInInspector] public Sprite gunFirstSprite;
-    private int layerNumber = 0;
-    //Temporary use only
+    private Sprite gunFirstSprite;
 
     private void Awake()
     {
@@ -317,21 +312,20 @@ public class Weapon : MonoBehaviour
                     Vector3 impactPos = targetPos + hitNormal * 0.01f;
                     Quaternion impactRot = Quaternion.LookRotation(-hitNormal);
                     GameObject spawnedSplat = Instantiate(impactPrefab, impactPos, impactRot);
-                    //SpriteRenderer splatSprite = spawnedSplat.GetComponent<SpriteRenderer>();
-                    //if (splatSprite != null)
-                    //    splatSprite.sortingOrder = layerNumber;
 
                     MeshRenderer splatMesh = spawnedSplat.GetComponent<MeshRenderer>();
                     if (splatMesh != null)
                     {
-                        splatMesh.material.renderQueue = 3000; // transparent queue
                         splatMesh.sortingLayerName = "Splatter";
-                        splatMesh.sortingOrder = layerNumber;
+                        if (PlayerWeaponManager.instance != null)
+                            splatMesh.sortingOrder = PlayerWeaponManager.instance.weaponLayerNumber;
 
+                        Debug.Log(splatMesh.sortingLayerName);
                         Debug.Log(splatMesh.sortingOrder);
                     }
 
-                    layerNumber++;
+                    if (PlayerWeaponManager.instance != null)
+                        PlayerWeaponManager.instance.weaponLayerNumber++;
                 }
                 
             }
@@ -348,6 +342,10 @@ public class Weapon : MonoBehaviour
             Vector3 impactPos = targetPos + hitNormal * 0.01f;
             Quaternion impactRot = Quaternion.LookRotation(hitNormal);
             ParticleSystem instance = Instantiate(effectToPlay, impactPos, impactRot);
+
+            ParticleCollisionSpawner instanceScript = instance.GetComponent<ParticleCollisionSpawner>();
+            if (impactPrefab!= null && instanceScript != null)
+                instanceScript.prefabToSpawn = impactPrefab;
 
             instance.Play();
             float totalDuration = instance.main.duration + instance.main.startLifetime.constantMax;
