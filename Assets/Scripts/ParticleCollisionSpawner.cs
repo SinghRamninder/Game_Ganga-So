@@ -24,8 +24,10 @@ public class ParticleCollisionSpawner : MonoBehaviour
             Vector3 pos = collisionEvents[i].intersection;
             Vector3 normal = collisionEvents[i].normal;
 
-            if (normal != Vector3.zero && IsFullyOnWall(pos, normal, 1.5f))
+            if (normal != Vector3.zero/* && IsFullyOnWall(pos, normal, 1.5f)*/)
             {
+                Debug.Log("Splatter spawned");
+
                 Quaternion rot = Quaternion.LookRotation(-normal) * Quaternion.Euler(0, 0, Random.Range(0f, 360f));
                 GameObject spawnedSplat = Instantiate(prefabToSpawn, pos, rot);
 
@@ -42,6 +44,10 @@ public class ParticleCollisionSpawner : MonoBehaviour
 
                 if (PlayerWeaponManager.instance != null)
                     PlayerWeaponManager.instance.weaponLayerNumber++;
+            }
+            else
+            {
+                Debug.Log("Not spawned!! Collision detected on Edge");
             }
         }
     }
