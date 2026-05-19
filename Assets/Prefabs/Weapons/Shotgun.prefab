@@ -57,7 +57,7 @@ Transform:
   m_GameObject: {fileID: 2123953741814428780}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -114,9 +114,9 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: e4a5eb3ebf782ad4186df07edf3b522d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6a186b9e5b7ad43aa876f1d3afb120f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 15.36, y: 10.24}
@@ -188,16 +188,16 @@ MonoBehaviour:
   raysPerShot: 40
   aoeSpread: 0.3
   maxAmmo: 2
-  reloadTime: 2
+  reloadTime: 1
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 1550787612747875285}
   gunAnimator: {fileID: 0}
   impactPrefab: {fileID: 8390140630907516658, guid: eb79584012108d54292b3ff29364b37a, type: 3}
   impactEffectNonEnemy: {fileID: 7226583673155636403, guid: a2ab56839e1c9504ea9d141e95d0b16b, type: 3}
-  impactEffectEnemy: {fileID: 8724896405505394418, guid: c517420f5f3fb9d4ead7ef03b16c8007, type: 3}
+  impactEffectEnemy: {fileID: 8724896405505394418, guid: 7aa2b193024334624bed1e40360475d3, type: 3}
   useSameImpactEffect: 0
-  weaponSpawnPosition: {x: -0.1, y: 0, z: 0}
-  weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
+  weaponSpawnPosition: {x: 0, y: 0, z: 0}
+  weaponSpawnRotation: {x: -0, y: -0, z: -0, w: 1}
   weaponSpawnScale: {x: 0.18, y: 0.18, z: 0.18}
   isDualPistol: 0
   shootPoint1: {fileID: 0}
