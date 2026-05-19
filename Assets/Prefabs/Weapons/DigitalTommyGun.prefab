@@ -208,15 +208,15 @@ MonoBehaviour:
   speedModifier: 1
   damageToEnemy: 10
   raysPerShot: 1
-  aoeSpread: 2
+  aoeSpread: 0
   maxAmmo: 100
   reloadTime: 1
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 247455129476477726, guid: 69d5dc23585f27a459fb9808990f9450, type: 3}
   gunAnimator: {fileID: 0}
   impactPrefab: {fileID: 8390140630907516658, guid: c65d0a62cb44e40e688c279a7f7bcad4, type: 3}
-  impactEffectNonEnemy: {fileID: 5024009746357069192, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
-  impactEffectEnemy: {fileID: 8724896405505394418, guid: 357cf6cbd436940ad89a79f2da64fb00, type: 3}
+  impactEffectNonEnemy: {fileID: 7226583673155636403, guid: a6f8d058839934cca801ace80200449f, type: 3}
+  impactEffectEnemy: {fileID: 8724896405505394418, guid: 31d5d886e931d4105b326f261d2634d8, type: 3}
   useSameImpactEffect: 0
   weaponSpawnPosition: {x: 0, y: 0, z: 0}
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
