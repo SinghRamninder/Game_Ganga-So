@@ -4,9 +4,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Stats")]
-    public bool canShoot = false;
-    public bool canShootProjectile = false;
-    public Projectile projectile;
+    [HideInInspector] public bool canShoot = false;
+    [HideInInspector] public bool canShootProjectile = false;
+    [HideInInspector] public Projectile projectile;
     public float shootRange = 20f;
     public float maxHealth = 100f;
     public float speed = 3f;
@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Effects")]
     public ParticleSystem deathEffect;
-    public BulletTrails bulletTrail;
+    [HideInInspector] public BulletTrails bulletTrail;
 
     [Header("Animations")]
     public Animator animator;
