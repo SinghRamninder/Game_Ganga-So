@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 3115728106117921091}
   - component: {fileID: 8235910533102048519}
   - component: {fileID: 2954165846476783953}
+  - component: {fileID: 8941392965767997469}
   m_Layer: 0
   m_Name: ranged enemy
   m_TagString: Untagged
@@ -303,6 +304,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &8941392965767997469
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8009096142124796001}
+  m_Enabled: 1
+  m_SortingLayerID: 847469757
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_SortAtRoot: 1
+  m_Sort3DAs2D: 0
 --- !u!1 &8910130605032081262
 GameObject:
   m_ObjectHideFlags: 0
