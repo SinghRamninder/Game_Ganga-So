@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public float damageToPlayer = 10f;
     public float attackRange = 1.5f;
     public float attackRate = 1f;
+    public bool moveTowardsLastPlayerPosition = true;
 
     [Header("Effects")]
     public ParticleSystem deathEffect;
@@ -30,8 +31,11 @@ public class Enemy : MonoBehaviour
     private float nextAttackTime = 0f;
     private Camera mainCam;
 
+    private Vector3 playerLastPosition;
+
     private void Start()
     {
+        playerLastPosition = transform.position;
         currentHealth = maxHealth;
         mainCam = Camera.main;
 
@@ -63,32 +67,60 @@ public class Enemy : MonoBehaviour
         Vector3 moveDirection = (playerTransform.position - transform.position).normalized;
         moveDirection.y = 0;
 
-        if (!canShoot)
+        if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z), moveDirection, out RaycastHit hit, 200f, Physics.AllLayers))
         {
-            transform.position += moveDirection * speed * Time.deltaTime;
-
-            if (distance <= attackRange)
+            if (hit.collider.CompareTag("Player"))
             {
-                if (Time.time >= nextAttackTime)
+                playerLastPosition = hit.collider.transform.position;
+
+                if (!canShoot)
                 {
-                    Attack();
-                    nextAttackTime = Time.time + (1f / attackRate);
+                    transform.position += moveDirection * speed * Time.deltaTime;
+
+                    if (distance <= attackRange)
+                    {
+                        if (Time.time >= nextAttackTime)
+                        {
+                            Attack();
+                            nextAttackTime = Time.time + (1f / attackRate);
+                        }
+                    }
+                }
+                else
+                {
+                    if (distance > shootRange)
+                    {
+                        transform.position += moveDirection * speed * Time.deltaTime;
+                    }
+                    else
+                    {
+                        if (Time.time >= nextAttackTime)
+                        {
+                            Shoot(moveDirection);
+                            nextAttackTime = Time.time + (1f / attackRate);
+                        }
+                    }
+                }
+            }
+            else if (moveTowardsLastPlayerPosition)
+            {
+                Vector3 newMoveDirection = (playerLastPosition - transform.position).normalized;
+                newMoveDirection.y = 0;
+
+                if (Vector3.Distance(transform.position, playerLastPosition) >= 0.1f)
+                {
+                    transform.position += newMoveDirection * speed * Time.deltaTime;
                 }
             }
         }
-        else
+        else if (moveTowardsLastPlayerPosition)
         {
-            if (distance > shootRange)
+            Vector3 newMoveDirection = (playerLastPosition - transform.position).normalized;
+            newMoveDirection.y = 0;
+
+            if (Vector3.Distance(transform.position, playerLastPosition) >= 0.1f)
             {
-                transform.position += moveDirection * speed * Time.deltaTime;
-            }
-            else
-            {
-                if (Time.time >= nextAttackTime)
-                {
-                    Shoot(moveDirection);
-                    nextAttackTime = Time.time + (1f / attackRate);
-                }
+                transform.position += newMoveDirection * speed * Time.deltaTime;
             }
         }
     }
