@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feecf1dfbf81a2d4db952216bb4bfda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  canShoot: 0
+  canShoot: 1
   canShootProjectile: 0
-  projectile: {fileID: 0}
-  shootRange: 20
-  maxHealth: 100
+  projectile: {fileID: -2003739180757158627, guid: c4e118d2935508d4dabdead61b2a9984, type: 3}
+  shootRange: 50
+  maxHealth: 150
   speed: 5
   damageToPlayer: 10
   attackRange: 5
@@ -81,10 +81,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.7567916
+  m_Radius: 5.8696246
   m_Height: 17.862617
   m_Direction: 1
-  m_Center: {x: 4.5481043, y: 8.836921, z: 3.2248838}
+  m_Center: {x: 0.12634437, y: 8.836921, z: -0.1007557}
 --- !u!54 &6458104901873181042
 Rigidbody:
   m_ObjectHideFlags: 0
