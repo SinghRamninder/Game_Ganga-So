@@ -50,12 +50,13 @@ MonoBehaviour:
   canShoot: 1
   canShootProjectile: 0
   projectile: {fileID: 0}
-  shootRange: 10
+  shootRange: 250
   maxHealth: 80
   speed: 5
-  damageToPlayer: 10
+  damageToPlayer: 20
   attackRange: 8
   attackRate: 1
+  moveTowardsLastPlayerPosition: 1
   deathEffect: {fileID: 9111320563476075608, guid: c6fb71e58ec36784687d958bc39de3f2, type: 3}
   bulletTrail: {fileID: 7035760547371960665, guid: 3b66d421a699d3b4fbee1ddcdc8a6237, type: 3}
   animator: {fileID: 0}
