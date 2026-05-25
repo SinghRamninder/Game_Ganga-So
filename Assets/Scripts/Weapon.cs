@@ -60,6 +60,9 @@ public class Weapon : MonoBehaviour
 
     private Sprite gunFirstSprite;
 
+    public bool useOldMethod = false;
+    public int splatterNumber = 0;
+
     private void Awake()
     {
         if (ammoText == null)
@@ -309,23 +312,30 @@ public class Weapon : MonoBehaviour
             {
                 if (IsFullyOnWall(targetPos, hitNormal, 1.5f))
                 {
-                    Vector3 impactPos = targetPos + hitNormal * 0.01f;
-                    Quaternion impactRot = Quaternion.LookRotation(-hitNormal);
-                    GameObject spawnedSplat = Instantiate(impactPrefab, impactPos, impactRot);
-
-                    MeshRenderer splatMesh = spawnedSplat.GetComponent<MeshRenderer>();
-                    if (splatMesh != null)
+                    if (useOldMethod) //Testing purposes
                     {
-                        splatMesh.sortingLayerName = "Splatter";
+                        Vector3 impactPos = targetPos + hitNormal * 0.01f;
+                        Quaternion impactRot = Quaternion.LookRotation(-hitNormal);
+                        GameObject spawnedSplat = Instantiate(impactPrefab, impactPos, impactRot);
+
+                        MeshRenderer splatMesh = spawnedSplat.GetComponent<MeshRenderer>();
+                        if (splatMesh != null)
+                        {
+                            splatMesh.sortingLayerName = "Splatter";
+                            if (PlayerWeaponManager.instance != null)
+                                splatMesh.sortingOrder = PlayerWeaponManager.instance.weaponLayerNumber;
+
+                            Debug.Log(splatMesh.sortingLayerName);
+                            Debug.Log(splatMesh.sortingOrder);
+                        }
+
                         if (PlayerWeaponManager.instance != null)
-                            splatMesh.sortingOrder = PlayerWeaponManager.instance.weaponLayerNumber;
-
-                        Debug.Log(splatMesh.sortingLayerName);
-                        Debug.Log(splatMesh.sortingOrder);
+                            PlayerWeaponManager.instance.weaponLayerNumber++;
                     }
-
-                    if (PlayerWeaponManager.instance != null)
-                        PlayerWeaponManager.instance.weaponLayerNumber++;
+                    else
+                    {
+                        SplatterMeshManager.Instance.AddSplatter(splatterNumber, targetPos, hitNormal);
+                    }
                 }
                 
             }
