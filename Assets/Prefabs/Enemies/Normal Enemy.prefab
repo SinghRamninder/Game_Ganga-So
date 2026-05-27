@@ -56,8 +56,9 @@ MonoBehaviour:
   damageToPlayer: 10
   attackRange: 5
   attackRate: 1
+  moveTowardsLastPlayerPosition: 1
   deathEffect: {fileID: 9111320563476075608, guid: c6fb71e58ec36784687d958bc39de3f2, type: 3}
-  bulletTrail: {fileID: 3907609751552455704, guid: f7cb3044f59937d479e4a7c86594ddcb, type: 3}
+  bulletTrail: {fileID: 0}
   animator: {fileID: 0}
   walkAnimString: Walk
   attackAnimString: Attack
