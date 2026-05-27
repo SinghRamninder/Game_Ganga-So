@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
     private Camera mainCam;
 
     private Vector3 playerLastPosition;
+    private bool firstHitWithPlayer = false;
 
     private void Start()
     {
@@ -80,7 +81,7 @@ public class Enemy : MonoBehaviour
         Vector3 rayShootPos = new Vector3(transform.position.x, transform.position.y + rayShootOfset, transform.position.z);
         Vector3 rayShootDirection = (playerTransform.position - rayShootPos).normalized;
 
-        Debug.DrawRay(rayShootPos, rayShootDirection * 100f, Color.red);
+        //Debug.DrawRay(rayShootPos, rayShootDirection * 100f, Color.red);
         
         if (Physics.Raycast(rayShootPos, rayShootDirection, out RaycastHit hit, 200f, Physics.AllLayers))
         {
@@ -88,6 +89,8 @@ public class Enemy : MonoBehaviour
             {
                 playerLastPosition = hit.collider.transform.position;
                 playerLastPosition.y = transform.position.y;
+
+                firstHitWithPlayer = true;
 
                 if (!canShoot)
                 {
@@ -122,6 +125,11 @@ public class Enemy : MonoBehaviour
                     }
                     else
                     {
+                        if (!isIdle)
+                        {
+                            ReturnToIdle();
+                        }
+
                         if (Time.time >= nextAttackTime)
                         {
                             Shoot(rayShootPos, rayShootDirection);
@@ -130,7 +138,7 @@ public class Enemy : MonoBehaviour
                     }
                 }
             }
-            else if (moveTowardsLastPlayerPosition)
+            else if (moveTowardsLastPlayerPosition && firstHitWithPlayer)
             {
                 Vector3 newMoveDirection = (playerLastPosition - transform.position).normalized;
                 newMoveDirection.y = 0;
@@ -138,6 +146,11 @@ public class Enemy : MonoBehaviour
                 if (Vector3.Distance(transform.position, playerLastPosition) > 0.1f)
                 {
                     transform.position += newMoveDirection * speed * Time.deltaTime;
+
+                    if (!walkAnimPlaying)
+                    {
+                        ReturnToWalk();
+                    }
                 }
                 else if (!isIdle)
                 {
@@ -145,7 +158,7 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
-        else if (moveTowardsLastPlayerPosition)
+        else if (moveTowardsLastPlayerPosition && firstHitWithPlayer)
         {
             Vector3 newMoveDirection = (playerLastPosition - transform.position).normalized;
             newMoveDirection.y = 0;
@@ -153,6 +166,11 @@ public class Enemy : MonoBehaviour
             if (Vector3.Distance(transform.position, playerLastPosition) > 0.1f)
             {
                 transform.position += newMoveDirection * speed * Time.deltaTime;
+
+                if (!walkAnimPlaying)
+                {
+                    ReturnToWalk();
+                }
             }
             else if (!isIdle)
             {
@@ -187,6 +205,8 @@ public class Enemy : MonoBehaviour
 
     private void Shoot(Vector3 shootPos, Vector3 shootDirection)
     {
+        PlayAnimation(attackAnimString);
+
         if (Physics.Raycast(shootPos, shootDirection, out RaycastHit hit, shootRange))
         {
             Vector3 maxRangePoint = shootPos + (shootDirection * shootRange);
