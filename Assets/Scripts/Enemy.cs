@@ -1,5 +1,7 @@
+using NUnit.Framework;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -40,6 +42,8 @@ public class Enemy : MonoBehaviour
 
     private Vector3 playerLastPosition;
     private bool firstHitWithPlayer = false;
+
+    private List<Projectile> projectiles = new List<Projectile>();
 
     private void Start()
     {
@@ -330,6 +334,7 @@ public class Enemy : MonoBehaviour
             yield break;
 
         Projectile projectileSpawned = Instantiate(projectile, spawnPos, Quaternion.identity);
+        projectiles.Add(projectileSpawned);
 
         if (projectileSpawned == null)
             yield break;
@@ -365,4 +370,22 @@ public class Enemy : MonoBehaviour
         }
     }
     // Temporary (Can be merged with SpawnTracer)
+
+    private void OnDestroy()
+    {
+        foreach (Projectile current in projectiles)
+        {
+            if (current != null)
+                Destroy(current.gameObject);
+        }
+    }
+
+    //private void OnDisable()
+    //{
+    //    foreach (Projectile current in projectiles)
+    //    {
+    //        Debug.Log("Disable called");
+    //        Destroy(current.gameObject);
+    //    }
+    //}
 }
