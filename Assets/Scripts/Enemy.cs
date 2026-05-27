@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     private float currentHealth;
     private Transform playerTransform;
     private bool isDead = false;
+    private bool isAttacking = false;
     private float nextAttackTime = 0f;
     private Camera mainCam;
 
@@ -90,17 +91,20 @@ public class Enemy : MonoBehaviour
 
                 if (!canShoot)
                 {
-                    transform.position += moveDirection * speed * Time.deltaTime;
+                    if (!isAttacking)
+                    {
+                        transform.position += moveDirection * speed * Time.deltaTime;
+                    }
 
                     if (distance <= attackRange)
                     {
-                        if (Time.time >= nextAttackTime)
+                        if (Time.time >= nextAttackTime && !isAttacking)
                         {
                             StartCoroutine(Attack());
                             nextAttackTime = Time.time + (1f / attackRate);
                         }
                     }
-                    else if(!walkAnimPlaying)
+                    else if(!walkAnimPlaying && !isAttacking)
                     {
                         ReturnToWalk();
                     }
@@ -159,18 +163,26 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        isAttacking = true;
         PlayAnimation(attackAnimString);
 
         AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
 
         yield return new WaitForSeconds(clipInfo[0].clip.length);
 
-        if (PlayerHealthManager.instance != null)
+        if (PlayerHealthManager.instance != null && playerTransform != null)
         {
-            PlayerHealthManager.instance.TakeDamage(damageToPlayer);
+            float distance = Vector3.Distance(transform.position, playerTransform.position);
+            if (distance <= attackRange)
+            {
+                PlayerHealthManager.instance.TakeDamage(damageToPlayer);
+            }
         }
 
-        Invoke(nameof(ReturnToWalk), 1f / attackRate * 0.5f);
+        yield return new WaitForSeconds(1f / clipInfo[0].clip.length * 0.5f);
+
+        isAttacking = false;
+        ReturnToWalk();
     }
 
     private void Shoot(Vector3 shootPos, Vector3 shootDirection)
