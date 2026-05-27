@@ -194,7 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   isMeleeWeapon: 0
   fireMode: 1
-  fireRate: 25
+  fireRate: 15
   range: 200
   cameraShakeIntensity: 0.004
   cameraShakeDuration: 0.3
@@ -206,7 +206,8 @@ MonoBehaviour:
   trailSpawnPos: {fileID: 514678450805603501}
   healthModifier: 0
   speedModifier: 1
-  damageToEnemy: 10
+  damageToEnemyHead: 15
+  damageToEnemyBody: 10
   raysPerShot: 1
   aoeSpread: 0
   maxAmmo: 100

@@ -195,11 +195,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Gun
   isMeleeWeapon: 0
   fireMode: 1
-  fireRate: 2.6
+  fireRate: 13
   range: 300
   cameraShakeIntensity: 0.006
   cameraShakeDuration: 0.25
-  recoilForce: 2
+  recoilForce: 0.1
   rumbleLeftFrequency: 0.468
   rumbleRightFrequency: 0.634
   rumbleTime: 0.1
@@ -211,7 +211,7 @@ MonoBehaviour:
   damageToEnemyBody: 20
   raysPerShot: 1
   aoeSpread: 0
-  maxAmmo: 15
+  maxAmmo: 25
   reloadTime: 2
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 247455129476477726}
