@@ -207,7 +207,8 @@ MonoBehaviour:
   trailSpawnPos: {fileID: 6592937034079664169}
   healthModifier: 0
   speedModifier: 1
-  damageToEnemy: 35
+  damageToEnemyHead: 80
+  damageToEnemyBody: 20
   raysPerShot: 1
   aoeSpread: 0
   maxAmmo: 15
@@ -225,6 +226,8 @@ MonoBehaviour:
   isDualPistol: 1
   shootPoint1: {fileID: 6592937034079664169}
   shootPoint2: {fileID: 4511447893634589185}
+  useOldMethod: 0
+  splatterNumber: 0
 --- !u!1 &8230637527002019060
 GameObject:
   m_ObjectHideFlags: 0

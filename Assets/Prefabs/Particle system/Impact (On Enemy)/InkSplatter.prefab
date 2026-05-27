@@ -981,8 +981,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 3
-        scalar: 100
-        minScalar: 50
+        scalar: 10
+        minScalar: 5
         maxCurve:
           serializedVersion: 2
           m_Curve:
@@ -4908,3 +4908,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParticleCollisionSpawner
   prefabToSpawn: {fileID: 7226583673155636401, guid: 1864275fa783e4bec85cc8145c26193b, type: 3}
+  splatterNumber: 0

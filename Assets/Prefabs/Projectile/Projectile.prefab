@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6418450132499985880}
   - component: {fileID: 3657179106050296442}
   - component: {fileID: 8544593930767647575}
+  - component: {fileID: -7802545885565694607}
   - component: {fileID: -2003739180757158627}
   m_Layer: 8
   m_Name: Projectile
@@ -113,6 +114,33 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.76
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &-7802545885565694607
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5793605335221562338}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 3
 --- !u!114 &-2003739180757158627
 MonoBehaviour:
   m_ObjectHideFlags: 0

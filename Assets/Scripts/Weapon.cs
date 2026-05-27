@@ -27,7 +27,8 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public float healthModifier = 0f;
     [HideInInspector] public float speedModifier = 1f;
 
-    [HideInInspector] public float damageToEnemy = 10f;
+    [HideInInspector] public float damageToEnemyHead = 10f;
+    [HideInInspector] public float damageToEnemyBody = 10f;
     [HideInInspector] public int raysPerShot = 1;
     [HideInInspector] public float aoeSpread = 0f;
 
@@ -267,10 +268,22 @@ public class Weapon : MonoBehaviour
 
             if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, range))
             {
+                EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
                 Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
-                if (enemy != null)
+
+                if (enemy != null && enemyHitBox != null)
                 {
-                    enemy.TakeDamage(damageToEnemy);
+                    if (enemyHitBox.bodyPart == BodyPart.Head)
+                    {
+                        Debug.Log("Head Shot");
+                        enemy.TakeDamage(damageToEnemyHead);
+                        StartCoroutine(headShotEffect());
+                    }
+                    else if (enemyHitBox.bodyPart == BodyPart.Body)
+                    {
+                        Debug.Log("Body Shot");
+                        enemy.TakeDamage(damageToEnemyBody);
+                    }
 
                     StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, true));
                 }
@@ -447,5 +460,17 @@ public class Weapon : MonoBehaviour
         }
 
         return true;
+    }
+
+    private IEnumerator headShotEffect()
+    {
+        if (PlayerWeaponManager.instance.headCrosshair == null)
+            yield break;
+
+        PlayerWeaponManager.instance.headCrosshair.SetActive(true);
+
+        yield return new WaitForSeconds(0.3f);
+
+        PlayerWeaponManager.instance.headCrosshair.SetActive(false);
     }
 }

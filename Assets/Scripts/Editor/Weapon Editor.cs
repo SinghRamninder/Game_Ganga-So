@@ -16,7 +16,8 @@ public class WeaponEditor : Editor
             GUILayout.Label("Melee Settings", EditorStyles.boldLabel);
             weapon.fireRate = EditorGUILayout.FloatField(new GUIContent("Attack Rate", "Speed of melee attacks, attacks per second."), weapon.fireRate);
             weapon.range = EditorGUILayout.FloatField(new GUIContent("Attack Range", "The maximum reach of the melee weapon."), weapon.range);
-            weapon.damageToEnemy = EditorGUILayout.FloatField(new GUIContent("Damage to Enemy", "The amount of health subtracted from the enemy per hit."), weapon.damageToEnemy);
+            weapon.damageToEnemyHead = EditorGUILayout.FloatField(new GUIContent("Damage to Enemy Head", "The amount of health subtracted from the enemy per hit on head."), weapon.damageToEnemyHead);
+            weapon.damageToEnemyBody = EditorGUILayout.FloatField(new GUIContent("Damage to Enemy Body", "The amount of health subtracted from the enemy per hit on body."), weapon.damageToEnemyBody);
 
             EditorGUILayout.Space();
             GUILayout.Label("Modifiers", EditorStyles.boldLabel);
@@ -46,7 +47,8 @@ public class WeaponEditor : Editor
             weapon.fireMode = (FireMode)EditorGUILayout.EnumPopup(new GUIContent("Fire Mode", "Determines how the weapon fires (e.g., Automatic, Semi-Automatic)."), weapon.fireMode);
             weapon.fireRate = EditorGUILayout.FloatField(new GUIContent("Fire Rate", "The rate of fire of the weapon."), weapon.fireRate);
             weapon.range = EditorGUILayout.FloatField(new GUIContent("Fire Range", "The maximum distance the bullet can travel."), weapon.range);
-            weapon.damageToEnemy = EditorGUILayout.FloatField(new GUIContent("Damage to Enemy", "Health removed from the enemy on hit."), weapon.damageToEnemy);
+            weapon.damageToEnemyHead = EditorGUILayout.FloatField(new GUIContent("Damage to Enemy Head", "The amount of health subtracted from the enemy per hit on head."), weapon.damageToEnemyHead);
+            weapon.damageToEnemyBody = EditorGUILayout.FloatField(new GUIContent("Damage to Enemy Body", "The amount of health subtracted from the enemy per hit on body."), weapon.damageToEnemyBody);
             weapon.raysPerShot = EditorGUILayout.IntField(new GUIContent("Bullets per shot", "Number of bullets fired in a single shot (e.g., for shotguns)."), weapon.raysPerShot);
             weapon.aoeSpread = EditorGUILayout.FloatField(new GUIContent("Area of Effect Spread", "Spread radius upon impact or multiple rays. Can be adjustable via scene visually with gizmos."), weapon.aoeSpread);
             weapon.maxAmmo = EditorGUILayout.IntField(new GUIContent("Maximum Ammo", "Total ammunition capacity in a clip."), weapon.maxAmmo);
