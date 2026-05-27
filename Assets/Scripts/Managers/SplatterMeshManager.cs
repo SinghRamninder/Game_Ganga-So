@@ -669,7 +669,6 @@ public class SplatterMeshManager : MonoBehaviour
         }
 
         pooled.gameObject.SetActive(true);
-        Debug.Log(pooled.gameObject.name);
     }
 
     private void ReleaseTemporaryVisual(PooledSplatter pooled)

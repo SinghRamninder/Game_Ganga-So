@@ -7,6 +7,7 @@ public class PlayerWeaponManager : MonoBehaviour
 
     [SerializeField] private GameObject weaponHolder;
     [SerializeField] private GameObject crosshair;
+    public GameObject headCrosshair;
 
     [HideInInspector] public List<GameObject> weaponsSpawned;
 

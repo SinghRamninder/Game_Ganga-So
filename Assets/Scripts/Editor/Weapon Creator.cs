@@ -97,7 +97,7 @@ public class WeaponCreator : EditorWindow
         fireMode = w.fireMode;
         fireRate = w.fireRate;
         fireRange = w.range;
-        damage = w.damageToEnemy;
+        damage = w.damageToEnemyBody;
         bulletsPerShot = w.raysPerShot;
         areaOfEffect = w.aoeSpread;
         maxAmmo = w.maxAmmo;

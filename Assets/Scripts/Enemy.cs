@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,12 +8,15 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool canShoot = false;
     [HideInInspector] public bool canShootProjectile = false;
     [HideInInspector] public Projectile projectile;
-    public float shootRange = 20f;
+    [HideInInspector] public float shootRange = 20f;
+    [HideInInspector] public float bulletSpeed = 40f;
+    [HideInInspector] public float projectileSpeed = 15f;
+    public float rayShootOfset = 5f;
     public float maxHealth = 100f;
     public float speed = 3f;
     public float damageToPlayer = 10f;
-    public float attackRange = 1.5f;
-    public float attackRate = 1f;
+    [HideInInspector] public float attackRange = 1.5f;
+    [HideInInspector] public float attackRate = 1f;
     public bool moveTowardsLastPlayerPosition = true;
 
     [Header("Effects")]
@@ -22,8 +26,10 @@ public class Enemy : MonoBehaviour
     [Header("Animations")]
     public Animator animator;
     public string walkAnimString = "Walk";
+    private bool walkAnimPlaying = false;
     public string attackAnimString = "Attack";
     public string deathAnimString = "Death";
+    private bool isIdle = true;
 
     private float currentHealth;
     private Transform playerTransform;
@@ -44,7 +50,10 @@ public class Enemy : MonoBehaviour
             playerTransform = PlayerHealthManager.instance.transform;
         }
 
-        PlayAnimation(walkAnimString);
+        if (animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
     }
 
     private void Update()
@@ -67,11 +76,17 @@ public class Enemy : MonoBehaviour
         Vector3 moveDirection = (playerTransform.position - transform.position).normalized;
         moveDirection.y = 0;
 
-        if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z), moveDirection, out RaycastHit hit, 200f, Physics.AllLayers))
+        Vector3 rayShootPos = new Vector3(transform.position.x, transform.position.y + rayShootOfset, transform.position.z);
+        Vector3 rayShootDirection = (playerTransform.position - rayShootPos).normalized;
+
+        Debug.DrawRay(rayShootPos, rayShootDirection * 100f, Color.red);
+        
+        if (Physics.Raycast(rayShootPos, rayShootDirection, out RaycastHit hit, 200f, Physics.AllLayers))
         {
             if (hit.collider.CompareTag("Player"))
             {
                 playerLastPosition = hit.collider.transform.position;
+                playerLastPosition.y = transform.position.y;
 
                 if (!canShoot)
                 {
@@ -81,9 +96,13 @@ public class Enemy : MonoBehaviour
                     {
                         if (Time.time >= nextAttackTime)
                         {
-                            Attack();
+                            StartCoroutine(Attack());
                             nextAttackTime = Time.time + (1f / attackRate);
                         }
+                    }
+                    else if(!walkAnimPlaying)
+                    {
+                        ReturnToWalk();
                     }
                 }
                 else
@@ -91,12 +110,17 @@ public class Enemy : MonoBehaviour
                     if (distance > shootRange)
                     {
                         transform.position += moveDirection * speed * Time.deltaTime;
+
+                        if (!walkAnimPlaying)
+                        {
+                            ReturnToWalk();
+                        }
                     }
                     else
                     {
                         if (Time.time >= nextAttackTime)
                         {
-                            Shoot(moveDirection);
+                            Shoot(rayShootPos, rayShootDirection);
                             nextAttackTime = Time.time + (1f / attackRate);
                         }
                     }
@@ -107,9 +131,13 @@ public class Enemy : MonoBehaviour
                 Vector3 newMoveDirection = (playerLastPosition - transform.position).normalized;
                 newMoveDirection.y = 0;
 
-                if (Vector3.Distance(transform.position, playerLastPosition) >= 0.1f)
+                if (Vector3.Distance(transform.position, playerLastPosition) > 0.1f)
                 {
                     transform.position += newMoveDirection * speed * Time.deltaTime;
+                }
+                else if (!isIdle)
+                {
+                    ReturnToIdle();
                 }
             }
         }
@@ -118,16 +146,24 @@ public class Enemy : MonoBehaviour
             Vector3 newMoveDirection = (playerLastPosition - transform.position).normalized;
             newMoveDirection.y = 0;
 
-            if (Vector3.Distance(transform.position, playerLastPosition) >= 0.1f)
+            if (Vector3.Distance(transform.position, playerLastPosition) > 0.1f)
             {
                 transform.position += newMoveDirection * speed * Time.deltaTime;
+            }
+            else if (!isIdle)
+            {
+                ReturnToIdle();
             }
         }
     }
 
-    private void Attack()
+    private IEnumerator Attack()
     {
         PlayAnimation(attackAnimString);
+
+        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+
+        yield return new WaitForSeconds(clipInfo[0].clip.length);
 
         if (PlayerHealthManager.instance != null)
         {
@@ -137,21 +173,21 @@ public class Enemy : MonoBehaviour
         Invoke(nameof(ReturnToWalk), 1f / attackRate * 0.5f);
     }
 
-    private void Shoot(Vector3 shootDirection)
+    private void Shoot(Vector3 shootPos, Vector3 shootDirection)
     {
-        if (Physics.Raycast(transform.position, shootDirection, out RaycastHit hit, shootRange))
+        if (Physics.Raycast(shootPos, shootDirection, out RaycastHit hit, shootRange))
         {
-            Vector3 maxRangePoint = transform.position + (shootDirection * shootRange);
+            Vector3 maxRangePoint = shootPos + (shootDirection * shootRange);
 
             if (hit.collider.CompareTag("Player"))
             {
                 if (!canShootProjectile)
                 {
-                    StartCoroutine(SpawnTracer(transform.position, maxRangePoint));
+                    StartCoroutine(SpawnTracer(shootPos, maxRangePoint));
                 }
                 else
                 {
-                    StartCoroutine(SpawnProjectile(transform.position, maxRangePoint));
+                    StartCoroutine(SpawnProjectile(shootPos, maxRangePoint));
                 }
             }
         }
@@ -159,7 +195,18 @@ public class Enemy : MonoBehaviour
 
     private void ReturnToWalk()
     {
+        walkAnimPlaying = true;
+        isIdle = false;
+
         if (!isDead) PlayAnimation(walkAnimString);
+    }
+
+    private void ReturnToIdle()
+    {
+        walkAnimPlaying = false;
+        isIdle = true;
+
+        if (!isDead) PlayAnimation("Default");
     }
 
     public void TakeDamage(float damage)
@@ -176,6 +223,9 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         isDead = true;
+        Destroy(GetComponent<Rigidbody>());
+        Destroy(GetComponent<CapsuleCollider>());
+
         PlayAnimation(deathAnimString);
 
         if (deathEffect != null)
@@ -185,7 +235,9 @@ public class Enemy : MonoBehaviour
             Destroy(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax);
         }
 
-        float delay = (animator != null && animator.enabled) ? 1.5f : 0f;
+        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+
+        float delay = (animator != null && animator.enabled) ? clipInfo[0].clip.length : 0f;
         Destroy(gameObject, delay);
     }
 
@@ -194,41 +246,48 @@ public class Enemy : MonoBehaviour
         if (animator != null && animator.isActiveAndEnabled && !string.IsNullOrEmpty(animName))
         {
             animator.Play(animName);
+            animator.Update(0f);
         }
     }
 
     private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos)
     {
         if (bulletTrail == null)
-            yield return null;
-
-        Vector3 startPos = Vector3.zero;
-
-        float time = 0;
+            yield break;
 
         BulletTrails bulletTrailSpawned = Instantiate(bulletTrail, spawnPos, Quaternion.identity);
 
-        if (bulletTrailSpawned != null)
+        if (bulletTrailSpawned == null)
+            yield break;
+
+        bulletTrailSpawned.damageToPlayer = damageToPlayer;
+
+        Rigidbody rb = bulletTrailSpawned.GetComponent<Rigidbody>();
+
+        if (rb == null)
         {
-            bulletTrailSpawned.damageToPlayer = damageToPlayer;
-            startPos = bulletTrailSpawned.transform.position;
-        }
-
-        TrailRenderer spawnedTrail = bulletTrailSpawned.GetComponent<TrailRenderer>();
-
-        while (time < 1)
-        {
-            if (bulletTrailSpawned == null) break;
-
-            bulletTrailSpawned.transform.position = Vector3.Lerp(startPos, targetPos, time);
-            time += Time.deltaTime / spawnedTrail.time;
-            yield return null;
-        }
-
-        if (bulletTrailSpawned != null)
-        {
-            bulletTrailSpawned.transform.position = targetPos;
+            Debug.LogWarning("BulletTrail needs a Rigidbody for physics movement.");
             Destroy(bulletTrailSpawned.gameObject);
+            yield break;
+        }
+
+        while (bulletTrailSpawned != null)
+        {
+            Vector3 newPosition = Vector3.MoveTowards(
+                rb.position,
+                targetPos,
+                bulletSpeed * Time.fixedDeltaTime
+            );
+
+            rb.MovePosition(newPosition);
+
+            if (Vector3.Distance(newPosition, targetPos) <= 0.1f)
+            {
+                Destroy(bulletTrailSpawned.gameObject);
+                yield break;
+            }
+
+            yield return new WaitForFixedUpdate();
         }
     }
 
@@ -236,36 +295,41 @@ public class Enemy : MonoBehaviour
     private IEnumerator SpawnProjectile(Vector3 spawnPos, Vector3 targetPos)
     {
         if (projectile == null)
-            yield return null;
-
-        Vector3 startPos = Vector3.zero;
+            yield break;
 
         Projectile projectileSpawned = Instantiate(projectile, spawnPos, Quaternion.identity);
 
-        if (projectileSpawned != null)
+        if (projectileSpawned == null)
+            yield break;
+
+        projectileSpawned.damageToPlayer = damageToPlayer;
+
+        Rigidbody rb = projectileSpawned.GetComponent<Rigidbody>();
+
+        if (rb == null)
         {
-            projectileSpawned.damageToPlayer = damageToPlayer;
-            startPos = projectileSpawned.transform.position;
-        }
-
-        float elapsed = 0;
-        float duration = 3f;
-
-        while (elapsed < duration)
-        {
-            if (projectileSpawned == null) break;
-
-            float t = elapsed / duration;
-
-            projectileSpawned.transform.position = Vector3.Lerp(startPos, targetPos, t);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        if (projectileSpawned != null)
-        {
-            projectileSpawned.transform.position = targetPos;
+            Debug.LogWarning("Projectile needs a Rigidbody for physics movement.");
             Destroy(projectileSpawned.gameObject);
+            yield break;
+        }
+
+        while (projectileSpawned != null)
+        {
+            Vector3 newPosition = Vector3.MoveTowards(
+                rb.position,
+                targetPos,
+                projectileSpeed * Time.fixedDeltaTime
+            );
+
+            rb.MovePosition(newPosition);
+
+            if (Vector3.Distance(newPosition, targetPos) <= 0.1f)
+            {
+                Destroy(projectileSpawned.gameObject);
+                yield break;
+            }
+
+            yield return new WaitForFixedUpdate();
         }
     }
     // Temporary (Can be merged with SpawnTracer)

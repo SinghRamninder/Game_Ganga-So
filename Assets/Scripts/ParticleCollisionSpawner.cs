@@ -7,10 +7,26 @@ public class ParticleCollisionSpawner : MonoBehaviour
     [HideInInspector] public GameObject prefabToSpawn;
     private ParticleSystem ps;
     private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
+    private bool hasStartedPlaying = false;
+
+    public int splatterNumber = 0;
 
     private void OnEnable()
     {
         ps = GetComponent<ParticleSystem>();
+    }
+
+    private void Update()
+    {
+        if (ps.particleCount > 0)
+        {
+            hasStartedPlaying = true;
+        }
+
+        if (hasStartedPlaying && ps.particleCount == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnParticleCollision(GameObject other)
@@ -26,24 +42,24 @@ public class ParticleCollisionSpawner : MonoBehaviour
 
             if (normal != Vector3.zero/* && IsFullyOnWall(pos, normal, 1.5f)*/)
             {
-                Debug.Log("Splatter spawned");
+                //Quaternion rot = Quaternion.LookRotation(-normal) * Quaternion.Euler(0, 0, Random.Range(0f, 360f));
+                //GameObject spawnedSplat = Instantiate(prefabToSpawn, pos, rot);
 
-                Quaternion rot = Quaternion.LookRotation(-normal) * Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-                GameObject spawnedSplat = Instantiate(prefabToSpawn, pos, rot);
+                //MeshRenderer splatMesh = spawnedSplat.GetComponent<MeshRenderer>();
+                //if (splatMesh != null)
+                //{
+                //    splatMesh.sortingLayerName = "Splatter";
+                //    if (PlayerWeaponManager.instance != null)
+                //        splatMesh.sortingOrder = PlayerWeaponManager.instance.weaponLayerNumber;
 
-                MeshRenderer splatMesh = spawnedSplat.GetComponent<MeshRenderer>();
-                if (splatMesh != null)
-                {
-                    splatMesh.sortingLayerName = "Splatter";
-                    if (PlayerWeaponManager.instance != null)
-                        splatMesh.sortingOrder = PlayerWeaponManager.instance.weaponLayerNumber;
+                //    Debug.Log(splatMesh.sortingLayerName);
+                //    Debug.Log(splatMesh.sortingOrder);
+                //}
 
-                    Debug.Log(splatMesh.sortingLayerName);
-                    Debug.Log(splatMesh.sortingOrder);
-                }
+                //if (PlayerWeaponManager.instance != null)
+                //    PlayerWeaponManager.instance.weaponLayerNumber++;
 
-                if (PlayerWeaponManager.instance != null)
-                    PlayerWeaponManager.instance.weaponLayerNumber++;
+                SplatterMeshManager.Instance.AddSplatter(splatterNumber, pos, normal);
             }
             else
             {

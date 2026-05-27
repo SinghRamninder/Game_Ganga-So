@@ -60,9 +60,10 @@ MonoBehaviour:
   deathEffect: {fileID: 0}
   bulletTrail: {fileID: 0}
   animator: {fileID: 0}
-  walkAnimString: Walk
-  attackAnimString: Attack
-  deathAnimString: Death
+  walkAnimString: walk
+  attackAnimString: attack
+  deathAnimString: death
+  shootOfset: 10
 --- !u!136 &5944831716494435483
 CapsuleCollider:
   m_ObjectHideFlags: 0
