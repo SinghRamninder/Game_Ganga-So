@@ -22,12 +22,28 @@ public class ParticleCollisionSpawner : MonoBehaviour
     [HideInInspector] public GameObject prefabToSpawn;
     private ParticleSystem ps;
     private List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
+    private bool hasStartedPlaying = false;
+
+    public int splatterNumber = 0;
 
     public int splatterNumber = 0;
 
     private void OnEnable()
     {
         ps = GetComponent<ParticleSystem>();
+    }
+
+    private void Update()
+    {
+        if (ps.particleCount > 0)
+        {
+            hasStartedPlaying = true;
+        }
+
+        if (hasStartedPlaying && ps.particleCount == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnParticleCollision(GameObject other)
