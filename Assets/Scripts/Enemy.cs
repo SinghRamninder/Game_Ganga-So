@@ -201,7 +201,14 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(1f / clipInfo[0].clip.length * 0.5f);
+        if (clipInfo[0].clip.length > attackRate)
+        {
+            yield return new WaitForSeconds(1f / clipInfo[0].clip.length * 0.5f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(1f / attackRate * 0.5f);
+        }
 
         isAttacking = false;
         ReturnToWalk();
@@ -260,7 +267,12 @@ public class Enemy : MonoBehaviour
     {
         isDead = true;
         Destroy(GetComponent<Rigidbody>());
-        Destroy(GetComponent<CapsuleCollider>());
+
+        Collider[] allColliders = GetComponentsInChildren<Collider>();
+        foreach (Collider collider in allColliders)
+        {
+            Destroy(collider);
+        }
 
         PlayAnimation(deathAnimString);
 
