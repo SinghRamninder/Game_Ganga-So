@@ -64,6 +64,8 @@ public class Weapon : MonoBehaviour
     public bool useOldMethod = false;
     public int splatterNumber = 0;
 
+    public BloodImpactProfile particlesProfile;
+
     private void Awake()
     {
         if (ammoText == null)
@@ -285,24 +287,24 @@ public class Weapon : MonoBehaviour
                         enemy.TakeDamage(damageToEnemyBody);
                     }
 
-                    StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, true));
+                    StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, true));
                 }
 
                 if (enemy == null)
                 {
-                    StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, false));
+                    StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
                 }
 
             }
             else
             {
                 Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
-                StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, null));
+                StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
             }
         }
     }
 
-    private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos, Vector3 hitNormal, bool? isEnemyHit = null)
+    private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos, Vector3 hitNormal,Vector3 bulletDirection, bool? isEnemyHit = null)
     {
         float time = 0;
 
@@ -362,17 +364,22 @@ public class Weapon : MonoBehaviour
 
         if (effectToPlay != null)
         {
-            Vector3 impactPos = targetPos + hitNormal * 0.01f;
+            Vector3 impactPos = targetPos + hitNormal * -0.05f;
             Quaternion impactRot = Quaternion.LookRotation(hitNormal);
             ParticleSystem instance = Instantiate(effectToPlay, impactPos, impactRot);
 
             ParticleCollisionSpawner instanceScript = instance.GetComponent<ParticleCollisionSpawner>();
-            if (impactPrefab!= null && instanceScript != null)
+            if (impactPrefab != null && instanceScript != null)
                 instanceScript.prefabToSpawn = impactPrefab;
 
-            instance.Play();
-            float totalDuration = instance.main.duration + instance.main.startLifetime.constantMax;
-            Destroy(instance.gameObject, totalDuration);
+            if (instanceScript != null)
+            {
+                instanceScript.SpawnBlood(bulletDirection, particlesProfile);
+            }
+
+            //instance.Play();
+            //float totalDuration = instance.main.duration + instance.main.startLifetime.constantMax;
+            //Destroy(instance.gameObject, totalDuration);
         }
 
         Destroy(bulletTrailSpawned.gameObject, bulletTrailSpawned.time);
