@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7824335089824173540}
   - component: {fileID: 8499430978957560688}
-  - component: {fileID: 4895555166562255248}
+  - component: {fileID: 5555015584298320515}
   m_Layer: 7
   m_Name: Gun 1
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1354798159435328542}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.63, y: -0.77, z: -0.991}
   m_LocalScale: {x: 0.12764578, y: 0.12764578, z: 0.12764578}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: c44e82574be48ae41a09529a96626878, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4db5913b0a74c349becac9cac9c74c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,7 +94,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &4895555166562255248
+--- !u!95 &5555015584298320515
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ Animator:
   m_GameObject: {fileID: 1354798159435328542}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f44c86ba16010e3488a4b16c94c094b7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 791933fbbc0aa8146b3755db59ff7267, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -126,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6725360588509041363}
   - component: {fileID: 900805901984511068}
-  - component: {fileID: 54068150672176307}
+  - component: {fileID: 6289151204539647065}
   m_Layer: 7
   m_Name: Gun 2
   m_TagString: Untagged
@@ -142,15 +142,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4018163282744624305}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.64, y: -1.17, z: -2.24}
   m_LocalScale: {x: 0.12764578, y: 0.12764578, z: 0.12764578}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2499305462648261106}
   - {fileID: 1654155296357855754}
   m_Father: {fileID: 3626282877688058315}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &900805901984511068
 SpriteRenderer:
   serializedVersion: 2
@@ -200,7 +200,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: c44e82574be48ae41a09529a96626878, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4db5913b0a74c349becac9cac9c74c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -210,7 +210,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &54068150672176307
+--- !u!95 &6289151204539647065
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ Animator:
   m_GameObject: {fileID: 4018163282744624305}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f44c86ba16010e3488a4b16c94c094b7, type: 2}
+  m_Controller: {fileID: 9100000, guid: d98e372eb39941240b97338d3f55de02, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -363,8 +363,8 @@ MonoBehaviour:
   reloadTime: 2
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 247455129476477726}
-  gunAnimator: {fileID: 4895555166562255248}
-  gunAnimator2: {fileID: 54068150672176307}
+  gunAnimator: {fileID: 0}
+  gunAnimator2: {fileID: 0}
   impactPrefab: {fileID: 8390140630907516658, guid: 8744311d6398d44308574d43fb805dc6, type: 3}
   impactEffectNonEnemy: {fileID: 7226583673155636403, guid: 511d2f3077c274c08b7d604dd206e422, type: 3}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: 1e11061341dfbab42bb4c2d9f6bfd259, type: 3}
