@@ -666,6 +666,12 @@ public class Weapon : MonoBehaviour
         AudioSource source = targetAudioSourceObj.AddComponent<AudioSource>();
         source.clip = clip;
         source.volume = volume;
+        if (isDualPistol)
+        {
+            source.spatialBlend = 1f;
+            source.minDistance = 5f;
+            source.maxDistance = 50f;
+        }
         source.Play();
 
         yield return new WaitForSeconds(source.clip.length);
