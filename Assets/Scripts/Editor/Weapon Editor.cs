@@ -40,6 +40,10 @@ public class WeaponEditor : Editor
             weapon.rumbleLeftFrequency = EditorGUILayout.Slider(new GUIContent("Rumble Left Freq", "Controller left motor rumble frequency (0-1)."), weapon.rumbleLeftFrequency, 0f, 1f);
             weapon.rumbleRightFrequency = EditorGUILayout.Slider(new GUIContent("Rumble Right Freq", "Controller right motor rumble frequency (0-1)."), weapon.rumbleRightFrequency, 0f, 1f);
             weapon.rumbleTime = EditorGUILayout.FloatField(new GUIContent("Rumble Time", "Controller rumble duration in seconds."), weapon.rumbleTime);
+
+            EditorGUILayout.Space();
+            GUILayout.Label("Animations", EditorStyles.boldLabel);
+            weapon.attackAnimString = EditorGUILayout.TextField(new GUIContent("Attack Animation", "Animator trigger used to play the attack animation."), weapon.attackAnimString);
         }
         else
         {
@@ -52,7 +56,11 @@ public class WeaponEditor : Editor
             weapon.raysPerShot = EditorGUILayout.IntField(new GUIContent("Bullets per shot", "Number of bullets fired in a single shot (e.g., for shotguns)."), weapon.raysPerShot);
             weapon.aoeSpread = EditorGUILayout.FloatField(new GUIContent("Area of Effect Spread", "Spread radius upon impact or multiple rays. Can be adjustable via scene visually with gizmos."), weapon.aoeSpread);
             weapon.maxAmmo = EditorGUILayout.IntField(new GUIContent("Maximum Ammo", "Total ammunition capacity in a clip."), weapon.maxAmmo);
-            weapon.reloadTime = EditorGUILayout.FloatField(new GUIContent("Reload Time", "Time in seconds required to reload."), weapon.reloadTime);
+            weapon.useReloadAnimLength = EditorGUILayout.Toggle(new GUIContent("Use Reload Anim Length", "Use the length of the reload animation clip for reload time."), weapon.useReloadAnimLength);
+            if (!weapon.useReloadAnimLength)
+            {
+                weapon.reloadTime = EditorGUILayout.FloatField(new GUIContent("Reload Time", "Time in seconds required to reload."), weapon.reloadTime);
+            }
             weapon.recoilForce = EditorGUILayout.FloatField(new GUIContent("Recoil Force", "The upward recoil force applied to the camera when shooting."), weapon.recoilForce);
 
             EditorGUILayout.Space();
@@ -83,12 +91,19 @@ public class WeaponEditor : Editor
             weapon.rumbleTime = EditorGUILayout.FloatField(new GUIContent("Rumble Time", "Controller rumble duration in seconds."), weapon.rumbleTime);
 
             EditorGUILayout.Space();
+            GUILayout.Label("Animations", EditorStyles.boldLabel);
+            weapon.attackAnimString = EditorGUILayout.TextField(new GUIContent("Attack Animation", "Animator list trigger used to play shooting animations on this weapon."), weapon.attackAnimString);
+            weapon.reloadAnimString = EditorGUILayout.TextField(new GUIContent("Reload Animation", "Animator list bool used to play reloading animations on this weapon."), weapon.reloadAnimString);
+
+            EditorGUILayout.Space();
             GUILayout.Label("Advanced options");
             weapon.isDualPistol = EditorGUILayout.Toggle(new GUIContent("Is Dual Pistol", "Is this gun a dual pistol?"), weapon.isDualPistol);
             if (weapon.isDualPistol)
             {
                 weapon.shootPoint1 = (Transform)EditorGUILayout.ObjectField(new GUIContent("Pistol 1 shooting position", "Where is the pistol 1 shooting position?"), weapon.shootPoint1, typeof(Transform), true);
                 weapon.shootPoint2 = (Transform)EditorGUILayout.ObjectField(new GUIContent("Pistol 2 shooting position", "Where is the pistol 2 shooting position?"), weapon.shootPoint2, typeof(Transform), true);
+                weapon.gunAnimator2 = (Animator)EditorGUILayout.ObjectField(new GUIContent("Gun Animator 2", "Animator for the second pistol."), weapon.gunAnimator2, typeof(Animator), true);
+                weapon.audioSource2 = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Audio Source 2", "Audio Source Object for the second pistol."), weapon.audioSource2, typeof(GameObject), true);
             }
             else
             {

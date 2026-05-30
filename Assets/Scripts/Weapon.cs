@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEngine.Rendering;
 
 public enum FireMode
 {
@@ -39,6 +40,7 @@ public class Weapon : MonoBehaviour
     private Transform firePoint;
     [HideInInspector] public ParticleSystem muzzleFlash;
     [HideInInspector] public Animator gunAnimator;
+    [HideInInspector] public Animator gunAnimator2;
 
     [HideInInspector] public GameObject impactPrefab;
     [HideInInspector] public ParticleSystem impactEffectNonEnemy;
@@ -59,12 +61,27 @@ public class Weapon : MonoBehaviour
     private bool isMP1 = true;
     [HideInInspector] public Transform shootPoint2;
 
+    [Header("Animations")]
+    [HideInInspector] public string attackAnimString = "Attack";
+    [HideInInspector] public string reloadAnimString = "Reload";
+    [HideInInspector] public bool useReloadAnimLength = false;
+
     private Sprite gunFirstSprite;
+    private Sprite gunFirstSprite2;
 
     public bool useOldMethod = false;
-    public int splatterNumber = 0;
 
+    [Header("Splatter settings")]
+    public int splatterNumber = 0;
     public BloodImpactProfile particlesProfile;
+
+    [Header("Audio Settings")]
+    public AudioClip reloadSound;
+    [Range(0f, 1f)] public float reloadVolume;
+    public AudioClip shootSound;
+    [Range(0f, 1f)] public float shootVolume;
+    public GameObject audioSource;
+    [HideInInspector] public GameObject audioSource2;
 
     private void Awake()
     {
@@ -82,13 +99,16 @@ public class Weapon : MonoBehaviour
     {
         if (gunFirstSprite == null)
         {
-            SpriteRenderer thisChildSprite = GetComponentInChildren<SpriteRenderer>();
-            gunFirstSprite = thisChildSprite.sprite;
+            SpriteRenderer[] childSprites = GetComponentsInChildren<SpriteRenderer>();
+            if (childSprites.Length > 0) gunFirstSprite = childSprites[0].sprite;
+            if (childSprites.Length > 1 && isDualPistol) gunFirstSprite2 = childSprites[1].sprite;
         }
 
         if (gunAnimator == null)
         {
-            gunAnimator = GetComponentInChildren<Animator>();
+            Animator[] animators = GetComponentsInChildren<Animator>();
+            if (animators.Length > 0) gunAnimator = animators[0];
+            if (animators.Length > 1 && isDualPistol) gunAnimator2 = animators[1];
         }
 
         currentAmmo = maxAmmo;
@@ -110,11 +130,33 @@ public class Weapon : MonoBehaviour
 
     private void OnDisable()
     {
-        if (gunAnimator != null) gunAnimator.SetBool("Reload", false);
+        if (gunAnimator != null) gunAnimator.SetBool(reloadAnimString, false);
+        if (gunAnimator2 != null) gunAnimator2.SetBool(reloadAnimString, false);
         if (gunFirstSprite != null)
         {
-            SpriteRenderer thisObject = GetComponentInChildren<SpriteRenderer>();
-            thisObject.sprite = gunFirstSprite;
+            SpriteRenderer[] childSprites = GetComponentsInChildren<SpriteRenderer>();
+            if (childSprites.Length > 0) childSprites[0].sprite = gunFirstSprite;
+            if (childSprites.Length > 1 && isDualPistol && gunFirstSprite2 != null) childSprites[1].sprite = gunFirstSprite2;
+        }
+
+        if (audioSource != null)
+        {
+            AudioSource[] audioSources = audioSource.GetComponents<AudioSource>();
+            foreach (AudioSource audioSource in audioSources)
+            {
+                if (audioSource != null)
+                    Destroy(audioSource);
+            }
+        }
+        
+        if (audioSource2 != null)
+        {
+            AudioSource[] audioSources = audioSource2.GetComponents<AudioSource>();
+            foreach (AudioSource audioSource in audioSources)
+            {
+                if (audioSource != null)
+                    Destroy(audioSource);
+            }
         }
 
         if (PlayerHealthManager.instance != null && !isMeleeWeapon)
@@ -167,18 +209,55 @@ public class Weapon : MonoBehaviour
 
         nextTimeToFire = Time.time + (1f / fireRate);
 
-        Fire();
+        if (isMeleeWeapon)
+        {
+            StartCoroutine(MeleeAttack());
+        }
+        else
+        {
+            Fire();
+        }
     }
 
     private IEnumerator Reload()
     {
         isReloading = true;
-        if (gunAnimator != null) gunAnimator.SetBool("Reload", true);
+        if (audioSource != null & reloadSound != null)
+        {
+            StartCoroutine(soundEffect(audioSource, reloadSound, reloadVolume));
+        }
+
+        if (isDualPistol && audioSource2 != null & reloadSound != null)
+        {
+            StartCoroutine(soundEffect(audioSource2, reloadSound, reloadVolume));
+        }
+
+        float currentReloadTime = reloadTime;
+
+        if (gunAnimator != null) 
+        {
+            gunAnimator.SetBool(reloadAnimString, true);
+            if (useReloadAnimLength)
+            {
+                AnimatorClipInfo[] clipInfo = gunAnimator.GetCurrentAnimatorClipInfo(0);
+                if (clipInfo.Length > 0)
+                {
+                    currentReloadTime = clipInfo[0].clip.length;
+                }
+            }
+        }
+
+        if (isDualPistol && gunAnimator2 != null)
+        {
+            gunAnimator2.SetBool(reloadAnimString, true);
+        }
+
         if (ammoText != null) ammoText.text = "Reloading...";
         
-        yield return new WaitForSeconds(reloadTime);
+        yield return new WaitForSeconds(currentReloadTime);
 
-        if (gunAnimator != null) gunAnimator.SetBool("Reload", false);
+        if (gunAnimator != null) gunAnimator.SetBool(reloadAnimString, false);
+        if (isDualPistol && gunAnimator2 != null) gunAnimator2.SetBool(reloadAnimString, false);
 
         currentAmmo = maxAmmo;
         isReloading = false;
@@ -194,6 +273,90 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private IEnumerator MeleeAttack()
+    {
+        Animator currentAnimator = gunAnimator;
+        if (isDualPistol && !isSP1 && gunAnimator2 != null)
+        {
+            currentAnimator = gunAnimator2;
+        }
+
+        if (currentAnimator != null && !string.IsNullOrEmpty(attackAnimString))
+        {
+            currentAnimator.SetTrigger(attackAnimString);
+        }
+
+        GameObject currentAudio = audioSource;
+        if (isDualPistol && !isSP1 && audioSource2 != null)
+        {
+            currentAudio = audioSource2;
+        }
+
+        if (currentAudio != null & shootSound != null)
+        {
+            StartCoroutine(soundEffect(currentAudio, shootSound, shootVolume));
+        }
+        
+        if (isDualPistol)
+        {
+            isSP1 = !isSP1;
+        }
+
+        float animLength = 1f;
+        if (currentAnimator != null)
+        {
+            AnimatorClipInfo[] clipInfo = currentAnimator.GetCurrentAnimatorClipInfo(0);
+            if (clipInfo.Length > 0)
+            {
+                animLength = clipInfo[0].clip.length;
+            }
+        }
+
+        yield return new WaitForSeconds(animLength * 0.5f);
+
+        Camera cam = null;
+        var playerController = GetComponentInParent<SimplePlayerController>();
+        if (playerController != null)
+        {
+            cam = playerController.playerCamera;
+        }
+
+        Vector3 rayOrigin = (cam != null) ? cam.transform.position : transform.position;
+        Vector3 baseDirection = (cam != null) ? cam.transform.forward : transform.forward;
+
+        if (Physics.Raycast(rayOrigin, baseDirection, out RaycastHit hit, range))
+        {
+            EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
+            Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
+
+            if (enemy != null && enemyHitBox != null)
+            {
+                if (enemyHitBox.bodyPart == BodyPart.Head)
+                {
+                    enemy.TakeDamage(damageToEnemyHead);
+                }
+                else if (enemyHitBox.bodyPart == BodyPart.Body)
+                {
+                    enemy.TakeDamage(damageToEnemyBody);
+                }
+                
+                if (impactEffectEnemy != null)
+                {
+                    Instantiate(impactEffectEnemy, hit.point + hit.normal * 0.05f, Quaternion.LookRotation(hit.normal));
+                }
+            }
+            else
+            {
+                if (impactEffectNonEnemy != null)
+                {
+                    Instantiate(impactEffectNonEnemy, hit.point + hit.normal * 0.05f, Quaternion.LookRotation(hit.normal));
+                }
+            }
+        }
+
+        yield return new WaitForSeconds(animLength * 0.5f);
+    }
+
     public void Fire()
     {
         if (!isMeleeWeapon)
@@ -202,9 +365,26 @@ public class Weapon : MonoBehaviour
             UpdateAmmoUI();
         }
 
-        if (gunAnimator != null)
+        Animator currentAnimator = gunAnimator;
+        if (isDualPistol && !isSP1 && gunAnimator2 != null)
         {
-            gunAnimator.SetTrigger("Shoot");
+            currentAnimator = gunAnimator2;
+        }
+
+        if (currentAnimator != null)
+        {
+            currentAnimator.SetTrigger(attackAnimString);
+        }
+
+        GameObject currentAudio = audioSource;
+        if (isDualPistol && !isSP1 && audioSource2 != null)
+        {
+            currentAudio = audioSource2;
+        }
+
+        if (currentAudio != null & shootSound != null)
+        {
+            StartCoroutine(soundEffect(currentAudio, shootSound, shootVolume));
         }
 
         if (muzzleFlash != null && !isDualPistol)
@@ -479,5 +659,17 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         PlayerWeaponManager.instance.headCrosshair.SetActive(false);
+    }
+
+    private IEnumerator soundEffect(GameObject targetAudioSourceObj, AudioClip clip, float volume)
+    {
+        AudioSource source = targetAudioSourceObj.AddComponent<AudioSource>();
+        source.clip = clip;
+        source.volume = volume;
+        source.Play();
+
+        yield return new WaitForSeconds(source.clip.length);
+        
+        Destroy(source, 2f);
     }
 }
