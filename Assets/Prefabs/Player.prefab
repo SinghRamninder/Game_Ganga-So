@@ -1547,6 +1547,7 @@ GameObject:
   - component: {fileID: 5013384063038910842}
   - component: {fileID: 8861769538984295157}
   - component: {fileID: 8194632082880771969}
+  - component: {fileID: 1199991214547361522}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1613,7 +1614,7 @@ MonoBehaviour:
   controllerSensitivity: 150
   maxLookAngle: 39
   jumpHeight: 8
-  gravityMultiplier: 5
+  gravityMultiplier: 15
   simpleMovement: 0
   deceleration: 80
   gunSpeedModifier: 1
@@ -1635,6 +1636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponManager
   weaponHolder: {fileID: 248039951975568822}
   crosshair: {fileID: 0}
+  headCrosshair: {fileID: 0}
   weaponsSpawned: []
   weaponLayerNumber: 0
 --- !u!114 &8194632082880771969
@@ -1652,6 +1654,14 @@ MonoBehaviour:
   baseMaxHealth: 100
   healthText: {fileID: 0}
   bloodImage: {fileID: 0}
+--- !u!81 &1199991214547361522
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6955562605806925438}
+  m_Enabled: 1
 --- !u!1 &7448800989099799528
 GameObject:
   m_ObjectHideFlags: 0

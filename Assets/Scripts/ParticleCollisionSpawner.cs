@@ -8,8 +8,6 @@ public class BloodImpactProfile
     public int particleCount = 30;
 
     public ParticleSystem.MinMaxCurve speed = new ParticleSystem.MinMaxCurve(10f);
-    //public float minSpeed = 8f;
-    //public float maxSpeed = 16f;
 
     [Range(0f, 1f)]
     public float spread = 0.25f;
@@ -17,12 +15,6 @@ public class BloodImpactProfile
     public ParticleSystem.MinMaxCurve gravityModifier = new ParticleSystem.MinMaxCurve(2f);
     public ParticleSystem.MinMaxCurve lifetime = new ParticleSystem.MinMaxCurve(0.5f);
     public ParticleSystem.MinMaxCurve size = new ParticleSystem.MinMaxCurve(1f);
-
-    //public float minLifetime = 0.25f;
-    //public float maxLifetime = 0.7f;
-
-    //public float minSize = 0.04f;
-    //public float maxSize = 0.12f;
 }
 
 public class ParticleCollisionSpawner : MonoBehaviour
