@@ -17,6 +17,16 @@ public class SimplePlayerController : MonoBehaviour
 
     [HideInInspector] public float gunSpeedModifier = 1f;
 
+    [Header("Dash Settings")]
+    public float dashSpeed = 15f;
+    public float dashDuration = 0.25f;
+    public float dashCooldown = 1f;
+
+    private bool isDashing = false;
+    private float dashTimer = 0f;
+    private float dashCooldownTimer = 0f;
+    private Vector3 dashDirection;
+
     [Header("Head Bob Settings")]
     public float bobSpeed = 10f;
     public float bobAmount = 0.05f;
@@ -55,16 +65,33 @@ public class SimplePlayerController : MonoBehaviour
     {
         HandleLook();
 
-        // Testing
-        if (!simpleMovement)
+        if (dashCooldownTimer > 0)
         {
-            HandleMovement();
+            dashCooldownTimer -= Time.deltaTime;
+        }
+
+        if (InputManager.instance.controls.Player.Dash.WasPressedThisFrame() && dashCooldownTimer <= 0 && !isDashing)
+        {
+            StartDash();
+        }
+
+        if (isDashing)
+        {
+            HandleDash();
         }
         else
         {
-            HandleMovementWithoutAD();
+            // Testing
+            if (!simpleMovement)
+            {
+                HandleMovement();
+            }
+            else
+            {
+                HandleMovementWithoutAD();
+            }
+            // Testing
         }
-        // Testing
 
         HandleHeadBob();
         HandleCameraShake();
@@ -165,6 +192,55 @@ public class SimplePlayerController : MonoBehaviour
         controller.Move(move * Time.deltaTime);
     }
     // Testing
+
+    private void StartDash()
+    {
+        isDashing = true;
+        dashTimer = dashDuration;
+        dashCooldownTimer = dashCooldown;
+
+        Vector2 moveInput = InputManager.instance.controls.Player.Move.ReadValue<Vector2>();
+        float moveX = moveInput.x;
+        float moveZ = moveInput.y;
+
+        Vector3 inputDirection = -transform.right * moveX - transform.forward * moveZ;
+
+        if (inputDirection.magnitude < 0.1f)
+        {
+            inputDirection = -transform.forward;
+        }
+        else
+        {
+            inputDirection = inputDirection.normalized;
+        }
+
+        dashDirection = inputDirection;
+    }
+
+    private void HandleDash()
+    {
+        dashTimer -= Time.deltaTime;
+
+        if (dashTimer <= 0f)
+        {
+            isDashing = false;
+            currentVelocity = dashDirection * moveSpeed;
+        }
+
+        if (controller.isGrounded)
+        {
+            yVelocity = -2f;
+        }
+        else
+        {
+            yVelocity += (Physics.gravity.y * gravityMultiplier) * Time.deltaTime;
+        }
+
+        Vector3 finalMove = dashDirection * dashSpeed;
+        finalMove.y = yVelocity;
+
+        controller.Move(finalMove * Time.deltaTime);
+    }
 
     private void HandleHeadBob()
     {

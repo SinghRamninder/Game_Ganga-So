@@ -1618,6 +1618,9 @@ MonoBehaviour:
   simpleMovement: 0
   deceleration: 80
   gunSpeedModifier: 1
+  dashSpeed: 120
+  dashDuration: 0.25
+  dashCooldown: 1
   bobSpeed: 12
   bobAmount: 0.01
   playerCamera: {fileID: 0}
