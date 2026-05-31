@@ -189,13 +189,13 @@ MonoBehaviour:
   canShoot: 1
   canShootProjectile: 1
   projectile: {fileID: -2003739180757158627, guid: c4e118d2935508d4dabdead61b2a9984, type: 3}
-  shootRange: 50
+  shootRange: 400
   bulletSpeed: 40
   projectileSpeed: 15
   rayShootOfset: 8
   maxHealth: 150
   speed: 5
-  damageToPlayer: 10
+  damageToPlayer: 50
   attackRange: 7
   attackRate: 0.5
   moveTowardsLastPlayerPosition: 1

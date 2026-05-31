@@ -90,6 +90,13 @@ public class PlayerHealthManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void Heal(float amount)
+{
+    currentHealth += amount;
+    if (currentHealth > currentMaxHealth) currentHealth = currentMaxHealth;
+    UpdateUI();
+}
+
     private IEnumerator DisplayHitEffect()
     {
         if (bloodImage != null)
