@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1354798159435328542}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.46, y: 0.48999694, z: -0.5700027}
+  m_LocalPosition: {x: 1.46, y: -0.6, z: -0.5700027}
   m_LocalScale: {x: 0.21, y: 0.21, z: 0.21}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.84, y: 2.16}
+  m_Size: {x: 14.871094, y: 24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -143,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 4018163282744624305}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -1.46, y: 0.49, z: -0.46}
+  m_LocalPosition: {x: -1.46, y: -0.54, z: -0.46}
   m_LocalScale: {x: 0.21, y: 0.21, z: 0.21}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -205,7 +205,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.84, y: 2.16}
+  m_Size: {x: 14.87, y: 12.04}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -257,7 +257,7 @@ Transform:
   m_GameObject: {fileID: 4141391103412123464}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.68, y: -1.19, z: 0}
+  m_LocalPosition: {x: -2.74, y: 4.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -288,7 +288,7 @@ Transform:
   m_GameObject: {fileID: 7081218098691514869}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.38, y: 0, z: 0}
+  m_LocalPosition: {x: 1.27, y: 4.6, z: 0}
   m_LocalScale: {x: 7.834181, y: 7.834181, z: 7.834181}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -373,6 +373,7 @@ MonoBehaviour:
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
   weaponSpawnScale: {x: 0.8500001, y: 0.8500001, z: 0.8500001}
   isDualPistol: 1
+  differentShootButtons: 1
   shootPoint1: {fileID: 6592937034079664169}
   shootPoint2: {fileID: 1654155296357855754}
   attackAnimString: Attack
@@ -518,7 +519,7 @@ Transform:
   m_GameObject: {fileID: 8230637527002019060}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.92, y: -1.13, z: 0}
+  m_LocalPosition: {x: -2.74, y: 4.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -549,7 +550,7 @@ Transform:
   m_GameObject: {fileID: 9011923521684470343}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.59, y: 0, z: 0}
+  m_LocalPosition: {x: 1.27, y: 4.6, z: 0}
   m_LocalScale: {x: 7.8341813, y: 7.8341813, z: 7.8341813}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -601,15 +602,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.054887686
+      value: 1.39
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.054887686
+      value: 1.39
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.054887686
+      value: 1.39
       objectReference: {fileID: 0}
     - target: {fileID: 7187393024123294134, guid: 5f2bc166e68df974bb952c4ec5c43454, type: 3}
       propertyPath: m_LocalPosition.x

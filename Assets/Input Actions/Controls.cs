@@ -102,6 +102,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""DualPistolLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0033607-ed5b-4706-a5b5-27fecd1360dc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DualPistolRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""e675df91-d9af-4c8f-bd56-0e5156eef851"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Equip"",
                     ""type"": ""Button"",
                     ""id"": ""220cd5e9-39f3-4630-aedb-a93ae4808bf9"",
@@ -281,6 +299,50 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": ""Scale(factor=9)"",
                     ""groups"": "";Keyboard"",
                     ""action"": ""SelectWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4bf25b3e-c26f-406e-a000-b07d9c58e88c"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Mouse"",
+                    ""action"": ""DualPistolLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1cb0699d-b195-43c3-b86b-a1225f72f73d"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DualPistolLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2aefd63-2ddc-48f6-9559-ac9c12c31ba9"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Mouse"",
+                    ""action"": ""DualPistolRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e6472e1-399e-4ff1-8033-6fbcb9702932"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""DualPistolRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -502,6 +564,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_Attack = m_Weapon.FindAction("Attack", throwIfNotFound: true);
+        m_Weapon_DualPistolLeft = m_Weapon.FindAction("DualPistolLeft", throwIfNotFound: true);
+        m_Weapon_DualPistolRight = m_Weapon.FindAction("DualPistolRight", throwIfNotFound: true);
         m_Weapon_Equip = m_Weapon.FindAction("Equip", throwIfNotFound: true);
         m_Weapon_ScrollWeapon = m_Weapon.FindAction("ScrollWeapon", throwIfNotFound: true);
         m_Weapon_SelectWeapon = m_Weapon.FindAction("SelectWeapon", throwIfNotFound: true);
@@ -593,6 +657,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Weapon;
     private List<IWeaponActions> m_WeaponActionsCallbackInterfaces = new List<IWeaponActions>();
     private readonly InputAction m_Weapon_Attack;
+    private readonly InputAction m_Weapon_DualPistolLeft;
+    private readonly InputAction m_Weapon_DualPistolRight;
     private readonly InputAction m_Weapon_Equip;
     private readonly InputAction m_Weapon_ScrollWeapon;
     private readonly InputAction m_Weapon_SelectWeapon;
@@ -611,6 +677,14 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Weapon/Attack".
         /// </summary>
         public InputAction @Attack => m_Wrapper.m_Weapon_Attack;
+        /// <summary>
+        /// Provides access to the underlying input action "Weapon/DualPistolLeft".
+        /// </summary>
+        public InputAction @DualPistolLeft => m_Wrapper.m_Weapon_DualPistolLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "Weapon/DualPistolRight".
+        /// </summary>
+        public InputAction @DualPistolRight => m_Wrapper.m_Weapon_DualPistolRight;
         /// <summary>
         /// Provides access to the underlying input action "Weapon/Equip".
         /// </summary>
@@ -652,6 +726,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @DualPistolLeft.started += instance.OnDualPistolLeft;
+            @DualPistolLeft.performed += instance.OnDualPistolLeft;
+            @DualPistolLeft.canceled += instance.OnDualPistolLeft;
+            @DualPistolRight.started += instance.OnDualPistolRight;
+            @DualPistolRight.performed += instance.OnDualPistolRight;
+            @DualPistolRight.canceled += instance.OnDualPistolRight;
             @Equip.started += instance.OnEquip;
             @Equip.performed += instance.OnEquip;
             @Equip.canceled += instance.OnEquip;
@@ -675,6 +755,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @DualPistolLeft.started -= instance.OnDualPistolLeft;
+            @DualPistolLeft.performed -= instance.OnDualPistolLeft;
+            @DualPistolLeft.canceled -= instance.OnDualPistolLeft;
+            @DualPistolRight.started -= instance.OnDualPistolRight;
+            @DualPistolRight.performed -= instance.OnDualPistolRight;
+            @DualPistolRight.canceled -= instance.OnDualPistolRight;
             @Equip.started -= instance.OnEquip;
             @Equip.performed -= instance.OnEquip;
             @Equip.canceled -= instance.OnEquip;
@@ -899,6 +985,20 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAttack(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DualPistolLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDualPistolLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "DualPistolRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDualPistolRight(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Equip" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
