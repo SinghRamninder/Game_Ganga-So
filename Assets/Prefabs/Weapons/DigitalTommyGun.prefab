@@ -216,9 +216,10 @@ MonoBehaviour:
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 247455129476477726, guid: 69d5dc23585f27a459fb9808990f9450, type: 3}
   gunAnimator: {fileID: 0}
+  gunAnimator2: {fileID: 0}
   impactPrefab: {fileID: 8390140630907516658, guid: c65d0a62cb44e40e688c279a7f7bcad4, type: 3}
   impactEffectNonEnemy: {fileID: 7226583673155636403, guid: a6f8d058839934cca801ace80200449f, type: 3}
-  impactEffectEnemy: {fileID: 8724896405505394418, guid: 31d5d886e931d4105b326f261d2634d8, type: 3}
+  impactEffectEnemy: {fileID: 8724896405505394418, guid: d98648d07d16749c98759b1ece83c828, type: 3}
   useSameImpactEffect: 0
   weaponSpawnPosition: {x: 0, y: 0, z: 0}
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -307,6 +308,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 01d21152700ba3948baf291b9a0e0e45, type: 3}
   shootVolume: 1
   audioSource: {fileID: 7986424382191435669}
+  audioSource2: {fileID: 0}
 --- !u!114 &6320684322224097246
 MonoBehaviour:
   m_ObjectHideFlags: 0
