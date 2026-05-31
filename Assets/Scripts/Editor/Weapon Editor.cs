@@ -26,6 +26,7 @@ public class WeaponEditor : Editor
 
             EditorGUILayout.Space();
             GUILayout.Label("Visuals & Effects", EditorStyles.boldLabel);
+            weapon.impactPrefab = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Melee impact prefab (Splatter)", "Object spawned when a melee weapon hits."), weapon.impactPrefab, typeof(GameObject), true);
             weapon.impactEffectNonEnemy = (ParticleSystem)EditorGUILayout.ObjectField(new GUIContent("Impact (Not on enemy)", "Particle effect played on hitting the environment."), weapon.impactEffectNonEnemy, typeof(ParticleSystem), true);
             weapon.impactEffectEnemy = (ParticleSystem)EditorGUILayout.ObjectField(new GUIContent("Impact (On Enemy)", "Particle effect played on hitting an enemy."), weapon.impactEffectEnemy, typeof(ParticleSystem), true);
 

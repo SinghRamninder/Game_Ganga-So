@@ -174,8 +174,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4104718982131034826}
   - {fileID: 2046845292751278994}
@@ -196,7 +196,7 @@ MonoBehaviour:
   isMeleeWeapon: 1
   fireMode: 0
   fireRate: 2
-  range: 50
+  range: 10
   cameraShakeIntensity: 0.003
   cameraShakeDuration: 0.4
   recoilForce: 0
@@ -205,10 +205,10 @@ MonoBehaviour:
   rumbleTime: 0
   bulletTrail: {fileID: 0}
   trailSpawnPos: {fileID: 506611863354532131}
-  healthModifier: 0.5
-  speedModifier: 2
-  damageToEnemyHead: 300
-  damageToEnemyBody: 300
+  healthModifier: 0
+  speedModifier: 1.5
+  damageToEnemyHead: 20
+  damageToEnemyBody: 10
   raysPerShot: 0
   aoeSpread: 0
   maxAmmo: 0
@@ -217,14 +217,15 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   gunAnimator: {fileID: 0}
   gunAnimator2: {fileID: 0}
-  impactPrefab: {fileID: 0}
+  impactPrefab: {fileID: 8390140630907516658, guid: 8744311d6398d44308574d43fb805dc6, type: 3}
   impactEffectNonEnemy: {fileID: 0}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: 1e11061341dfbab42bb4c2d9f6bfd259, type: 3}
   useSameImpactEffect: 0
   weaponSpawnPosition: {x: 0, y: 0, z: 0}
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
-  weaponSpawnScale: {x: 1, y: 1, z: 1}
+  weaponSpawnScale: {x: 0.15, y: 0.15, z: 0.15}
   isDualPistol: 0
+  differentShootButtons: 1
   shootPoint1: {fileID: 0}
   shootPoint2: {fileID: 0}
   attackAnimString: Attack
@@ -233,9 +234,9 @@ MonoBehaviour:
   useOldMethod: 0
   splatterNumber: 0
   particlesProfile:
-    particleCount: 30
+    particleCount: 10
     speed:
-      m_Mode: 0
+      m_Mode: 3
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2
@@ -249,9 +250,9 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 0
-      m_ConstantMax: 10
-    spread: 0.25
+      m_ConstantMin: 20
+      m_ConstantMax: 28
+    spread: 0.47
     gravityModifier:
       m_Mode: 0
       m_CurveMultiplier: 0
@@ -285,9 +286,9 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 0.5
+      m_ConstantMax: 10
     size:
-      m_Mode: 0
+      m_Mode: 3
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2
@@ -301,11 +302,11 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 0
-      m_ConstantMax: 1
+      m_ConstantMin: 1
+      m_ConstantMax: 1.5
   reloadSound: {fileID: 0}
   reloadVolume: 1
-  shootSound: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: e537c017b3bbe4278911330ebf29634d, type: 3}
   shootVolume: 1
   audioSource: {fileID: 1661663247555173702}
   audioSource2: {fileID: 0}

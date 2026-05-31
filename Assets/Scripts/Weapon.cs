@@ -137,12 +137,12 @@ public class Weapon : MonoBehaviour
         {
             PlayAnimation("Default", gunAnimator2);
         }
-        //if (gunFirstSprite != null)
-        //{
-        //    SpriteRenderer[] childSprites = GetComponentsInChildren<SpriteRenderer>();
-        //    if (childSprites.Length > 0) childSprites[0].sprite = gunFirstSprite;
-        //    if (childSprites.Length > 1 && isDualPistol && gunSecondSprite != null) childSprites[1].sprite = gunSecondSprite;
-        //}
+        if (gunFirstSprite != null)
+        {
+            SpriteRenderer[] childSprites = GetComponentsInChildren<SpriteRenderer>();
+            if (childSprites.Length > 0) childSprites[0].sprite = gunFirstSprite;
+            if (childSprites.Length > 1 && isDualPistol && gunSecondSprite != null) childSprites[1].sprite = gunSecondSprite;
+        }
 
         if (audioSource != null)
         {
@@ -262,12 +262,19 @@ public class Weapon : MonoBehaviour
         isReloading = true;
         if (audioSource != null & reloadSound != null)
         {
-            StartCoroutine(soundEffect(audioSource, reloadSound, reloadVolume));
+            if (isDualPistol)
+            {
+                StartCoroutine(AudioManager.Instance.PlaySound(audioSource, reloadSound, reloadVolume, true));
+            }
+            else
+            {
+                StartCoroutine(AudioManager.Instance.PlaySound(audioSource, reloadSound, reloadVolume, false));
+            }
         }
 
         if (isDualPistol && audioSource2 != null & reloadSound != null)
         {
-            StartCoroutine(soundEffect(audioSource2, reloadSound, reloadVolume));
+            StartCoroutine(AudioManager.Instance.PlaySound(audioSource2, reloadSound, reloadVolume, true));
         }
 
         float currentReloadTime = reloadTime;
@@ -341,7 +348,14 @@ public class Weapon : MonoBehaviour
 
         if (currentAudio != null & shootSound != null)
         {
-            StartCoroutine(soundEffect(currentAudio, shootSound, shootVolume));
+            if (isDualPistol)
+            {
+                StartCoroutine(AudioManager.Instance.PlaySound(currentAudio, shootSound, shootVolume, true));
+            }
+            else
+            {
+                StartCoroutine(AudioManager.Instance.PlaySound(currentAudio, shootSound, shootVolume, false));
+            }
         }
         
         if (isDualPistol)
@@ -389,7 +403,18 @@ public class Weapon : MonoBehaviour
                 
                 if (impactEffectEnemy != null)
                 {
-                    Instantiate(impactEffectEnemy, hit.point + hit.normal * 0.05f, Quaternion.LookRotation(hit.normal));
+                    Vector3 impactPos = hit.point + hit.normal * 0.05f;
+                    Quaternion impactRot = Quaternion.LookRotation(hit.normal);
+                    ParticleSystem instance = Instantiate(impactEffectEnemy, impactPos, impactRot);
+
+                    ParticleCollisionSpawner instanceScript = instance.GetComponent<ParticleCollisionSpawner>();
+                    if (impactPrefab != null && instanceScript != null)
+                        instanceScript.prefabToSpawn = impactPrefab;
+
+                    if (instanceScript != null)
+                    {
+                        instanceScript.SpawnBlood(-baseDirection, particlesProfile);
+                    }
                 }
             }
             else
@@ -420,7 +445,6 @@ public class Weapon : MonoBehaviour
 
         if (currentAnimator != null)
         {
-            Debug.Log("Attack animation: "+ currentAnimator);
             PlayAnimation(attackAnimString, currentAnimator);
         }
 
@@ -432,7 +456,14 @@ public class Weapon : MonoBehaviour
 
         if (currentAudio != null & shootSound != null)
         {
-            StartCoroutine(soundEffect(currentAudio, shootSound, shootVolume));
+            if (isDualPistol)
+            {
+                StartCoroutine(AudioManager.Instance.PlaySound(currentAudio, shootSound, shootVolume, true));
+            }
+            else
+            {
+                StartCoroutine(AudioManager.Instance.PlaySound(currentAudio, shootSound, shootVolume, false));
+            }
         }
 
         if (muzzleFlash != null && !isDualPistol)
@@ -713,21 +744,21 @@ public class Weapon : MonoBehaviour
         PlayerWeaponManager.instance.headCrosshair.SetActive(false);
     }
 
-    private IEnumerator soundEffect(GameObject targetAudioSourceObj, AudioClip clip, float volume)
-    {
-        AudioSource source = targetAudioSourceObj.AddComponent<AudioSource>();
-        source.clip = clip;
-        source.volume = volume;
-        if (isDualPistol)
-        {
-            source.spatialBlend = 1f;
-            source.minDistance = 5f;
-            source.maxDistance = 50f;
-        }
-        source.Play();
+    //private IEnumerator soundEffect(GameObject targetAudioSourceObj, AudioClip clip, float volume)
+    //{
+    //    AudioSource source = targetAudioSourceObj.AddComponent<AudioSource>();
+    //    source.clip = clip;
+    //    source.volume = volume;
+    //    if (isDualPistol)
+    //    {
+    //        source.spatialBlend = 1f;
+    //        source.minDistance = 5f;
+    //        source.maxDistance = 50f;
+    //    }
+    //    source.Play();
 
-        yield return new WaitForSeconds(source.clip.length);
+    //    yield return new WaitForSeconds(source.clip.length);
         
-        Destroy(source, 2f);
-    }
+    //    Destroy(source, 2f);
+    //}
 }

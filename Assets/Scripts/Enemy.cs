@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,13 +24,22 @@ public class Enemy : MonoBehaviour
     public ParticleSystem deathEffect;
     [HideInInspector] public BulletTrails bulletTrail;
 
-    [Header("Animations")]
     [HideInInspector] public Animator animator;
+    [Header("Animations")]
     public string walkAnimString = "Walk";
     private bool walkAnimPlaying = false;
     public string attackAnimString = "Attack";
     public string deathAnimString = "Death";
     private bool isIdle = true;
+
+    [Header("Sound settings")]
+    public AudioClip walkSound;
+    [Range(0f, 1f)] public float walkVolume = 1f;
+    public AudioClip attackSound;
+    [Range(0f, 1f)] public float attackVolume = 1f;
+    public AudioClip deathSound;
+    [Range(0f, 1f)] public float deathVolume = 1f;
+    public GameObject audioSource;
 
     private float currentHealth;
     private Transform playerTransform;
@@ -44,6 +52,9 @@ public class Enemy : MonoBehaviour
     private bool firstHitWithPlayer = false;
 
     private List<Projectile> projectiles = new List<Projectile>();
+
+    private Vector3 positionLastFrameForSound;
+    private float nextWalkSoundTime = 0f;
 
     private void Start()
     {
@@ -60,6 +71,8 @@ public class Enemy : MonoBehaviour
         {
             animator = GetComponentInChildren<Animator>();
         }
+
+        positionLastFrameForSound = transform.position;
     }
 
     private void Update()
@@ -181,12 +194,50 @@ public class Enemy : MonoBehaviour
                 ReturnToIdle();
             }
         }
+
+        CheckAndPlayWalkSound();
+    }
+
+    private void CheckAndPlayWalkSound()
+    {
+        bool isMoving = false;
+        Rigidbody rb = GetComponent<Rigidbody>();
+
+        Vector3 currentHorizontalPos = new Vector3(transform.position.x, 0, transform.position.z);
+        Vector3 lastHorizontalPos = new Vector3(positionLastFrameForSound.x, 0, positionLastFrameForSound.z);
+
+        if (rb != null)
+        {
+            Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+            if (horizontalVelocity.magnitude > 0.1f)
+            {
+                isMoving = true;
+            }
+        }
+
+        if (!isMoving && Vector3.Distance(currentHorizontalPos, lastHorizontalPos) > 0.001f)
+        {
+            isMoving = true;
+        }
+
+        if (isMoving && !isAttacking)
+        {
+            if (audioSource != null && walkSound != null && Time.time >= nextWalkSoundTime)
+            {
+                StartCoroutine(AudioManager.Instance.PlaySound(audioSource, walkSound, walkVolume, true));
+                nextWalkSoundTime = Time.time + walkSound.length;
+            }
+        }
+
+        positionLastFrameForSound = transform.position;
     }
 
     private IEnumerator Attack()
     {
         isAttacking = true;
         PlayAnimation(attackAnimString);
+        if (audioSource != null && attackSound != null)
+            StartCoroutine(AudioManager.Instance.PlaySound(audioSource, attackSound, attackVolume, true));
 
         AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
 
@@ -217,6 +268,8 @@ public class Enemy : MonoBehaviour
     private void Shoot(Vector3 shootPos, Vector3 shootDirection)
     {
         PlayAnimation(attackAnimString);
+        if (audioSource != null && attackSound != null)
+            StartCoroutine(AudioManager.Instance.PlaySound(audioSource, attackSound, attackVolume, true));
 
         if (Physics.Raycast(shootPos, shootDirection, out RaycastHit hit, shootRange))
         {
@@ -275,6 +328,8 @@ public class Enemy : MonoBehaviour
         }
 
         PlayAnimation(deathAnimString);
+        if (audioSource != null && deathSound != null)
+            StartCoroutine(AudioManager.Instance.PlaySound(audioSource, deathSound, deathVolume, true));
 
         if (deathEffect != null)
         {
@@ -285,7 +340,24 @@ public class Enemy : MonoBehaviour
 
         AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
 
-        float delay = (animator != null && animator.enabled) ? clipInfo[0].clip.length : 0f;
+        float delay = 0f;
+
+        if (animator != null && animator.enabled)
+        {
+            if (audioSource != null && deathSound != null)
+            {
+                delay = deathSound.length > clipInfo[0].clip.length ? deathSound.length : clipInfo[0].clip.length;
+            }
+            else
+            {
+                delay = clipInfo[0].clip.length;
+            }
+        }
+        else
+        {
+            delay = 0f;
+        }
+
         Destroy(gameObject, delay);
     }
 
