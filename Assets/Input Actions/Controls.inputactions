@@ -16,6 +16,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "DualPistolLeft",
+                    "type": "Button",
+                    "id": "f0033607-ed5b-4706-a5b5-27fecd1360dc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DualPistolRight",
+                    "type": "Button",
+                    "id": "e675df91-d9af-4c8f-bd56-0e5156eef851",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Equip",
                     "type": "Button",
                     "id": "220cd5e9-39f3-4630-aedb-a93ae4808bf9",
@@ -195,6 +213,50 @@
                     "processors": "Scale(factor=9)",
                     "groups": ";Keyboard",
                     "action": "SelectWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4bf25b3e-c26f-406e-a000-b07d9c58e88c",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Mouse",
+                    "action": "DualPistolLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1cb0699d-b195-43c3-b86b-a1225f72f73d",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "DualPistolLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2aefd63-2ddc-48f6-9559-ac9c12c31ba9",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Mouse",
+                    "action": "DualPistolRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e6472e1-399e-4ff1-8033-6fbcb9702932",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "DualPistolRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

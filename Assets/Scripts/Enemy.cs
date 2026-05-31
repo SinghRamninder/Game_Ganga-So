@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public BulletTrails bulletTrail;
 
     [Header("Animations")]
-    public Animator animator;
+    [HideInInspector] public Animator animator;
     public string walkAnimString = "Walk";
     private bool walkAnimPlaying = false;
     public string attackAnimString = "Attack";

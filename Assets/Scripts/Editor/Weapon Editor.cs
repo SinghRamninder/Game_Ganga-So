@@ -100,9 +100,10 @@ public class WeaponEditor : Editor
             weapon.isDualPistol = EditorGUILayout.Toggle(new GUIContent("Is Dual Pistol", "Is this gun a dual pistol?"), weapon.isDualPistol);
             if (weapon.isDualPistol)
             {
+                weapon.differentShootButtons = EditorGUILayout.Toggle(new GUIContent("Different Shoot Buttons", "Use different buttons for different guns"), weapon.differentShootButtons);
                 weapon.shootPoint1 = (Transform)EditorGUILayout.ObjectField(new GUIContent("Pistol 1 shooting position", "Where is the pistol 1 shooting position?"), weapon.shootPoint1, typeof(Transform), true);
                 weapon.shootPoint2 = (Transform)EditorGUILayout.ObjectField(new GUIContent("Pistol 2 shooting position", "Where is the pistol 2 shooting position?"), weapon.shootPoint2, typeof(Transform), true);
-                weapon.gunAnimator2 = (Animator)EditorGUILayout.ObjectField(new GUIContent("Gun Animator 2", "Animator for the second pistol."), weapon.gunAnimator2, typeof(Animator), true);
+                //weapon.gunAnimator2 = (Animator)EditorGUILayout.ObjectField(new GUIContent("Gun Animator 2", "Animator for the second pistol."), weapon.gunAnimator2, typeof(Animator), true);
                 weapon.audioSource2 = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Audio Source 2", "Audio Source Object for the second pistol."), weapon.audioSource2, typeof(GameObject), true);
             }
             else

@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEngine.Rendering;
 
 public enum FireMode
 {
@@ -56,20 +54,21 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public Vector3 weaponSpawnScale = Vector3.one;
 
     [HideInInspector] public bool isDualPistol = false;
+    [HideInInspector] public bool differentShootButtons = true;
     [HideInInspector] public Transform shootPoint1;
     private bool isSP1 = true;
     private bool isMP1 = true;
     [HideInInspector] public Transform shootPoint2;
 
     [Header("Animations")]
-    [HideInInspector] public string attackAnimString = "Attack";
-    [HideInInspector] public string reloadAnimString = "Reload";
+    public string attackAnimString = "Attack";
+    public string reloadAnimString = "Reload";
     [HideInInspector] public bool useReloadAnimLength = false;
 
     private Sprite gunFirstSprite;
-    private Sprite gunFirstSprite2;
+    private Sprite gunSecondSprite;
 
-    public bool useOldMethod = false;
+    [HideInInspector] public bool useOldMethod = false;
 
     [Header("Splatter settings")]
     public int splatterNumber = 0;
@@ -101,7 +100,7 @@ public class Weapon : MonoBehaviour
         {
             SpriteRenderer[] childSprites = GetComponentsInChildren<SpriteRenderer>();
             if (childSprites.Length > 0) gunFirstSprite = childSprites[0].sprite;
-            if (childSprites.Length > 1 && isDualPistol) gunFirstSprite2 = childSprites[1].sprite;
+            if (childSprites.Length > 1 && isDualPistol) gunSecondSprite = childSprites[1].sprite;
         }
 
         if (gunAnimator == null)
@@ -130,14 +129,20 @@ public class Weapon : MonoBehaviour
 
     private void OnDisable()
     {
-        if (gunAnimator != null) gunAnimator.SetBool(reloadAnimString, false);
-        if (gunAnimator2 != null) gunAnimator2.SetBool(reloadAnimString, false);
-        if (gunFirstSprite != null)
+        if (gunAnimator != null)
         {
-            SpriteRenderer[] childSprites = GetComponentsInChildren<SpriteRenderer>();
-            if (childSprites.Length > 0) childSprites[0].sprite = gunFirstSprite;
-            if (childSprites.Length > 1 && isDualPistol && gunFirstSprite2 != null) childSprites[1].sprite = gunFirstSprite2;
+            PlayAnimation("Default", gunAnimator);
         }
+        if (gunAnimator2 != null && isDualPistol)
+        {
+            PlayAnimation("Default", gunAnimator2);
+        }
+        //if (gunFirstSprite != null)
+        //{
+        //    SpriteRenderer[] childSprites = GetComponentsInChildren<SpriteRenderer>();
+        //    if (childSprites.Length > 0) childSprites[0].sprite = gunFirstSprite;
+        //    if (childSprites.Length > 1 && isDualPistol && gunSecondSprite != null) childSprites[1].sprite = gunSecondSprite;
+        //}
 
         if (audioSource != null)
         {
@@ -182,14 +187,47 @@ public class Weapon : MonoBehaviour
     {
         if (fireMode == FireMode.SemiAuto)
         {
-            if (InputManager.instance.controls.Weapon.Attack.WasPressedThisFrame())
+            if (isDualPistol && differentShootButtons)
+            {
+                if (InputManager.instance.controls.Weapon.DualPistolLeft.WasPressedThisFrame())
+                {
+                    isSP1 = true;
+                    isMP1 = true;
+                    TryFire();
+                }
+
+                if (InputManager.instance.controls.Weapon.DualPistolRight.WasPressedThisFrame())
+                {
+                    isSP1 = false;
+                    isMP1 = false;
+                    TryFire();
+                }
+            }
+            else if (InputManager.instance.controls.Weapon.Attack.WasPressedThisFrame())
             {
                 TryFire();
             }
+
         }
         else if (fireMode == FireMode.FullAuto)
         {
-            if (InputManager.instance.controls.Weapon.Attack.IsPressed())
+            if (isDualPistol && differentShootButtons)
+            {
+                if (InputManager.instance.controls.Weapon.DualPistolLeft.IsPressed())
+                {
+                    isSP1 = true;
+                    isMP1 = true;
+                    TryFire();
+                }
+
+                if (InputManager.instance.controls.Weapon.DualPistolRight.IsPressed())
+                {
+                    isSP1 = false;
+                    isMP1 = false;
+                    TryFire();
+                }
+            }
+            else if (InputManager.instance.controls.Weapon.Attack.IsPressed())
             {
                 TryFire();
             }
@@ -236,7 +274,7 @@ public class Weapon : MonoBehaviour
 
         if (gunAnimator != null) 
         {
-            gunAnimator.SetBool(reloadAnimString, true);
+            PlayAnimation(reloadAnimString, gunAnimator);
             if (useReloadAnimLength)
             {
                 AnimatorClipInfo[] clipInfo = gunAnimator.GetCurrentAnimatorClipInfo(0);
@@ -249,15 +287,15 @@ public class Weapon : MonoBehaviour
 
         if (isDualPistol && gunAnimator2 != null)
         {
-            gunAnimator2.SetBool(reloadAnimString, true);
+            PlayAnimation(reloadAnimString, gunAnimator2);
         }
 
         if (ammoText != null) ammoText.text = "Reloading...";
         
         yield return new WaitForSeconds(currentReloadTime);
 
-        if (gunAnimator != null) gunAnimator.SetBool(reloadAnimString, false);
-        if (isDualPistol && gunAnimator2 != null) gunAnimator2.SetBool(reloadAnimString, false);
+        //if (gunAnimator != null) gunAnimator.SetBool(reloadAnimString, false);
+        //if (isDualPistol && gunAnimator2 != null) gunAnimator2.SetBool(reloadAnimString, false);
 
         currentAmmo = maxAmmo;
         isReloading = false;
@@ -273,6 +311,15 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private void PlayAnimation(string animName, Animator currentAnimator)
+    {
+        if (currentAnimator != null && currentAnimator.isActiveAndEnabled && !string.IsNullOrEmpty(animName))
+        {
+            currentAnimator.Play(animName, 0, 0f);
+            currentAnimator.Update(0f);
+        }
+    }
+
     private IEnumerator MeleeAttack()
     {
         Animator currentAnimator = gunAnimator;
@@ -283,7 +330,7 @@ public class Weapon : MonoBehaviour
 
         if (currentAnimator != null && !string.IsNullOrEmpty(attackAnimString))
         {
-            currentAnimator.SetTrigger(attackAnimString);
+            PlayAnimation(attackAnimString, currentAnimator);
         }
 
         GameObject currentAudio = audioSource;
@@ -373,7 +420,8 @@ public class Weapon : MonoBehaviour
 
         if (currentAnimator != null)
         {
-            currentAnimator.SetTrigger(attackAnimString);
+            Debug.Log("Attack animation: "+ currentAnimator);
+            PlayAnimation(attackAnimString, currentAnimator);
         }
 
         GameObject currentAudio = audioSource;
@@ -397,13 +445,15 @@ public class Weapon : MonoBehaviour
             {
                 muzzleFlash.transform.position = shootPoint1.position;
                 muzzleFlash.Play();
-                isMP1 = false;
+                if (!differentShootButtons)
+                    isMP1 = false;
             }
             else
             {
                 muzzleFlash.transform.position = shootPoint2.position;
                 muzzleFlash.Play();
-                isMP1 = true;
+                if (!differentShootButtons)
+                    isMP1 = true;
             }
         }
 
@@ -439,12 +489,14 @@ public class Weapon : MonoBehaviour
                 if (isSP1)
                 {
                     trailSpawnPos = shootPoint1;
-                    isSP1 = false;
+                    if (!differentShootButtons)
+                        isSP1 = false;
                 }
                 else
                 {
                     trailSpawnPos = shootPoint2;
-                    isSP1 = true;
+                    if (!differentShootButtons)
+                        isSP1 = true;
                 }
             }
 
