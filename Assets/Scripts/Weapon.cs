@@ -322,7 +322,15 @@ public class Weapon : MonoBehaviour
     {
         if (currentAnimator != null && currentAnimator.isActiveAndEnabled && !string.IsNullOrEmpty(animName))
         {
-            currentAnimator.Play(animName, 0, 0f);
+            if (fireMode == FireMode.SemiAuto)
+            {
+                currentAnimator.Play(animName, 0, 0f);
+            }
+            else
+            {
+                currentAnimator.Play(animName);
+            }
+            
             currentAnimator.Update(0f);
         }
     }

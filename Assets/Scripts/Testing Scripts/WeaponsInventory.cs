@@ -17,10 +17,10 @@ public class WeaponsInventory : MonoBehaviour
 
     private void Start()
     {
-        //foreach (GameObject weapon in weaponPrefabs)
-        //{
-        //    PlayerWeaponManager.instance.SpawnWeapon(weapon);
-        //}
+        foreach (GameObject weapon in weaponPrefabs)
+        {
+            PlayerWeaponManager.instance.SpawnWeapon(weapon);
+        }
 
         //if (!oneEnabled)
         //{
