@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3183594214986574202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5436920735677152038}
+  - component: {fileID: 4484494502859028985}
+  m_Layer: 0
+  m_Name: SplatterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5436920735677152038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3183594214986574202}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2229.789, y: 230.99998, z: -411.52213}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4484494502859028985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3183594214986574202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a4ea0709c0bc841ac0d17fec8f2457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SplatterMeshManager
+  splatterSetups:
+  - name: InkSplatter
+    temporaryPrefab: {fileID: 8390140630907516658, guid: 8744311d6398d44308574d43fb805dc6, type: 3}
+    material: {fileID: 2100000, guid: efcfffb7588dd45bf8eb315a77a0b9ab, type: 2}
+  - name: DigitalSplatter
+    temporaryPrefab: {fileID: 8390140630907516658, guid: c65d0a62cb44e40e688c279a7f7bcad4, type: 3}
+    material: {fileID: 2100000, guid: 8d02917efda734f1bbd72c1267f6de57, type: 2}
+  - name: PrintSplatter
+    temporaryPrefab: {fileID: 8390140630907516658, guid: eb79584012108d54292b3ff29364b37a, type: 3}
+    material: {fileID: 2100000, guid: bdf4cd2d07d43fd4ea80bb5bf3f96038, type: 2}
+  minSize: 4
+  maxSize: 4
+  defaultAreaId: Default
+  maxSplattersPerChunk: 1000
+  surfaceOffset: 0.01
+  layerOffset: 0.001
+  normalMatchThreshold: 0.95
+  surfaceDistanceTolerance: 0.05
+  poolSizePerSplatter: 50
+  poolCreatePerFrame: 10
+  expandPoolIfEmpty: 1
+  meshBuildDelay: 0.12
+  maxPendingSplatterCommitsPerFrame: 10
+  maxDirtyChunksToApplyPerFrame: 2
+  reverseTemporaryMeshFacing: 1
