@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -55,9 +56,17 @@ public class Enemy : MonoBehaviour
 
     private Vector3 positionLastFrameForSound;
     private float nextWalkSoundTime = 0f;
+    private NavMeshAgent navAgent;
 
     private void Start()
     {
+        navAgent = GetComponent<NavMeshAgent>();
+        navAgent.updateRotation = false;
+        if (navAgent != null)
+        {
+            navAgent.speed = speed;
+        }
+
         playerLastPosition = transform.position;
         currentHealth = maxHealth;
         mainCam = Camera.main;
@@ -105,7 +114,7 @@ public class Enemy : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 playerLastPosition = hit.collider.transform.position;
-                playerLastPosition.y = transform.position.y;
+                //playerLastPosition.y = transform.position.y;
 
                 firstHitWithPlayer = true;
 
@@ -113,11 +122,21 @@ public class Enemy : MonoBehaviour
                 {
                     if (!isAttacking)
                     {
-                        transform.position += moveDirection * speed * Time.deltaTime;
+                        if (navAgent != null)
+                        {
+                            navAgent.isStopped = false;
+                            navAgent.SetDestination(playerTransform.position);
+                        }
+                        else
+                        {
+                            transform.position += moveDirection * speed * Time.deltaTime;
+                        }
                     }
 
                     if (distance <= attackRange)
                     {
+                        if (navAgent != null) navAgent.isStopped = true;
+
                         if (Time.time >= nextAttackTime && !isAttacking)
                         {
                             StartCoroutine(Attack());
@@ -133,7 +152,15 @@ public class Enemy : MonoBehaviour
                 {
                     if (distance > shootRange)
                     {
-                        transform.position += moveDirection * speed * Time.deltaTime;
+                        if (navAgent != null)
+                        {
+                            navAgent.isStopped = false;
+                            navAgent.SetDestination(playerTransform.position);
+                        }
+                        else
+                        {
+                            transform.position += moveDirection * speed * Time.deltaTime;
+                        }
 
                         if (!walkAnimPlaying)
                         {
@@ -142,6 +169,8 @@ public class Enemy : MonoBehaviour
                     }
                     else
                     {
+                        if (navAgent != null) navAgent.isStopped = true;
+
                         if (!isIdle)
                         {
                             ReturnToIdle();
@@ -160,18 +189,31 @@ public class Enemy : MonoBehaviour
                 Vector3 newMoveDirection = (playerLastPosition - transform.position).normalized;
                 newMoveDirection.y = 0;
 
-                if (Vector3.Distance(transform.position, playerLastPosition) > 0.1f)
+                if (Vector3.Distance(transform.position, new Vector3(playerLastPosition.x, transform.position.y, playerLastPosition.z)) > 0.65f)
                 {
-                    transform.position += newMoveDirection * speed * Time.deltaTime;
+                    if (navAgent != null)
+                    {
+                        navAgent.isStopped = false;
+                        navAgent.SetDestination(playerLastPosition);
+                    }
+                    else
+                    {
+                        transform.position += newMoveDirection * speed * Time.deltaTime;
+                    }
 
                     if (!walkAnimPlaying)
                     {
                         ReturnToWalk();
                     }
                 }
-                else if (!isIdle)
+                else 
                 {
-                    ReturnToIdle();
+                    if (navAgent != null) navAgent.isStopped = true;
+
+                    if (!isIdle)
+                    {
+                        ReturnToIdle();
+                    }
                 }
             }
         }
@@ -180,18 +222,31 @@ public class Enemy : MonoBehaviour
             Vector3 newMoveDirection = (playerLastPosition - transform.position).normalized;
             newMoveDirection.y = 0;
 
-            if (Vector3.Distance(transform.position, playerLastPosition) > 0.1f)
+            if (Vector3.Distance(transform.position, new Vector3(playerLastPosition.x, transform.position.y, playerLastPosition.z)) > 0.65f)
             {
-                transform.position += newMoveDirection * speed * Time.deltaTime;
+                if (navAgent != null)
+                {
+                    navAgent.isStopped = false;
+                    navAgent.SetDestination(playerLastPosition);
+                }
+                else
+                {
+                    transform.position += newMoveDirection * speed * Time.deltaTime;
+                }
 
                 if (!walkAnimPlaying)
                 {
                     ReturnToWalk();
                 }
             }
-            else if (!isIdle)
+            else 
             {
-                ReturnToIdle();
+                if (navAgent != null) navAgent.isStopped = true;
+
+                if (!isIdle)
+                {
+                    ReturnToIdle();
+                }
             }
         }
 
@@ -213,6 +268,10 @@ public class Enemy : MonoBehaviour
             {
                 isMoving = true;
             }
+        }
+        else if (navAgent != null && navAgent.velocity.magnitude > 0.1f)
+        {
+            isMoving = true;
         }
 
         if (!isMoving && Vector3.Distance(currentHorizontalPos, lastHorizontalPos) > 0.001f)
@@ -319,6 +378,7 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         isDead = true;
+        if (navAgent != null) navAgent.enabled = false;
         Destroy(GetComponent<Rigidbody>());
 
         Collider[] allColliders = GetComponentsInChildren<Collider>();

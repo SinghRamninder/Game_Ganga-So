@@ -185,6 +185,9 @@ public class Weapon : MonoBehaviour
 
     public void HandleFireInput()
     {
+        if (PauseMenuController.Instance?.IsGamePaused == true)
+            return;
+
         if (fireMode == FireMode.SemiAuto)
         {
             if (isDualPistol && differentShootButtons)

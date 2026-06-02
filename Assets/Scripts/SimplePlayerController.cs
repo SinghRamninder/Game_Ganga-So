@@ -100,6 +100,9 @@ public class SimplePlayerController : MonoBehaviour
 
     private void HandleLook()
     {
+        if (PauseMenuController.Instance?.IsGamePaused == true)
+            return;
+
         Vector2 lookInput = InputManager.instance.controls.Player.Look.ReadValue<Vector2>();
 
         bool isGamepad = InputManager.instance.controls.Player.Look.activeControl?.device is Gamepad;
@@ -264,6 +267,9 @@ public class SimplePlayerController : MonoBehaviour
 
     private void HandleCameraShake()
     {
+        if (PauseMenuController.Instance?.IsGamePaused == true)
+            return;
+
         if (shakeDuration > 0f)
         {
             currentShakeOffset = Random.insideUnitSphere * shakeIntensity;
@@ -278,6 +284,9 @@ public class SimplePlayerController : MonoBehaviour
 
     private void ApplyOffsets()
     {
+        if (PauseMenuController.Instance?.IsGamePaused == true)
+            return;
+
         if (playerCamera != null)
         {
             playerCamera.transform.localPosition = initialCameraPosition + currentBobOffset + currentShakeOffset;

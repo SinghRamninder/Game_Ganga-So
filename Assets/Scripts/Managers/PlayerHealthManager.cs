@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerHealthManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerHealthManager : MonoBehaviour
     
     [Header("UI")]
     public TextMeshProUGUI healthText;
+    public List<GameObject> healthBars = new List<GameObject>();
     public Image bloodImage;
 
     private Coroutine playerHitEffect;
@@ -81,6 +83,15 @@ public class PlayerHealthManager : MonoBehaviour
         if (healthText != null)
         {
             healthText.text = $"Health: {Mathf.Ceil(currentHealth)} / {Mathf.Ceil(currentMaxHealth)}";
+        }
+
+        int activeBars = Mathf.CeilToInt(currentHealth / 10f);
+        for (int i = 0; i < healthBars.Count; i++)
+        {
+            if (healthBars[i] != null)
+            {
+                healthBars[i].SetActive(i < activeBars);
+            }
         }
     }
 
