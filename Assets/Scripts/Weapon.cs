@@ -396,7 +396,7 @@ public class Weapon : MonoBehaviour
         Vector3 rayOrigin = (cam != null) ? cam.transform.position : transform.position;
         Vector3 baseDirection = (cam != null) ? cam.transform.forward : transform.forward;
 
-        if (Physics.Raycast(rayOrigin, baseDirection, out RaycastHit hit, range))
+        if (Physics.Raycast(rayOrigin, baseDirection, out RaycastHit hit, range, ~0, QueryTriggerInteraction.Ignore))
         {
             EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
             Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
@@ -542,7 +542,7 @@ public class Weapon : MonoBehaviour
                 }
             }
 
-            if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, range))
+            if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, range, ~0, QueryTriggerInteraction.Ignore))
             {
                 EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
                 Enemy enemy = hit.collider.GetComponentInParent<Enemy>();

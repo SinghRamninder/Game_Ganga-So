@@ -127,7 +127,7 @@ MonoBehaviour:
   rayShootOfset: 8
   maxHealth: 80
   speed: 5
-  damageToPlayer: 10
+  damageToPlayer: 5
   attackRange: 8
   attackRate: 1
   moveTowardsLastPlayerPosition: 1
@@ -139,7 +139,7 @@ MonoBehaviour:
   deathAnimString: death
   walkSound: {fileID: 0}
   walkVolume: 1
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 3da110096cd77f14f81ad6d4aebe2c18, type: 3}
   attackVolume: 1
   deathSound: {fileID: 0}
   deathVolume: 1

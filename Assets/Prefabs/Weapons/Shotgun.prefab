@@ -266,7 +266,7 @@ MonoBehaviour:
   useOldMethod: 0
   splatterNumber: 2
   particlesProfile:
-    particleCount: 30
+    particleCount: 10
     speed:
       m_Mode: 0
       m_CurveMultiplier: 0
@@ -301,7 +301,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 0.1
+      m_ConstantMax: 1
     lifetime:
       m_Mode: 0
       m_CurveMultiplier: 0
