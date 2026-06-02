@@ -248,6 +248,7 @@ MonoBehaviour:
   ammoText: {fileID: 0}
   muzzleFlash: {fileID: 1550787612747875285}
   gunAnimator: {fileID: 0}
+  gunAnimator2: {fileID: 0}
   impactPrefab: {fileID: 8390140630907516658, guid: eb79584012108d54292b3ff29364b37a, type: 3}
   impactEffectNonEnemy: {fileID: 7226583673155636403, guid: a2ab56839e1c9504ea9d141e95d0b16b, type: 3}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: 7aa2b193024334624bed1e40360475d3, type: 3}
@@ -256,8 +257,12 @@ MonoBehaviour:
   weaponSpawnRotation: {x: -0, y: -0, z: -0, w: 1}
   weaponSpawnScale: {x: 0.18, y: 0.18, z: 0.18}
   isDualPistol: 0
+  differentShootButtons: 1
   shootPoint1: {fileID: 0}
   shootPoint2: {fileID: 0}
+  attackAnimString: Attack
+  reloadAnimString: Reload
+  useReloadAnimLength: 0
   useOldMethod: 0
   splatterNumber: 2
   particlesProfile:
@@ -278,8 +283,8 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 10
-    spread: 0.25
+      m_ConstantMax: 50
+    spread: 0.9
     gravityModifier:
       m_Mode: 0
       m_CurveMultiplier: 0
@@ -296,7 +301,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 2
+      m_ConstantMax: 0.1
     lifetime:
       m_Mode: 0
       m_CurveMultiplier: 0
@@ -313,9 +318,9 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 0.5
+      m_ConstantMax: 1
     size:
-      m_Mode: 0
+      m_Mode: 3
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2
@@ -329,13 +334,14 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 0
-      m_ConstantMax: 1
+      m_ConstantMin: 0.1
+      m_ConstantMax: 0.3
   reloadSound: {fileID: 8300000, guid: f80db3f6aff824403b8a784cea7a4bae, type: 3}
   reloadVolume: 1
   shootSound: {fileID: 8300000, guid: dc204e5cd711a44e28e11106e12f9c22, type: 3}
   shootVolume: 1
   audioSource: {fileID: 3457339759524028798}
+  audioSource2: {fileID: 0}
 --- !u!114 &-4070384091925224196
 MonoBehaviour:
   m_ObjectHideFlags: 0
