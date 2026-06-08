@@ -18777,6 +18777,63 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1001 &1318568800
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7175254464647304220, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1897.8923
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175254464647304220, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 189.18802
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175254464647304220, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.6205006
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175254464647304220, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99852884
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175254464647304220, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175254464647304220, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.054223925
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175254464647304220, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175254464647304220, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175254464647304220, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 6.217
+      objectReference: {fileID: 0}
+    - target: {fileID: 7175254464647304220, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9221568844740686173, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
+      propertyPath: m_Name
+      value: Tommy Gun pickup object
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 13b6e7710a16c0b40bceb36888075c8c, type: 3}
 --- !u!43 &1352570747
 Mesh:
   m_ObjectHideFlags: 0
@@ -18955,6 +19012,63 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &1376542019
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 344565889177888285, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1900.4059
+      objectReference: {fileID: 0}
+    - target: {fileID: 344565889177888285, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 189.18811
+      objectReference: {fileID: 0}
+    - target: {fileID: 344565889177888285, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 151.24362
+      objectReference: {fileID: 0}
+    - target: {fileID: 344565889177888285, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.029609844
+      objectReference: {fileID: 0}
+    - target: {fileID: 344565889177888285, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344565889177888285, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.99956155
+      objectReference: {fileID: 0}
+    - target: {fileID: 344565889177888285, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344565889177888285, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 344565889177888285, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 176.606
+      objectReference: {fileID: 0}
+    - target: {fileID: 344565889177888285, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6654973420292663271, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
+      propertyPath: m_Name
+      value: Dual Pistols pickup object
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 61afab9a2b046f44ab227793a30f5508, type: 3}
 --- !u!1 &1422316114
 GameObject:
   m_ObjectHideFlags: 0
@@ -22804,6 +22918,63 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &1865325662
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3788857284289342432, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_Name
+      value: Shotgun pickup object
+      objectReference: {fileID: 0}
+    - target: {fileID: 7168179773496264661, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2065.4617
+      objectReference: {fileID: 0}
+    - target: {fileID: 7168179773496264661, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 190.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7168179773496264661, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 153.75717
+      objectReference: {fileID: 0}
+    - target: {fileID: 7168179773496264661, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99852884
+      objectReference: {fileID: 0}
+    - target: {fileID: 7168179773496264661, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7168179773496264661, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.054223925
+      objectReference: {fileID: 0}
+    - target: {fileID: 7168179773496264661, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7168179773496264661, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7168179773496264661, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 6.217
+      objectReference: {fileID: 0}
+    - target: {fileID: 7168179773496264661, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1eb016c308484ef449750f8f396505e8, type: 3}
 --- !u!43 &1885623719
 Mesh:
   m_ObjectHideFlags: 0
@@ -25303,3 +25474,6 @@ SceneRoots:
   - {fileID: 784920995}
   - {fileID: 1850458555}
   - {fileID: 59691713}
+  - {fileID: 1376542019}
+  - {fileID: 1865325662}
+  - {fileID: 1318568800}
