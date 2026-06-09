@@ -162533,38 +162533,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!1 &717506857 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6955562605806925438, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
-  m_PrefabInstance: {fileID: 946928565}
-  m_PrefabAsset: {fileID: 0}
---- !u!54 &717506863
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 717506857}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!43 &717510443
 Mesh:
   m_ObjectHideFlags: 0
@@ -199286,10 +199254,6 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3383594460346807538, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
-      propertyPath: m_RenderPostProcessing
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3383594460346807538, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: 'm_Cameras.Array.data[1]'
       value: 
       objectReference: {fileID: 0}
@@ -199309,17 +199273,9 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 2000
       objectReference: {fileID: 0}
-    - target: {fileID: 5013384063038910842, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
-      propertyPath: gravityMultiplier
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 5087137016160868266, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: m_Layer
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393933778918996368, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
-      propertyPath: weaponPrefabs.Array.size
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5393933778918996368, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: 'weaponPrefabs.Array.data[1]'
@@ -199437,15 +199393,10 @@ PrefabInstance:
       propertyPath: bulletsCounter
       value: 
       objectReference: {fileID: 1333795665}
-    m_RemovedComponents:
-    - {fileID: 1199991214547361522, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
-    m_RemovedGameObjects:
-    - {fileID: 483720742844421702, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6955562605806925438, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 717506863}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
 --- !u!1 &949100197
 GameObject:
