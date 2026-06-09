@@ -60,8 +60,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        navAgent = GetComponent<NavMeshAgent>();
-        navAgent.updateRotation = false;
+        //navAgent = GetComponent<NavMeshAgent>();
+        //navAgent.updateRotation = false;
         if (navAgent != null)
         {
             navAgent.speed = speed;
