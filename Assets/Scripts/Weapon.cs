@@ -64,7 +64,8 @@ public class Weapon : MonoBehaviour
     public string attackAnimString = "Attack";
     public string reloadAnimString = "Reload";
     [HideInInspector] public bool useReloadAnimLength = false;
-
+[Header("UI Portrait Settings")]
+    public PlayerPortraitData weaponPortraitData;
     private Sprite gunFirstSprite;
     private Sprite gunSecondSprite;
 

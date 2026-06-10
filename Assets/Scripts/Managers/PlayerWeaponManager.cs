@@ -8,7 +8,7 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField] private GameObject weaponHolder;
     [SerializeField] private GameObject crosshair;
     public GameObject headCrosshair;
-
+public PlayerPortraitUI portraitUI;
     [HideInInspector] public List<GameObject> weaponsSpawned;
 
     private GameObject currentWeapon;
@@ -57,6 +57,10 @@ public class PlayerWeaponManager : MonoBehaviour
         currentWeapon.transform.localScale = weaponSpawnScale;
 
         currentWeaponScript = currentWeapon.GetComponent<Weapon>();
+        if (currentWeaponScript != null && portraitUI != null)
+        {
+            portraitUI.ChangeWeaponPortrait(currentWeaponScript.weaponPortraitData);
+        }
     }
 
     public void SpawnWeapon(GameObject weaponPrefab)
