@@ -71,13 +71,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2731277185904405496}
+  - component: {fileID: 2946508140828359847}
   m_Layer: 7
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2731277185904405496
 Transform:
   m_ObjectHideFlags: 0
@@ -90,9 +91,32 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6880817844539594806}
   m_Father: {fileID: 1437662089314598827}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2946508140828359847
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5479505230557227157}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7570074dc89734c99ac67aee6221ff61, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5758932396737254174
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +149,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2731277185904405496}
-  - {fileID: 6880817844539594806}
   - {fileID: 8540033284843387213}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -275,11 +298,11 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1437662089314598827}
+    m_TransformParent: {fileID: 2731277185904405496}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2d2fc307f5ad1417595d60139aebe018, type: 3}
       propertyPath: m_LocalScale.x
-      value: 54.56
+      value: 54.560005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2d2fc307f5ad1417595d60139aebe018, type: 3}
       propertyPath: m_LocalScale.y
@@ -287,7 +310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2d2fc307f5ad1417595d60139aebe018, type: 3}
       propertyPath: m_LocalScale.z
-      value: 54.56
+      value: 54.560005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2d2fc307f5ad1417595d60139aebe018, type: 3}
       propertyPath: m_LocalPosition.x
