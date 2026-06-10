@@ -196,7 +196,7 @@ MonoBehaviour:
   isMeleeWeapon: 1
   fireMode: 0
   fireRate: 2
-  range: 10
+  range: 20
   cameraShakeIntensity: 0.003
   cameraShakeDuration: 0.4
   recoilForce: 0
@@ -217,9 +217,9 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   gunAnimator: {fileID: 0}
   gunAnimator2: {fileID: 0}
-  impactPrefab: {fileID: 8390140630907516658, guid: 8744311d6398d44308574d43fb805dc6, type: 3}
+  impactPrefab: {fileID: 8390140630907516658, guid: 8a0c3171daa324616ab85075a039ca7c, type: 3}
   impactEffectNonEnemy: {fileID: 0}
-  impactEffectEnemy: {fileID: 8724896405505394418, guid: 1e11061341dfbab42bb4c2d9f6bfd259, type: 3}
+  impactEffectEnemy: {fileID: 8724896405505394418, guid: 60a1519202a724260936dd804706eb8b, type: 3}
   useSameImpactEffect: 0
   weaponSpawnPosition: {x: 0, y: 0, z: 0}
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}

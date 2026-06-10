@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerEyes
   - Ground
+  - Card Reader
   layers:
   - Default
   - TransparentFX
@@ -54,6 +55,9 @@ TagManager:
     locked: 0
   - name: Weapon
     uniqueID: 58117959
+    locked: 0
+  - name: InstructionKeys
+    uniqueID: 1843132633
     locked: 0
   m_RenderingLayers:
   - Default

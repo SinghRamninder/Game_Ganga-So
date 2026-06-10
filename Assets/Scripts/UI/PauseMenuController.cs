@@ -3,8 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
+    public static PauseMenuController Instance { get; private set; }
+
     // Global variable so other scripts (like weapon firing/camera movement) can easily check if the game is paused
-    public static bool IsGamePaused = false;
+    public bool IsGamePaused = false;
+    [HideInInspector] public bool allAudioChecked = false;
 
     [Header("UI References")]
     [Tooltip("Drag your Pause Menu Panel GameObject here.")]
@@ -19,6 +22,17 @@ public class PauseMenuController : MonoBehaviour
     [Header("First-Person Shooter Cursor Control")]
     [Tooltip("Check this if you want the script to automatically hide the cursor while playing, and show it while paused.")]
     public bool autoManageCursor = true;
+
+    private void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -67,6 +81,7 @@ public class PauseMenuController : MonoBehaviour
 
         Time.timeScale = 1f; // Run time at normal speed
         IsGamePaused = false;
+        allAudioChecked = false;
 
         // Hide and lock cursor for first-person gameplay
         if (autoManageCursor)
@@ -88,6 +103,7 @@ public class PauseMenuController : MonoBehaviour
 
         Time.timeScale = 0f; // Freeze all physics, movement, and game-time
         IsGamePaused = true;
+        allAudioChecked = false;
 
         // Unlock and show cursor so the player can select buttons
         if (autoManageCursor)

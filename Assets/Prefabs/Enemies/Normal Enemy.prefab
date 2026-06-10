@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 6031343026616608051}
   - component: {fileID: 7912431187413357291}
   - component: {fileID: 6458104901873181042}
+  - component: {fileID: -2636426653667663190}
   m_Layer: 6
   m_Name: Normal Enemy
   m_TagString: Untagged
@@ -232,7 +233,7 @@ MonoBehaviour:
   attackRate: 1
   moveTowardsLastPlayerPosition: 1
   deathEffect: {fileID: 0}
-  bulletTrail: {fileID: 3907609751552455704, guid: f7cb3044f59937d479e4a7c86594ddcb, type: 3}
+  bulletTrail: {fileID: 0}
   animator: {fileID: 0}
   walkAnimString: walk
   attackAnimString: attack
@@ -241,7 +242,7 @@ MonoBehaviour:
   walkVolume: 1
   attackSound: {fileID: 0}
   attackVolume: 1
-  deathSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 759b21f27fca6164c9173cc62b53809b, type: 3}
   deathVolume: 1
   audioSource: {fileID: 3575410511933415941}
 --- !u!54 &6458104901873181042
@@ -271,6 +272,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!195 &-2636426653667663190
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5655383073827375967}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.5
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 3
 --- !u!1001 &769490319638112424
 PrefabInstance:
   m_ObjectHideFlags: 0

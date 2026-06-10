@@ -24,10 +24,10 @@ public class ButtonSoundEffects : MonoBehaviour, IPointerEnterHandler, IPointerC
         }
 
         // Second Fallback: Look for any AudioSource in the Scene (like on the Canvas)
-        if (audioSource == null)
-        {
-            audioSource = FindFirstObjectByType<AudioSource>();
-        }
+        //if (audioSource == null)
+        //{
+        //    audioSource = FindFirstObjectByType<AudioSource>();
+        //}
     }
 
     /// <summary>
