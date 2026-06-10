@@ -423,8 +423,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6899471091256023652}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
-        m_MethodName: PlayGame
-        m_Mode: 1
+        m_MethodName: ToggleCredits
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbbf5655918465448b9ec0adc174567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuController
-  gameplaySceneName: GameplayScene
+  gameplaySceneName: GalleryScene
   settingsPanel: {fileID: 0}
   creditsPanel: {fileID: 0}
 --- !u!82 &6070313106881855947

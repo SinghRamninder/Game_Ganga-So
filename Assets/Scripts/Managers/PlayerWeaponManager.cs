@@ -8,7 +8,7 @@ public class PlayerWeaponManager : MonoBehaviour
     [SerializeField] private GameObject weaponHolder;
     [SerializeField] private GameObject crosshair;
     public GameObject headCrosshair;
-
+    public PlayerPortraitUI portraitUI;
     [HideInInspector] public List<GameObject> weaponsSpawned;
 
     private GameObject currentWeapon;
@@ -29,12 +29,10 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         if (currentWeaponScript != null)
         {
-            //Temporary
             if (crosshair != null)
             {
                 crosshair.SetActive(true);
             }
-            //Temporary
 
             currentWeaponScript.HandleFireInput();
         }
@@ -57,6 +55,18 @@ public class PlayerWeaponManager : MonoBehaviour
         currentWeapon.transform.localScale = weaponSpawnScale;
 
         currentWeaponScript = currentWeapon.GetComponent<Weapon>();
+
+        // 🔎 ردیاب متد EquipGun
+        Debug.Log($"[WeaponManager] متد EquipGun اجرا شد. اسکریپت اسلحه پیدا شد: {currentWeaponScript != null} | پرتره UI وصل است: {portraitUI != null}");
+        if (currentWeaponScript != null)
+        {
+            Debug.Log($"[WeaponManager] دیتای عکس روی این اسلحه وجود دارد: {currentWeaponScript.weaponPortraitData != null}");
+        }
+
+        if (currentWeaponScript != null && portraitUI != null)
+        {
+            portraitUI.ChangeWeaponPortrait(currentWeaponScript.weaponPortraitData);
+        }
     }
 
     public void SpawnWeapon(GameObject weaponPrefab)
@@ -86,7 +96,18 @@ public class PlayerWeaponManager : MonoBehaviour
 
         weaponGameobject.SetActive(true);
         currentWeaponScript = weaponGameobject.GetComponent<Weapon>();
-
         equipedWeapon = weaponGameobject;
+
+        // 🔎 ردیاب متد ChangeWeapon
+        Debug.Log($"[WeaponManager] متد ChangeWeapon برای اسلحه {weaponGameobject.name} اجرا شد. اسکریپت اسلحه: {currentWeaponScript != null} | پرتره UI وصل است: {portraitUI != null}");
+        if (currentWeaponScript != null)
+        {
+            Debug.Log($"[WeaponManager] دیتای عکس روی این اسلحه وجود دارد: {currentWeaponScript.weaponPortraitData != null}");
+        }
+
+        if (currentWeaponScript != null && portraitUI != null)
+        {
+            portraitUI.ChangeWeaponPortrait(currentWeaponScript.weaponPortraitData);
+        }
     }
 }

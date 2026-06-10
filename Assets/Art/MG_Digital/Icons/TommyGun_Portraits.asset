@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3103df4eafb07e94c826eeedc5db2d82, type: 3}
+  m_Name: TommyGun_Portraits
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPortraitData
+  fullHealth: {fileID: -358661114, guid: 7e3c2617d590205489f79c199c8506fe, type: 3}
+  midHealth: {fileID: 847858519, guid: 7e3c2617d590205489f79c199c8506fe, type: 3}
+  lowHealth: {fileID: 1657630750, guid: 7e3c2617d590205489f79c199c8506fe, type: 3}
+  fullHit: {fileID: 1796187839, guid: 7e3c2617d590205489f79c199c8506fe, type: 3}
+  midHit: {fileID: -1140758302, guid: 7e3c2617d590205489f79c199c8506fe, type: 3}
+  lowHit: {fileID: 61347956, guid: 7e3c2617d590205489f79c199c8506fe, type: 3}
+  fullBlink: {fileID: 890693948, guid: f4fdeb98133a53b49aae9e187e5269c9, type: 3}
+  midBlink: {fileID: 553939079, guid: f4fdeb98133a53b49aae9e187e5269c9, type: 3}
+  lowBlink: {fileID: -426602106, guid: f4fdeb98133a53b49aae9e187e5269c9, type: 3}
+  dead: {fileID: -134367358, guid: f4fdeb98133a53b49aae9e187e5269c9, type: 3}
