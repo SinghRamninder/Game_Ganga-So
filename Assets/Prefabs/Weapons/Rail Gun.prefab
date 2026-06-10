@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 1715390078244346138}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.011201, y: 0.003008, z: -0.000037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -143,15 +143,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5758932396737254174}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0.001311116, y: 0.028327478, z: -0.04621616, w: 0.9985289}
+  m_LocalPosition: {x: -0.08, y: -0.02, z: 0}
+  m_LocalScale: {x: 0.98, y: 0.98, z: 0.98}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2731277185904405496}
   - {fileID: 8540033284843387213}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 3.25, z: -5.3}
 --- !u!114 &1002866106829556841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   isMeleeWeapon: 0
   fireMode: 0
-  fireRate: 0.5
+  fireRate: 0.92
   range: 500
   cameraShakeIntensity: 0.08
   cameraShakeDuration: 0.2
@@ -192,15 +192,16 @@ MonoBehaviour:
   impactEffectNonEnemy: {fileID: 0}
   impactEffectEnemy: {fileID: 0}
   useSameImpactEffect: 0
-  weaponSpawnPosition: {x: 0, y: 0, z: 0}
-  weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
-  weaponSpawnScale: {x: 1, y: 1, z: 1}
+  weaponSpawnPosition: {x: -0.08, y: -0.02, z: 0}
+  weaponSpawnRotation: {x: -0.001311116, y: 0.028327478, z: -0.04621616, w: 0.9985289}
+  weaponSpawnScale: {x: 0.98, y: 0.98, z: 0.98}
   isDualPistol: 0
+  differentShootButtons: 1
   shootPoint1: {fileID: 0}
   shootPoint2: {fileID: 0}
   attackAnimString: Attack
   reloadAnimString: Reload
-  useReloadAnimLength: 0
+  useReloadAnimLength: 1
   useOldMethod: 0
   splatterNumber: 0
   particlesProfile:
@@ -352,9 +353,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -2.82
       objectReference: {fileID: 0}
+    - target: {fileID: -8513424388201257645, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -7609145667655734672, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -7235015103121818086, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3957782524123411102, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -3725023834799035502, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -344004081357383697, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8140499575222096, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3960903559a384cd086557f96edd79b3, type: 3}
       propertyPath: m_Name
       value: gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120705170318893804, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457211873672978320, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147352175773068163, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618128200071642861, guid: 3960903559a384cd086557f96edd79b3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
