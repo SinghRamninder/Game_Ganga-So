@@ -303,7 +303,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   gunAnimator: {fileID: 0}
   gunAnimator2: {fileID: 0}
-  impactPrefab: {fileID: 8390140630907516658, guid: 8744311d6398d44308574d43fb805dc6, type: 3}
+  impactPrefab: {fileID: 8390140630907516658, guid: 018e504e17254485db29ac0e669062ad, type: 3}
   impactEffectNonEnemy: {fileID: 0}
   impactEffectEnemy: {fileID: 0}
   useSameImpactEffect: 0
@@ -578,70 +578,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 229536978696995120}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 988788716273357918}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002866106829556841}
-      propertyPath: weaponSpawnScale.x
-      value: 54.560005
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002866106829556841}
-      propertyPath: weaponSpawnScale.y
-      value: 54.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002866106829556841}
-      propertyPath: weaponSpawnScale.z
-      value: 54.560005
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002866106829556841}
-      propertyPath: weaponSpawnPosition.x
-      value: -0.276
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002866106829556841}
-      propertyPath: weaponSpawnPosition.y
-      value: 0.129
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002866106829556841}
-      propertyPath: weaponSpawnPosition.z
-      value: 1.007
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002866106829556841}
-      propertyPath: weaponSpawnRotation.w
-      value: 0.7517814
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002866106829556841}
-      propertyPath: weaponSpawnRotation.x
-      value: -0.061901666
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002866106829556841}
-      propertyPath: weaponSpawnRotation.y
-      value: 0.65614676
-      objectReference: {fileID: 0}
-    - target: {fileID: 1002866106829556841}
-      propertyPath: weaponSpawnRotation.z
-      value: 0.021547586
-      objectReference: {fileID: 0}
-    - target: {fileID: 1493265072867136591}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2815944252738547565}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6303527962348346673}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8858280355147849805}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -650,39 +586,9 @@ PrefabInstance:
       addedObject: {fileID: 4761138527896686065}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3960903559a384cd086557f96edd79b3, type: 3}
---- !u!1 &229536978696995120 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6618128200071642861, guid: 3960903559a384cd086557f96edd79b3, type: 3}
-  m_PrefabInstance: {fileID: 6410638923949604829}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &988788716273357918 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6147352175773068163, guid: 3960903559a384cd086557f96edd79b3, type: 3}
-  m_PrefabInstance: {fileID: 6410638923949604829}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1493265072867136591 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -3725023834799035502, guid: 3960903559a384cd086557f96edd79b3, type: 3}
-  m_PrefabInstance: {fileID: 6410638923949604829}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2815944252738547565 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -8140499575222096, guid: 3960903559a384cd086557f96edd79b3, type: 3}
-  m_PrefabInstance: {fileID: 6410638923949604829}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6303527962348346673 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1120705170318893804, guid: 3960903559a384cd086557f96edd79b3, type: 3}
-  m_PrefabInstance: {fileID: 6410638923949604829}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6880817844539594806 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3960903559a384cd086557f96edd79b3, type: 3}
-  m_PrefabInstance: {fileID: 6410638923949604829}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8858280355147849805 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2457211873672978320, guid: 3960903559a384cd086557f96edd79b3, type: 3}
   m_PrefabInstance: {fileID: 6410638923949604829}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9186808839254204096
