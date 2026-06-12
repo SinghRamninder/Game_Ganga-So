@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3103df4eafb07e94c826eeedc5db2d82, type: 3}
+  m_Name: Shotgun_Portraits
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPortraitData
+  fullHealth: {fileID: 1702575812, guid: b5fcf0fee23217f468f1bf35e875b20e, type: 3}
+  midHealth: {fileID: 1595490603, guid: fc5016068c8903c429e3840157b0bb51, type: 3}
+  lowHealth: {fileID: -1250212979, guid: 4aeb3f46f2cfecb478e22d8003aceb41, type: 3}
+  fullHit: {fileID: -537584848, guid: bddc75f2282e9ac4aa3c2602dcaf7891, type: 3}
+  midHit: {fileID: -1473558097, guid: ba63c1ac4a8fb56429b2b1453c32708b, type: 3}
+  lowHit: {fileID: -541867828, guid: 78dbd23f9cf3edb459de8152bcc96310, type: 3}
+  fullBlink: {fileID: 1287438032, guid: 2dfc03704be1ef6439f20c01bbd0fba2, type: 3}
+  midBlink: {fileID: -323980343, guid: d2eae7c84ee7c754daa8c4d7f3c44a44, type: 3}
+  lowBlink: {fileID: 1649983077, guid: 00b492b3844bf7d44aeddfd56f8c0c38, type: 3}
+  dead: {fileID: -671086578, guid: d5aae51c7667d424eab1a83d307bf6db, type: 3}
