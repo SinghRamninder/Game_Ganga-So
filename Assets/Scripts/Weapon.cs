@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using FMODUnity;
 
 public enum FireMode
 {
@@ -74,7 +75,8 @@ public class Weapon : MonoBehaviour
     public int splatterNumber = 0;
     public BloodImpactProfile particlesProfile;
 
-    [Header("Audio Settings")]
+    [Header("Audio Settings")] [Header("FMOD")]
+    public EventReference fireEventFmod;
     public AudioClip reloadSound;
     [Range(0f, 1f)] public float reloadVolume;
     public AudioClip shootSound;
@@ -477,6 +479,10 @@ public class Weapon : MonoBehaviour
             }
         }
 
+        if (!fireEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(fireEventFmod, gameObject);
+        }
         if (muzzleFlash != null && !isDualPistol)
         {
             muzzleFlash.Play();
