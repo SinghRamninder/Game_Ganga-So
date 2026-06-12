@@ -42,7 +42,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139616791802599716}
   serializedVersion: 8
-  lengthInSec: 0.5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 2
   cullingMode: 0
@@ -288,8 +288,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.4
+      scalar: 6
+      minScalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4908,4 +4908,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParticleCollisionSpawner
   prefabToSpawn: {fileID: 7226583673155636401, guid: 1864275fa783e4bec85cc8145c26193b, type: 3}
-  splatterNumber: 1
+  splatterNumber: 4
