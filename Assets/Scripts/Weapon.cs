@@ -81,6 +81,7 @@ public class Weapon : MonoBehaviour
     [Header("Audio Settings")] [Header("FMOD")]
     public EventReference fireEventFmod;
     public EventReference tailEventFmod;
+    public EventReference reloadEventFmod;
     public AudioClip reloadSound;
     [Range(0f, 1f)] public float reloadVolume;
     public AudioClip shootSound;
@@ -293,6 +294,12 @@ public class Weapon : MonoBehaviour
     private IEnumerator Reload()
     {
         isReloading = true;
+
+        if (!reloadEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(reloadEventFmod, gameObject);
+        }
+
         if (audioSource != null & reloadSound != null)
         {
             if (isDualPistol)
