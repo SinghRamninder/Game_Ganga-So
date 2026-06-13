@@ -26,7 +26,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3994156941618258735}
@@ -42,7 +42,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.93627
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.41361
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -80,10 +80,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: -6636789119192639478, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b19df57eb90324f4f824d75e1d7a4315, type: 2}
+    - target: {fileID: 142974559864346786, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b19df57eb90324f4f824d75e1d7a4315, type: 2}
     - target: {fileID: 919132149155446097, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
       propertyPath: m_Name
       value: barrel_liquid
@@ -92,6 +96,18 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9786580d333fb2c4c8ce06aaad1b9eb9, type: 2}
+    - target: {fileID: 5461601578678368328, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b19df57eb90324f4f824d75e1d7a4315, type: 2}
+    - target: {fileID: 5691416795695272761, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9786580d333fb2c4c8ce06aaad1b9eb9, type: 2}
+    - target: {fileID: 6151391914668207962, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b19df57eb90324f4f824d75e1d7a4315, type: 2}
     - target: {fileID: 7484468418975526891, guid: cd6e075855266411b9f4b15c4350f02f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
