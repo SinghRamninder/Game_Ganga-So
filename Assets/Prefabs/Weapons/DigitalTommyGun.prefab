@@ -304,9 +304,23 @@ MonoBehaviour:
         m_RotationOrder: 4
       m_ConstantMin: 2
       m_ConstantMax: 4
-  reloadSound: {fileID: 8300000, guid: b365e816e4dc048fea70e0553f6eb032, type: 3}
+  fireEventFmod:
+    Guid:
+      Data1: 2060398375
+      Data2: 1075005464
+      Data3: -1687063664
+      Data4: -1640633364
+    Path: event:/Weapon_TommyGun_fire
+  tailEventFmod:
+    Guid:
+      Data1: 1928629874
+      Data2: 1337270326
+      Data3: -248736372
+      Data4: 1144969357
+    Path: event:/Weapon_tommyGun_tailburst
+  reloadSound: {fileID: 0}
   reloadVolume: 1
-  shootSound: {fileID: 8300000, guid: 01d21152700ba3948baf291b9a0e0e45, type: 3}
+  shootSound: {fileID: 0}
   shootVolume: 1
   audioSource: {fileID: 7986424382191435669}
   audioSource2: {fileID: 0}

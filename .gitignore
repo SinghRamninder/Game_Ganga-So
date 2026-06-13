@@ -34,6 +34,7 @@
 # Visual Studio cache directory
 .vs/
 .vscode/
+.idea/
 
 # Gradle cache directory
 .gradle/
@@ -120,12 +121,16 @@ InitTestScene*.unity*
 # FMOD editor log (also caught by *.log above; kept explicit).
 fmod_editor.log
 
-# --- FMOD Studio project (at /FMODProject) ---
+# --- FMOD Studio project (at /FMODproj_DrawYourWeapons) ---
 # Per-user / cache subfolders; manual says never commit these.
 # (.user is already matched by *.user above; listed for clarity.)
-/FMODProject/.cache/
-/FMODProject/.user/
-/FMODProject/.unsaved/
+/FMODproj_DrawYourWeapons/.cache/
+/FMODproj_DrawYourWeapons/.user/
+/FMODproj_DrawYourWeapons/.unsaved/
 
-# We DO track: /FMODProject/Metadata, /FMODProject/Assets (LFS),
-# /FMODProject/Build (LFS). Do not add ignore rules for those.
+# Source WAVs live outside the repo (user's cloud storage).
+/FMODproj_DrawYourWeapons/Assets/
+
+# We DO track: /FMODproj_DrawYourWeapons/Metadata and
+# /FMODproj_DrawYourWeapons/Build (plain Git, committed at milestones).
+# Do not add ignore rules for those.

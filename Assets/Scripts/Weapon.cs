@@ -49,6 +49,9 @@ public class Weapon : MonoBehaviour
     private float nextTimeToFire = 0f;
     private int currentAmmo;
     private bool isReloading = false;
+    private bool firedDuringAttackPress = false;
+    private bool firedDuringLeftPress = false;
+    private bool firedDuringRightPress = false;
 
     [HideInInspector] public Vector3 weaponSpawnPosition = Vector3.zero;
     [HideInInspector] public Quaternion weaponSpawnRotation = Quaternion.identity;
@@ -77,6 +80,7 @@ public class Weapon : MonoBehaviour
 
     [Header("Audio Settings")] [Header("FMOD")]
     public EventReference fireEventFmod;
+    public EventReference tailEventFmod;
     public AudioClip reloadSound;
     [Range(0f, 1f)] public float reloadVolume;
     public AudioClip shootSound;
@@ -222,44 +226,68 @@ public class Weapon : MonoBehaviour
                 {
                     isSP1 = true;
                     isMP1 = true;
-                    TryFire();
+                    if (TryFire()) firedDuringLeftPress = true;
+                }
+                else if (InputManager.instance.controls.Weapon.DualPistolLeft.WasReleasedThisFrame())
+                {
+                    PlayTailEvent(ref firedDuringLeftPress);
                 }
 
                 if (InputManager.instance.controls.Weapon.DualPistolRight.IsPressed())
                 {
                     isSP1 = false;
                     isMP1 = false;
-                    TryFire();
+                    if (TryFire()) firedDuringRightPress = true;
+                }
+                else if (InputManager.instance.controls.Weapon.DualPistolRight.WasReleasedThisFrame())
+                {
+                    PlayTailEvent(ref firedDuringRightPress);
                 }
             }
             else if (InputManager.instance.controls.Weapon.Attack.IsPressed())
             {
-                TryFire();
+                if (TryFire()) firedDuringAttackPress = true;
+            }
+            else if (InputManager.instance.controls.Weapon.Attack.WasReleasedThisFrame())
+            {
+                PlayTailEvent(ref firedDuringAttackPress);
             }
         }
     }
 
-    private void TryFire()
+    private bool TryFire()
     {
-        if (isReloading) return;
+        if (isReloading) return false;
         if (!isMeleeWeapon && currentAmmo <= 0)
         {
             StartCoroutine(Reload());
-            return;
+            return false;
         }
 
-        if (Time.time < nextTimeToFire) return;
+        if (Time.time < nextTimeToFire) return false;
 
         nextTimeToFire = Time.time + (1f / fireRate);
 
         if (isMeleeWeapon)
         {
             StartCoroutine(MeleeAttack());
+            return false;
         }
         else
         {
             Fire();
+            return true;
         }
+    }
+
+    private void PlayTailEvent(ref bool firedDuringPress)
+    {
+        if (firedDuringPress && !tailEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(tailEventFmod, gameObject);
+        }
+
+        firedDuringPress = false;
     }
 
     private IEnumerator Reload()
