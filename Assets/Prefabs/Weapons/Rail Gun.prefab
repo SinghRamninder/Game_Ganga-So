@@ -5155,9 +5155,9 @@ MonoBehaviour:
   reloadAnimString: Reload
   useReloadAnimLength: 1
   useOldMethod: 0
-  splatterNumber: 3
+  splatterNumber: 4
   particlesProfile:
-    particleCount: 50
+    particleCount: 30
     speed:
       m_Mode: 0
       m_CurveMultiplier: 0
@@ -5174,7 +5174,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 30
+      m_ConstantMax: 10
     spread: 0.25
     gravityModifier:
       m_Mode: 0
@@ -5192,7 +5192,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 3
+      m_ConstantMax: 2
     lifetime:
       m_Mode: 0
       m_CurveMultiplier: 0
@@ -5209,7 +5209,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 5
+      m_ConstantMax: 0.5
     size:
       m_Mode: 0
       m_CurveMultiplier: 0
@@ -5226,7 +5226,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 10
+      m_ConstantMax: 1
   reloadSound: {fileID: 0}
   reloadVolume: 1
   shootSound: {fileID: 0}
