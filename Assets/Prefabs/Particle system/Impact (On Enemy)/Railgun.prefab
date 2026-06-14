@@ -4841,7 +4841,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ccb9592a96bfb4c509ec9f8c6adc99e8, type: 2}
+  - {fileID: 2100000, guid: 8d02917efda734f1bbd72c1267f6de57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4908,4 +4908,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParticleCollisionSpawner
   prefabToSpawn: {fileID: 7226583673155636401, guid: 1864275fa783e4bec85cc8145c26193b, type: 3}
-  splatterNumber: 4
+  splatterNumber: 3

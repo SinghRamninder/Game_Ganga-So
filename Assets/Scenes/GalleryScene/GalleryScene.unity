@@ -40669,6 +40669,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4484494502859028985, guid: 8b7e256a7cfda344aaeb17ae608b0aaa, type: 3}
+      propertyPath: splatterSetups.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484494502859028985, guid: 8b7e256a7cfda344aaeb17ae608b0aaa, type: 3}
+      propertyPath: splatterSetups.Array.data[3].name
+      value: 3DSplatter
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484494502859028985, guid: 8b7e256a7cfda344aaeb17ae608b0aaa, type: 3}
+      propertyPath: splatterSetups.Array.data[1].material
+      value: 
+      objectReference: {fileID: 2100000, guid: 25b145f5592b411418f550ab764fbc46, type: 2}
+    - target: {fileID: 4484494502859028985, guid: 8b7e256a7cfda344aaeb17ae608b0aaa, type: 3}
+      propertyPath: splatterSetups.Array.data[3].material
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d02917efda734f1bbd72c1267f6de57, type: 2}
+    - target: {fileID: 4484494502859028985, guid: 8b7e256a7cfda344aaeb17ae608b0aaa, type: 3}
+      propertyPath: splatterSetups.Array.data[3].temporaryPrefab
+      value: 
+      objectReference: {fileID: 8390140630907516658, guid: 176f76a455a6740828c2d7e9f43957f2, type: 3}
     - target: {fileID: 5436920735677152038, guid: 8b7e256a7cfda344aaeb17ae608b0aaa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 851.42505
