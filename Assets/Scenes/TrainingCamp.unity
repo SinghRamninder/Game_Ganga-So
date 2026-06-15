@@ -470,6 +470,10 @@ PrefabInstance:
       propertyPath: 'healthBars.Array.data[9]'
       value: 
       objectReference: {fileID: 503469970}
+    - target: {fileID: 8619745468659069353, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
+      propertyPath: field of view
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 8861769538984295157, guid: 68e79434d20a43944b3bc609d592062c, type: 3}
       propertyPath: crosshair
       value: 
@@ -3536,7 +3540,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995388127}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
