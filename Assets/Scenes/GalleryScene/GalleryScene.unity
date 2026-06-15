@@ -20,9 +20,9 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.554717, g: 0.554717, b: 0.554717, a: 1}
-  m_AmbientEquatorColor: {r: 1, g: 0, b: 0.47238064, a: 1}
-  m_AmbientGroundColor: {r: 0.19464922, g: 1, b: 0, a: 1}
+  m_AmbientSkyColor: {r: 0.7056604, g: 0.7056604, b: 0.7056604, a: 1}
+  m_AmbientEquatorColor: {r: 0.8862745, g: 0.72156864, b: 0.80753213, a: 1}
+  m_AmbientGroundColor: {r: 0.9490196, g: 0.72156864, b: 0.8604698, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
@@ -927231,7 +927231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &2089481207
 Light:
   m_ObjectHideFlags: 0
@@ -927286,7 +927286,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
-  m_ColorTemperature: 5287
+  m_ColorTemperature: 6560
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
