@@ -172,6 +172,48 @@ public class Weapon : MonoBehaviour
         if (pc != null) pc.SetSpeedModifier(1f);
     }
 
+    public void CheckpointSpawn()
+    {
+        currentAmmo = maxAmmo;
+
+        if (gunAnimator != null)
+        {
+            PlayAnimation("Default", gunAnimator);
+        }
+
+        if (gunAnimator2 != null && isDualPistol)
+        {
+            PlayAnimation("Default", gunAnimator2);
+        }
+
+        if (gunFirstSprite != null)
+        {
+            SpriteRenderer[] childSprites = GetComponentsInChildren<SpriteRenderer>();
+            if (childSprites.Length > 0) childSprites[0].sprite = gunFirstSprite;
+            if (childSprites.Length > 1 && isDualPistol && gunSecondSprite != null) childSprites[1].sprite = gunSecondSprite;
+        }
+
+        if (audioSource != null)
+        {
+            AudioSource[] audioSources = audioSource.GetComponents<AudioSource>();
+            foreach (AudioSource audioSource in audioSources)
+            {
+                if (audioSource != null)
+                    Destroy(audioSource);
+            }
+        }
+
+        if (audioSource2 != null)
+        {
+            AudioSource[] audioSources = audioSource2.GetComponents<AudioSource>();
+            foreach (AudioSource audioSource in audioSources)
+            {
+                if (audioSource != null)
+                    Destroy(audioSource);
+            }
+        }
+    }
+
     private void Update()
     {
         if (!isMeleeWeapon && !isReloading && currentAmmo < maxAmmo)

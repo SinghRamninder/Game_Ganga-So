@@ -97,8 +97,10 @@ public class PlayerHealthManager : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player died!");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (CheckpointManager.Instance != null)
+        {
+            CheckpointManager.Instance.SpawnAtCheckpoint();
+        }
     }
 
     public void Heal(float amount)
