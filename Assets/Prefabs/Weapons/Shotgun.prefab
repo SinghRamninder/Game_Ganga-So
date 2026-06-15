@@ -336,9 +336,30 @@ MonoBehaviour:
         m_RotationOrder: 4
       m_ConstantMin: 0.1
       m_ConstantMax: 0.3
-  reloadSound: {fileID: 8300000, guid: f80db3f6aff824403b8a784cea7a4bae, type: 3}
+  fireEventFmod:
+    Guid:
+      Data1: -913983092
+      Data2: 1291947013
+      Data3: -1651350648
+      Data4: 1266484836
+    Path: event:/Weapon_shotgun_fire
+  tailEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  reloadEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  reloadSound: {fileID: 0}
   reloadVolume: 1
-  shootSound: {fileID: 8300000, guid: dc204e5cd711a44e28e11106e12f9c22, type: 3}
+  shootSound: {fileID: 0}
   shootVolume: 1
   audioSource: {fileID: 3457339759524028798}
   audioSource2: {fileID: 0}

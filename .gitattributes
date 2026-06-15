@@ -1,0 +1,31 @@
+# =========================================================
+# .gitattributes  (rename to ".gitattributes" at repo root)
+# LFS tracking + line ending rules for Unity + FMOD
+# =========================================================
+
+# ----------------- Audio source files (LFS) ----------------
+
+# ----------------- FMOD built banks (LFS) ------------------
+
+# ----------------- Common Unity binary assets (LFS) --------
+# Uncomment / extend as your project grows. Coordinate with the
+# team before adding types they already committed without LFS.
+
+# ----------------- FMOD Studio project metadata ------------
+# Keep as text so changes are diffable, but never let Git try
+# a clever merge silently: conflicts must be resolved by a human
+# taking one whole side, then running File > Validate Project.
+/FMODProject/Metadata/** text eol=lf
+
+# ----------------- FMOD for Unity plugin (documented) ------
+# The FMOD Unity manual requires LF endings for these files.
+Assets/Plugins/FMOD/**/*.bundle text eol=lf
+Assets/Plugins/FMOD/**/Info.plist text eol=lf
+
+# ----------------- Unity YAML files -------------------------
+# Mark Unity's text-serialized assets so merge tools behave.
+*.unity   text merge=unityyamlmerge eol=lf
+*.prefab  text merge=unityyamlmerge eol=lf
+*.asset   text merge=unityyamlmerge eol=lf
+# (unityyamlmerge requires setup in .git/config; if not configured,
+# Git falls back to the default merge driver, which is fine.)

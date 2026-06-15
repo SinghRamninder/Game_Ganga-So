@@ -488,12 +488,19 @@ MonoBehaviour:
         m_RotationOrder: 4
       m_ConstantMin: 1
       m_ConstantMax: 1.5
+  fireEventFmod:
+    Guid:
+      Data1: -1508746623
+      Data2: 1296696296
+      Data3: -62922579
+      Data4: 2030593149
+    Path: event:/Weapons_inkpistol_fire
   reloadSound: {fileID: 8300000, guid: eca330f5ad3de43ee80cebb73a4119a0, type: 3}
   reloadVolume: 1
-  shootSound: {fileID: 8300000, guid: 3af1c70dbe3f74bc19f95d4eb040d80c, type: 3}
+  shootSound: {fileID: 0}
   shootVolume: 1
   audioSource: {fileID: 7081218098691514869}
-  audioSource2: {fileID: 9011923521684470343}
+  audioSource2: {fileID: 0}
 --- !u!1 &8230637527002019060
 GameObject:
   m_ObjectHideFlags: 0
