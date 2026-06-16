@@ -218,6 +218,10 @@ PrefabInstance:
       value: SmallLamp (1)
       objectReference: {fileID: 0}
     - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -3497,6 +3501,10 @@ PrefabInstance:
       value: SmallLamp (3)
       objectReference: {fileID: 0}
     - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -3749,6 +3757,10 @@ PrefabInstance:
     - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
       propertyPath: m_Name
       value: SmallLamp (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -4079,6 +4091,10 @@ PrefabInstance:
     - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
       propertyPath: m_Name
       value: SmallLamp (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -4813,6 +4829,10 @@ PrefabInstance:
       value: SmallLamp (2)
       objectReference: {fileID: 0}
     - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -5180,7 +5200,12 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: b2aff56b0104b41d2ad1b4901d76e095, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1461396141729105447, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
+    - {fileID: 8067262962031367503, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
+    - {fileID: 6754198221816514075, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
+    - {fileID: 4096440443337632764, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
+    - {fileID: 1450136854724111583, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1742572143514608637, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
     m_AddedGameObjects:
@@ -8372,6 +8397,10 @@ PrefabInstance:
     - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
       propertyPath: m_Name
       value: SmallLamp (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 550768152013291936, guid: aef00b66592ae2a4c92e6f9a74561c9f, type: 3}
       propertyPath: m_StaticEditorFlags
