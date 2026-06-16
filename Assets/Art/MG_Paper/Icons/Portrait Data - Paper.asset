@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3103df4eafb07e94c826eeedc5db2d82, type: 3}
+  m_Name: Portrait Data - Paper
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPortraitData
+  fullHealth: {fileID: -1329328947, guid: ecf2403bfce6fce43bb291e92963c389, type: 3}
+  midHealth: {fileID: 340871189, guid: ecf2403bfce6fce43bb291e92963c389, type: 3}
+  lowHealth: {fileID: -655760955, guid: ecf2403bfce6fce43bb291e92963c389, type: 3}
+  fullHit: {fileID: -1375429416, guid: ecf2403bfce6fce43bb291e92963c389, type: 3}
+  midHit: {fileID: 789357003, guid: ecf2403bfce6fce43bb291e92963c389, type: 3}
+  lowHit: {fileID: -117188034, guid: ecf2403bfce6fce43bb291e92963c389, type: 3}
+  fullBlink: {fileID: 2100125242, guid: 0e58476199ae54b449a305bf0df358e1, type: 3}
+  midBlink: {fileID: 1697279463, guid: 0e58476199ae54b449a305bf0df358e1, type: 3}
+  lowBlink: {fileID: -1262790032, guid: 0e58476199ae54b449a305bf0df358e1, type: 3}
+  dead: {fileID: 2629891, guid: 0e58476199ae54b449a305bf0df358e1, type: 3}
+  heartIconSprite: {fileID: 21300000, guid: 5839b7b21d6ff5c4dae84a83882eff0e, type: 3}
+  barFillSprite: {fileID: 21300000, guid: dfbba476084235249bf5683364481c49, type: 3}
+  barBackgroundSprite: {fileID: 21300000, guid: 8772e43d0201d2746898369ef9a68a2f, type: 3}
