@@ -29,32 +29,31 @@ public class PlayerHealth : MonoBehaviour
     private void Update()
     {
         // --- EDITOR TESTING CONTROLS ---
-        // Pressing 'T' will deal 1 damage
         if (Input.GetKeyDown(damageTestKey))
         {
             TakeDamage(1);
         }
 
-        // Pressing 'Y' will restore 1 damage
         if (Input.GetKeyDown(healTestKey))
         {
             Heal(1);
         }
     }
 
-    /// <summary>
-    /// Call this from enemy scripts, hazards, or projectiles to hurt the player.
-    /// </summary>
     public void TakeDamage(int damageAmount)
     {
         if (currentHealth <= 0) return;
 
         currentHealth -= damageAmount;
-        
-        // Clamp health so it never goes below zero
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         
         UpdateUI();
+
+        // ⭐ فعال کردن افکت گلیچِ ضربه خوردن چهره به مدت ۰.۳ ثانیه
+        if (PlayerWeaponManager.instance != null && PlayerWeaponManager.instance.portraitUI != null && currentHealth > 0)
+        {
+            PlayerWeaponManager.instance.portraitUI.TriggerHitEffect(0.3f);
+        }
 
         if (currentHealth <= 0)
         {
@@ -62,14 +61,9 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Call this when picking up a health pack or painting item.
-    /// </summary>
     public void Heal(int healAmount)
     {
         currentHealth += healAmount;
-        
-        // Clamp health so it never exceeds your max capacity of 8 bars
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         
         UpdateUI();
@@ -81,11 +75,22 @@ public class PlayerHealth : MonoBehaviour
         {
             healthUI.UpdateHealthDisplay(currentHealth);
         }
+
+        // ⭐ آپدیت کردن وضعیت پورتریت پایه بر اساس میزان خون فعلی پلیر
+        if (PlayerWeaponManager.instance != null && PlayerWeaponManager.instance.portraitUI != null)
+        {
+            PlayerWeaponManager.instance.portraitUI.UpdateHealth(currentHealth, maxHealth);
+        }
     }
 
     private void HandleDeath()
     {
         Debug.Log("Player has died! Trigger Game Over screen here.");
-        // Add your player death logic here (e.g., open a death panel, pause game, etc.)
+        
+        // ⭐ فعال کردن پورتریت مرگ (صفحه بلواسکرین)
+        if (PlayerWeaponManager.instance != null && PlayerWeaponManager.instance.portraitUI != null)
+        {
+            PlayerWeaponManager.instance.portraitUI.UpdateHealth(0, maxHealth);
+        }
     }
 }
