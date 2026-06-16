@@ -98,7 +98,25 @@ public class WeaponEditor : Editor
 
             EditorGUILayout.Space();
             GUILayout.Label("Advanced options");
-            weapon.isDualPistol = EditorGUILayout.Toggle(new GUIContent("Is Dual Pistol", "Is this gun a dual pistol?"), weapon.isDualPistol);
+
+            if (!weapon.isRailGun)
+            {
+                weapon.isDualPistol = EditorGUILayout.Toggle(new GUIContent("Is Dual Pistol", "Is this gun a dual pistol?"), weapon.isDualPistol);
+            }
+            else
+            {
+                weapon.isDualPistol = false;
+            }
+
+            if (!weapon.isDualPistol)
+            {
+                weapon.isRailGun = EditorGUILayout.Toggle(new GUIContent("Is Rail Gun", "Is this gun a rail gun?"), weapon.isRailGun);
+            }
+            else
+            {
+                weapon.isRailGun = false;
+            }
+
             if (weapon.isDualPistol)
             {
                 weapon.differentShootButtons = EditorGUILayout.Toggle(new GUIContent("Different Shoot Buttons", "Use different buttons for different guns"), weapon.differentShootButtons);

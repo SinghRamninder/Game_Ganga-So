@@ -35,36 +35,32 @@ public class ParticleCollisionSpawner : MonoBehaviour
         if (ps == null || prefabToSpawn == null) return;
 
         int numCollisionEvents = ps.GetCollisionEvents(other, collisionEvents);
+        int layerMask = LayerMask.GetMask("Default");
 
         for (int i = 0; i < numCollisionEvents; i++)
         {
             Vector3 pos = collisionEvents[i].intersection;
-            Vector3 normal = collisionEvents[i].normal;
+            Debug.LogWarning(collisionEvents[i].colliderComponent.gameObject.name);
 
-            if (normal != Vector3.zero/* && IsFullyOnWall(pos, normal, 1.5f)*/)
+            Vector3 startPos = transform.position;
+            Vector3 direction = (pos - startPos).normalized;
+            float distance = Vector3.Distance(startPos, pos) + 50f;
+
+            if (Physics.Raycast(startPos, direction, out RaycastHit hit, distance, layerMask, QueryTriggerInteraction.Ignore))
             {
-                //Quaternion rot = Quaternion.LookRotation(-normal) * Quaternion.Euler(0, 0, Random.Range(0f, 360f));
-                //GameObject spawnedSplat = Instantiate(prefabToSpawn, pos, rot);
-
-                //MeshRenderer splatMesh = spawnedSplat.GetComponent<MeshRenderer>();
-                //if (splatMesh != null)
-                //{
-                //    splatMesh.sortingLayerName = "Splatter";
-                //    if (PlayerWeaponManager.instance != null)
-                //        splatMesh.sortingOrder = PlayerWeaponManager.instance.weaponLayerNumber;
-
-                //    Debug.Log(splatMesh.sortingLayerName);
-                //    Debug.Log(splatMesh.sortingOrder);
-                //}
-
-                //if (PlayerWeaponManager.instance != null)
-                //    PlayerWeaponManager.instance.weaponLayerNumber++;
-
-                SplatterMeshManager.Instance.AddSplatter(splatterNumber, pos, normal);
+                float targetSize = SplatterMeshManager.Instance != null ? SplatterMeshManager.Instance.GetMaxSplatterSize(splatterNumber) : 1.5f;
+                if (IsFullyOnWall(hit.point, hit.normal, targetSize))
+                {
+                    SplatterMeshManager.Instance.AddSplatter(splatterNumber, hit.point, hit.normal);
+                }
+                else
+                {
+                    Debug.LogWarning("Not spawned!! Collision detected on Edge");
+                }
             }
             else
             {
-                Debug.Log("Not spawned!! Collision detected on Edge");
+                Debug.LogWarning("No collision detected");
             }
         }
     }

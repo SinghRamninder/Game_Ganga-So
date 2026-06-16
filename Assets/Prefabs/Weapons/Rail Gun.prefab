@@ -5148,6 +5148,7 @@ MonoBehaviour:
   weaponSpawnRotation: {x: -0.001311116, y: 0.028327478, z: -0.04621616, w: 0.9985289}
   weaponSpawnScale: {x: 0.98, y: 0.98, z: 0.98}
   isDualPistol: 0
+  isRailGun: 1
   differentShootButtons: 1
   shootPoint1: {fileID: 0}
   shootPoint2: {fileID: 0}
@@ -5227,6 +5228,27 @@ MonoBehaviour:
         m_RotationOrder: 4
       m_ConstantMin: 0
       m_ConstantMax: 20
+  fireEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  tailEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  reloadEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   reloadSound: {fileID: 0}
   reloadVolume: 1
   shootSound: {fileID: 0}

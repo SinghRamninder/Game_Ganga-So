@@ -13,14 +13,13 @@ public class SplatterMeshManager : MonoBehaviour
         public string name;
         public GameObject temporaryPrefab;
         public Material material;
+        public float minSize = 0.4f;
+        public float maxSize = 1.0f;
+        public bool isInkSplatter;
     }
 
     [Header("Splatter Setups")]
     [SerializeField] private List<SplatterSetup> splatterSetups = new List<SplatterSetup>();
-
-    [Header("Splatter Size")]
-    [SerializeField] private float minSize = 0.4f;
-    [SerializeField] private float maxSize = 1.0f;
 
     [Header("Area Settings")]
     [SerializeField] private string defaultAreaId = "Default";
@@ -178,6 +177,14 @@ public class SplatterMeshManager : MonoBehaviour
         StartCoroutine(ProcessPendingSplatters());
     }
 
+    public float GetMaxSplatterSize(int gunIndex)
+    {
+        if (!IsValidGunIndex(gunIndex))
+            return 1.0f;
+
+        return splatterSetups[gunIndex].maxSize;
+    }
+
     public void AddSplatter(int gunIndex, Vector3 hitPoint, Vector3 hitNormal)
     {
         AddSplatter(gunIndex, defaultAreaId, hitPoint, hitNormal);
@@ -197,18 +204,21 @@ public class SplatterMeshManager : MonoBehaviour
 
         int targetLayer = GetTargetLayer(area, gunIndex, hitPoint, normal);
 
-        float size = Random.Range(minSize, maxSize);
+        float size = Random.Range(splatterSetups[gunIndex].minSize, splatterSetups[gunIndex].maxSize);
         float halfSize = size * 0.5f;
 
         Vector3 tangent;
         Vector3 bitangent;
         CreateSurfaceDirections(normal, out tangent, out bitangent);
 
-        float randomRotation = Random.Range(0f, 360f);
-        Quaternion randomSpin = Quaternion.AngleAxis(randomRotation, normal);
+        if (!splatterSetups[gunIndex].isInkSplatter)
+        {
+            float randomRotation = Random.Range(0f, 360f);
+            Quaternion randomSpin = Quaternion.AngleAxis(randomRotation, normal);
 
-        tangent = randomSpin * tangent;
-        bitangent = randomSpin * bitangent;
+            tangent = randomSpin * tangent;
+            bitangent = randomSpin * bitangent;
+        }
 
         float finalSurfaceOffset = surfaceOffset + targetLayer * layerOffset;
         Vector3 renderCenter = hitPoint + normal * finalSurfaceOffset;
@@ -251,7 +261,7 @@ public class SplatterMeshManager : MonoBehaviour
             );
         }
 
-        pendingSplatters.Enqueue(new PendingSplatter
+        PendingSplatter pending = new PendingSplatter
         {
             buildTime = Time.time + meshBuildDelay,
             data = data,
@@ -262,7 +272,40 @@ public class SplatterMeshManager : MonoBehaviour
             worldV2 = worldV2,
             worldV3 = worldV3,
             normal = normal
-        });
+        };
+
+        if (splatterSetups[gunIndex].isInkSplatter && temporaryVisual != null)
+        {
+            Animator animator = temporaryVisual.gameObject.GetComponent<Animator>();
+            if (animator != null)
+            {
+                animator.Play("Default", 0, 0f);
+                float clipLength = meshBuildDelay;
+
+                AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+                if (clipInfo.Length > 0)
+                {
+                    clipLength = clipInfo[0].clip.length;
+                }
+
+                StartCoroutine(EnqueueSplatterDelayed(clipLength, pending));
+            }
+            else
+            {
+                pendingSplatters.Enqueue(pending);
+            }
+        }
+        else
+        {
+            pendingSplatters.Enqueue(pending);
+        }
+    }
+
+    private IEnumerator EnqueueSplatterDelayed(float delay, PendingSplatter pending)
+    {
+        yield return new WaitForSeconds(delay);
+        pending.buildTime = Time.time;
+        pendingSplatters.Enqueue(pending);
     }
 
     private IEnumerator CreatePoolsGradually()

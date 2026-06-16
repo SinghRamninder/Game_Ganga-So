@@ -225,6 +225,7 @@ MonoBehaviour:
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
   weaponSpawnScale: {x: 1, y: 1, z: 1}
   isDualPistol: 0
+  isRailGun: 0
   differentShootButtons: 1
   shootPoint1: {fileID: 0}
   shootPoint2: {fileID: 0}
@@ -318,6 +319,13 @@ MonoBehaviour:
       Data3: -248736372
       Data4: 1144969357
     Path: event:/Weapon_tommyGun_tailburst
+  reloadEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   reloadSound: {fileID: 0}
   reloadVolume: 1
   shootSound: {fileID: 0}

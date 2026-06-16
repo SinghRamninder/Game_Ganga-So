@@ -58,6 +58,7 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public Vector3 weaponSpawnScale = Vector3.one;
 
     [HideInInspector] public bool isDualPistol = false;
+    [HideInInspector] public bool isRailGun = false;
     [HideInInspector] public bool differentShootButtons = true;
     [HideInInspector] public Transform shootPoint1;
     private bool isSP1 = true;
@@ -625,38 +626,90 @@ public class Weapon : MonoBehaviour
                 }
             }
 
-            if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, range, ~0, QueryTriggerInteraction.Ignore))
+            if (isRailGun)
             {
-                EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
-                Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
+                RaycastHit[] hits = Physics.RaycastAll(rayOrigin, fireDirection, range, ~0, QueryTriggerInteraction.Ignore);
+                System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
 
-                if (enemy != null && enemyHitBox != null)
+                if (hits.Length == 0)
                 {
-                    if (enemyHitBox.bodyPart == BodyPart.Head)
-                    {
-                        Debug.Log("Head Shot");
-                        enemy.TakeDamage(damageToEnemyHead);
-                        StartCoroutine(headShotEffect());
-                    }
-                    else if (enemyHitBox.bodyPart == BodyPart.Body)
-                    {
-                        Debug.Log("Body Shot");
-                        enemy.TakeDamage(damageToEnemyBody);
-                    }
-
-                    StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, true));
+                    Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
+                    StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
                 }
-
-                if (enemy == null)
+                else
                 {
-                    StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
-                }
+                    bool hitWall = false;
+                    foreach (RaycastHit hit in hits)
+                    {
+                        EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
+                        Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
 
+                        if (enemy != null && enemyHitBox != null)
+                        {
+                            if (enemyHitBox.bodyPart == BodyPart.Head)
+                            {
+                                Debug.Log("Head Shot");
+                                enemy.TakeDamage(damageToEnemyHead);
+                                StartCoroutine(headShotEffect());
+                            }
+                            else if (enemyHitBox.bodyPart == BodyPart.Body)
+                            {
+                                Debug.Log("Body Shot");
+                                enemy.TakeDamage(damageToEnemyBody);
+                            }
+
+                            StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, true));
+                        }
+                        else
+                        {
+                            StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
+                            hitWall = true;
+                            break;
+                        }
+                    }
+
+                    if (!hitWall)
+                    {
+                        Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
+                        StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
+                    }
+                }
             }
             else
             {
-                Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
-                StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
+                if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, range, ~0, QueryTriggerInteraction.Ignore))
+                {
+                    EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
+                    Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
+
+                    if (enemy != null && enemyHitBox != null)
+                    {
+                        if (enemyHitBox.bodyPart == BodyPart.Head)
+                        {
+                            Debug.Log("Head Shot");
+                            enemy.TakeDamage(damageToEnemyHead);
+                            StartCoroutine(headShotEffect());
+                        }
+                        else if (enemyHitBox.bodyPart == BodyPart.Body)
+                        {
+                            Debug.Log("Body Shot");
+                            enemy.TakeDamage(damageToEnemyBody);
+                        }
+
+                        StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, true));
+                    }
+
+                    if (enemy == null)
+                    {
+                        StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
+                    }
+
+                }
+                else
+                {
+                    Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
+                    StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
+                }
             }
         }
     }
