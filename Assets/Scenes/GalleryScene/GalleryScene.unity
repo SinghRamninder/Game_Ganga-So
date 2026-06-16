@@ -85824,7 +85824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8322183034181743875, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 224.5292
+      value: 247.4
       objectReference: {fileID: 0}
     - target: {fileID: 8322183034181743875, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
       propertyPath: m_SizeDelta.y
@@ -85871,7 +85871,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5221996022652047192, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
       insertIndex: 1
       addedObject: {fileID: 1425438768}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5010949038588585961, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 839197919}
   m_SourcePrefab: {fileID: 100100000, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
 --- !u!1 &435289029 stripped
 GameObject:
@@ -181674,6 +181677,26 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &839197918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5010949038588585961, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
+  m_PrefabInstance: {fileID: 435289028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &839197919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839197918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a2a9e3ba1323146aa188fd0fc719ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISpinner
+  rotationSpeed: -20
+  rotationAmount: 60
+  pauseDuration: 2
 --- !u!43 &840738987
 Mesh:
   m_ObjectHideFlags: 0
@@ -345443,8 +345466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -861, y: 413.7}
-  m_SizeDelta: {x: 203.12, y: 252}
+  m_AnchoredPosition: {x: -848.4624, y: 360.98578}
+  m_SizeDelta: {x: 228.1952, y: 260.739}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1420888590
 MonoBehaviour:
