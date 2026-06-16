@@ -5,10 +5,10 @@ public class HealthBarUI : MonoBehaviour
 {
     public static HealthBarUI instance;
 
-    [Header("UI Image Components")]
-    [SerializeField] private Image heartIcon;       // کامپوننت ایمیج قلب در هایارکی
-    [SerializeField] private Image barBackground;  // کامپوننت ایمیج ریل/بک‌گراند نوار خون
-    [SerializeField] private Image barFill;        // کامپوننت ایمیج کپسول‌ها (یا fill نوار)
+    [Header("UI Components")]
+    [SerializeField] private Image heartIcon;             // کامپوننت عکس قلب
+    [SerializeField] private GameObject emptyBarsParent;  // پوشه/والد کپسول‌های خالی
+    [SerializeField] private GameObject fillBarsParent;   // پوشه/والد کپسول‌های پر
 
     private void Awake()
     {
@@ -19,16 +19,28 @@ public class HealthBarUI : MonoBehaviour
     {
         if (data == null) return;
 
-        // تغییر عکس قلب
+        // ۱. تغییر عکس قلب
         if (heartIcon != null && data.heartIconSprite != null)
             heartIcon.sprite = data.heartIconSprite;
 
-        // تغییر عکس بک‌گراند نوار
-        if (barBackground != null && data.barBackgroundSprite != null)
-            barBackground.sprite = data.barBackgroundSprite;
+        // ۲. تغییر عکس تمام کپسول‌های خالی به صورت یکجا
+        if (emptyBarsParent != null && data.barBackgroundSprite != null)
+        {
+            Image[] images = emptyBarsParent.GetComponentsInChildren<Image>(true);
+            foreach (Image img in images)
+            {
+                img.sprite = data.barBackgroundSprite;
+            }
+        }
 
-        // تغییر عکس کپسول‌ها/خون اصلی
-        if (barFill != null && data.barFillSprite != null)
-            barFill.sprite = data.barFillSprite;
+        // ۳. تغییر عکس تمام کپسول‌های پر به صورت یکجا
+        if (fillBarsParent != null && data.barFillSprite != null)
+        {
+            Image[] images = fillBarsParent.GetComponentsInChildren<Image>(true);
+            foreach (Image img in images)
+            {
+                img.sprite = data.barFillSprite;
+            }
+        }
     }
 }

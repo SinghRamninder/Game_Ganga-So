@@ -85875,6 +85875,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5010949038588585961, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
       insertIndex: -1
       addedObject: {fileID: 839197919}
+    - targetCorrespondingSourceObject: {fileID: 8868238726984083119, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1248309298}
   m_SourcePrefab: {fileID: 100100000, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
 --- !u!1 &435289029 stripped
 GameObject:
@@ -96637,6 +96640,17 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!114 &469288518 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7119840152664711388, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
+  m_PrefabInstance: {fileID: 435289028}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &469971412
 GameObject:
   m_ObjectHideFlags: 0
@@ -116299,6 +116313,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7104034333765433204, guid: f6b0ba143046aa947907954922893e28, type: 3}
   m_PrefabInstance: {fileID: 618259409}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &620555663 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2688680121670522467, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
+  m_PrefabInstance: {fileID: 435289028}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &621314316
 GameObject:
@@ -311140,6 +311159,26 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &1248309297 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8868238726984083119, guid: 18537d0b467bb9a44a96da473d1e4144, type: 3}
+  m_PrefabInstance: {fileID: 435289028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1248309298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248309297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434aaa909d17be44086ddb5f5459f61b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthBarUI
+  heartIcon: {fileID: 469288518}
+  emptyBarsParent: {fileID: 1425438767}
+  fillBarsParent: {fileID: 620555663}
 --- !u!1001 &1249826096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -345466,8 +345505,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -848.4624, y: 360.98578}
-  m_SizeDelta: {x: 228.1952, y: 260.739}
+  m_AnchoredPosition: {x: -861.7589, y: 356.5536}
+  m_SizeDelta: {x: 201.6022, y: 269.6034}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1420888590
 MonoBehaviour:

@@ -63,9 +63,16 @@ public class PlayerWeaponManager : MonoBehaviour
             Debug.Log($"[WeaponManager] دیتای عکس روی این اسلحه وجود دارد: {currentWeaponScript.weaponPortraitData != null}");
         }
 
+        // تغییر پرتره
         if (currentWeaponScript != null && portraitUI != null)
         {
             portraitUI.ChangeWeaponPortrait(currentWeaponScript.weaponPortraitData);
+        }
+
+        // 🟢 خط جدید: تغییر خودکار اچ‌پ‌بار مچ شده با تفنگ
+        if (currentWeaponScript != null && HealthBarUI.instance != null)
+        {
+            HealthBarUI.instance.ChangeHealthBarVisuals(currentWeaponScript.weaponPortraitData);
         }
     }
 
@@ -105,9 +112,16 @@ public class PlayerWeaponManager : MonoBehaviour
             Debug.Log($"[WeaponManager] دیتای عکس روی این اسلحه وجود دارد: {currentWeaponScript.weaponPortraitData != null}");
         }
 
+        // تغییر پرتره
         if (currentWeaponScript != null && portraitUI != null)
         {
             portraitUI.ChangeWeaponPortrait(currentWeaponScript.weaponPortraitData);
+        }
+
+        // 🟢 خط جدید: تغییر خودکار اچ‌پ‌بار مچ شده با تفنگ
+        if (currentWeaponScript != null && HealthBarUI.instance != null)
+        {
+            HealthBarUI.instance.ChangeHealthBarVisuals(currentWeaponScript.weaponPortraitData);
         }
     }
 }
