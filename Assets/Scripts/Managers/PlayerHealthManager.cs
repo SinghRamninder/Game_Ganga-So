@@ -65,6 +65,12 @@ public class PlayerHealthManager : MonoBehaviour
 
         UpdateUI();
 
+        // فعال کردن افکت گلیچِ ضربه خوردن چهره به مدت ۰.۳ ثانیه
+        if (PlayerWeaponManager.instance != null && PlayerWeaponManager.instance.portraitUI != null && currentHealth > 0)
+        {
+            PlayerWeaponManager.instance.portraitUI.TriggerHitEffect(0.3f);
+        }
+
         if (currentHealth <= 0)
         {
             if (bloodImage != null)
@@ -93,20 +99,41 @@ public class PlayerHealthManager : MonoBehaviour
                 healthBars[i].SetActive(i < activeBars);
             }
         }
+
+        // آپدیت کردن وضعیت پورتریت پایه بر اساس میزان خون فعلی
+        if (PlayerWeaponManager.instance != null && PlayerWeaponManager.instance.portraitUI != null)
+        {
+            PlayerWeaponManager.instance.portraitUI.UpdateHealth((int)currentHealth, (int)currentMaxHealth);
+        }
     }
 
     private void Die()
     {
         Debug.Log("Player died!");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
+        // فعال کردن پورتریت مرگ (صفحه بلواسکرین)
+        if (PlayerWeaponManager.instance != null && PlayerWeaponManager.instance.portraitUI != null)
+        {
+            PlayerWeaponManager.instance.portraitUI.UpdateHealth(0, (int)currentMaxHealth);
+        }
+
+        // ایجاد تاخیر کوتاه برای نمایش صفحه مرگ و سپس ریست لول
+        //StartCoroutine(ResetLevelAfterDelay(0.6f));
+
+        if (CheckpointManager.Instance != null)
+        {
+            CheckpointManager.Instance.SpawnAtCheckpoint();
+        }
     }
 
+
+
     public void Heal(float amount)
-{
-    currentHealth += amount;
-    if (currentHealth > currentMaxHealth) currentHealth = currentMaxHealth;
-    UpdateUI();
-}
+    {
+        currentHealth += amount;
+        if (currentHealth > currentMaxHealth) currentHealth = currentMaxHealth;
+        UpdateUI();
+    }
 
     private IEnumerator DisplayHitEffect()
     {

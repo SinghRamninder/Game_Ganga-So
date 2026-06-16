@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     public ParticleSystem deathEffect;
     [HideInInspector] public BulletTrails bulletTrail;
 
-    [HideInInspector] public Animator animator;
+    public Animator animator;
     [Header("Animations")]
     public string walkAnimString = "Walk";
     private bool walkAnimPlaying = false;
@@ -58,6 +58,11 @@ public class Enemy : MonoBehaviour
     private float nextWalkSoundTime = 0f;
     private NavMeshAgent navAgent;
 
+    private void OnDisable()
+    {
+        PlayAnimation("Default");
+    }
+
     private void Start()
     {
         //navAgent = GetComponent<NavMeshAgent>();
@@ -78,7 +83,16 @@ public class Enemy : MonoBehaviour
 
         if (animator == null)
         {
-            animator = GetComponentInChildren<Animator>();
+            Animator[] animators = GetComponentsInChildren<Animator>(true);
+
+            foreach (Animator anim in animators)
+            {
+                if (anim.gameObject == gameObject)
+                    continue;
+
+                animator = anim;
+                break;
+            }
         }
 
         positionLastFrameForSound = transform.position;
@@ -162,7 +176,7 @@ public class Enemy : MonoBehaviour
                             transform.position += moveDirection * speed * Time.deltaTime;
                         }
 
-                        if (!walkAnimPlaying)
+                        if (!walkAnimPlaying && !isAttacking)
                         {
                             ReturnToWalk();
                         }
@@ -171,14 +185,14 @@ public class Enemy : MonoBehaviour
                     {
                         if (navAgent != null) navAgent.isStopped = true;
 
-                        if (!isIdle)
+                        if (!isIdle && !isAttacking)
                         {
                             ReturnToIdle();
                         }
 
-                        if (Time.time >= nextAttackTime)
+                        if (Time.time >= nextAttackTime && !isAttacking)
                         {
-                            Shoot(rayShootPos, rayShootDirection);
+                            StartCoroutine(Shoot(rayShootPos, rayShootDirection));
                             nextAttackTime = Time.time + (1f / attackRate);
                         }
                     }
@@ -201,7 +215,7 @@ public class Enemy : MonoBehaviour
                         transform.position += newMoveDirection * speed * Time.deltaTime;
                     }
 
-                    if (!walkAnimPlaying)
+                    if (!walkAnimPlaying && !isAttacking)
                     {
                         ReturnToWalk();
                     }
@@ -210,7 +224,7 @@ public class Enemy : MonoBehaviour
                 {
                     if (navAgent != null) navAgent.isStopped = true;
 
-                    if (!isIdle)
+                    if (!isIdle && !isAttacking)
                     {
                         ReturnToIdle();
                     }
@@ -324,9 +338,9 @@ public class Enemy : MonoBehaviour
         ReturnToWalk();
     }
 
-    private void Shoot(Vector3 shootPos, Vector3 shootDirection)
+    private IEnumerator Shoot(Vector3 shootPos, Vector3 shootDirection)
     {
-        PlayAnimation(attackAnimString);
+        isAttacking = true;
         if (audioSource != null && attackSound != null)
             StartCoroutine(AudioManager.Instance.PlaySound(audioSource, attackSound, attackVolume, true));
 
@@ -336,6 +350,8 @@ public class Enemy : MonoBehaviour
 
             if (hit.collider.CompareTag("Player"))
             {
+                PlayAnimation(attackAnimString);
+
                 if (!canShootProjectile)
                 {
                     StartCoroutine(SpawnTracer(shootPos, maxRangePoint));
@@ -346,6 +362,20 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
+
+        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+
+        if (clipInfo.Length > 0)
+        {
+            yield return new WaitForSeconds(clipInfo[0].clip.length);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isAttacking = false;
+        ReturnToIdle();
     }
 
     private void ReturnToWalk()
@@ -371,20 +401,23 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
         isDead = true;
         if (navAgent != null) navAgent.enabled = false;
-        Destroy(GetComponent<Rigidbody>());
+
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.detectCollisions = false;
 
         Collider[] allColliders = GetComponentsInChildren<Collider>();
         foreach (Collider collider in allColliders)
         {
-            Destroy(collider);
+            collider.enabled = false;
         }
 
         PlayAnimation(deathAnimString);
@@ -418,7 +451,20 @@ public class Enemy : MonoBehaviour
             delay = 0f;
         }
 
-        Destroy(gameObject, delay);
+        yield return new WaitForSeconds(delay);
+
+        gameObject.SetActive(false);
+    }
+
+    public void MakeEnemyAlive()
+    {
+        isDead = false;
+        currentHealth = maxHealth;
+        walkAnimPlaying = false;
+        isIdle = true;
+        isAttacking = false;
+        firstHitWithPlayer = false;
+        if (navAgent != null) navAgent.enabled = true;
     }
 
     private void PlayAnimation(string animName)

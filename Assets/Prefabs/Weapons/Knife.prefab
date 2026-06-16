@@ -172,15 +172,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2838531928758566847}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.008124559, y: 0.99996704, z: -0, w: 0}
+  m_LocalPosition: {x: -0.47, y: -0.03, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4104718982131034826}
   - {fileID: 2046845292751278994}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: -0.931}
 --- !u!114 &6781477392875771513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,8 +207,8 @@ MonoBehaviour:
   trailSpawnPos: {fileID: 506611863354532131}
   healthModifier: 0
   speedModifier: 1.5
-  damageToEnemyHead: 20
-  damageToEnemyBody: 10
+  damageToEnemyHead: 200
+  damageToEnemyBody: 200
   raysPerShot: 0
   aoeSpread: 0
   maxAmmo: 0
@@ -221,8 +221,8 @@ MonoBehaviour:
   impactEffectNonEnemy: {fileID: 0}
   impactEffectEnemy: {fileID: 8724896405505394418, guid: 60a1519202a724260936dd804706eb8b, type: 3}
   useSameImpactEffect: 0
-  weaponSpawnPosition: {x: 0, y: 0, z: 0}
-  weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
+  weaponSpawnPosition: {x: -0.47, y: -0.03, z: 0}
+  weaponSpawnRotation: {x: -0.008124559, y: 0.99996704, z: -0, w: 0}
   weaponSpawnScale: {x: 0.15, y: 0.15, z: 0.15}
   isDualPistol: 0
   differentShootButtons: 1
@@ -231,10 +231,11 @@ MonoBehaviour:
   attackAnimString: Attack
   reloadAnimString: Reload
   useReloadAnimLength: 0
+  weaponPortraitData: {fileID: 11400000, guid: 81da7ae9a99a8c149b9cf4d68fb7ed2b, type: 2}
   useOldMethod: 0
-  splatterNumber: 0
+  splatterNumber: 4
   particlesProfile:
-    particleCount: 10
+    particleCount: 2
     speed:
       m_Mode: 3
       m_CurveMultiplier: 0
@@ -288,7 +289,7 @@ MonoBehaviour:
       m_ConstantMin: 0
       m_ConstantMax: 10
     size:
-      m_Mode: 3
+      m_Mode: 0
       m_CurveMultiplier: 0
       m_CurveMin:
         serializedVersion: 2
@@ -302,8 +303,8 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      m_ConstantMin: 1
-      m_ConstantMax: 1.5
+      m_ConstantMin: 10
+      m_ConstantMax: 3
   reloadSound: {fileID: 0}
   reloadVolume: 1
   shootSound: {fileID: 8300000, guid: e537c017b3bbe4278911330ebf29634d, type: 3}

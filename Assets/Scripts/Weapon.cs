@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using FMODUnity;
 
 public enum FireMode
 {
@@ -48,12 +49,16 @@ public class Weapon : MonoBehaviour
     private float nextTimeToFire = 0f;
     private int currentAmmo;
     private bool isReloading = false;
+    private bool firedDuringAttackPress = false;
+    private bool firedDuringLeftPress = false;
+    private bool firedDuringRightPress = false;
 
     [HideInInspector] public Vector3 weaponSpawnPosition = Vector3.zero;
     [HideInInspector] public Quaternion weaponSpawnRotation = Quaternion.identity;
     [HideInInspector] public Vector3 weaponSpawnScale = Vector3.one;
 
     [HideInInspector] public bool isDualPistol = false;
+    [HideInInspector] public bool isRailGun = false;
     [HideInInspector] public bool differentShootButtons = true;
     [HideInInspector] public Transform shootPoint1;
     private bool isSP1 = true;
@@ -64,7 +69,8 @@ public class Weapon : MonoBehaviour
     public string attackAnimString = "Attack";
     public string reloadAnimString = "Reload";
     [HideInInspector] public bool useReloadAnimLength = false;
-
+[Header("UI Portrait Settings")]
+    public PlayerPortraitData weaponPortraitData;
     private Sprite gunFirstSprite;
     private Sprite gunSecondSprite;
 
@@ -74,7 +80,10 @@ public class Weapon : MonoBehaviour
     public int splatterNumber = 0;
     public BloodImpactProfile particlesProfile;
 
-    [Header("Audio Settings")]
+    [Header("Audio Settings")] [Header("FMOD")]
+    public EventReference fireEventFmod;
+    public EventReference tailEventFmod;
+    public EventReference reloadEventFmod;
     public AudioClip reloadSound;
     [Range(0f, 1f)] public float reloadVolume;
     public AudioClip shootSound;
@@ -172,6 +181,48 @@ public class Weapon : MonoBehaviour
         if (pc != null) pc.SetSpeedModifier(1f);
     }
 
+    public void CheckpointSpawn()
+    {
+        currentAmmo = maxAmmo;
+
+        if (gunAnimator != null)
+        {
+            PlayAnimation("Default", gunAnimator);
+        }
+
+        if (gunAnimator2 != null && isDualPistol)
+        {
+            PlayAnimation("Default", gunAnimator2);
+        }
+
+        if (gunFirstSprite != null)
+        {
+            SpriteRenderer[] childSprites = GetComponentsInChildren<SpriteRenderer>();
+            if (childSprites.Length > 0) childSprites[0].sprite = gunFirstSprite;
+            if (childSprites.Length > 1 && isDualPistol && gunSecondSprite != null) childSprites[1].sprite = gunSecondSprite;
+        }
+
+        if (audioSource != null)
+        {
+            AudioSource[] audioSources = audioSource.GetComponents<AudioSource>();
+            foreach (AudioSource audioSource in audioSources)
+            {
+                if (audioSource != null)
+                    Destroy(audioSource);
+            }
+        }
+
+        if (audioSource2 != null)
+        {
+            AudioSource[] audioSources = audioSource2.GetComponents<AudioSource>();
+            foreach (AudioSource audioSource in audioSources)
+            {
+                if (audioSource != null)
+                    Destroy(audioSource);
+            }
+        }
+    }
+
     private void Update()
     {
         if (!isMeleeWeapon && !isReloading && currentAmmo < maxAmmo)
@@ -220,49 +271,79 @@ public class Weapon : MonoBehaviour
                 {
                     isSP1 = true;
                     isMP1 = true;
-                    TryFire();
+                    if (TryFire()) firedDuringLeftPress = true;
+                }
+                else if (InputManager.instance.controls.Weapon.DualPistolLeft.WasReleasedThisFrame())
+                {
+                    PlayTailEvent(ref firedDuringLeftPress);
                 }
 
                 if (InputManager.instance.controls.Weapon.DualPistolRight.IsPressed())
                 {
                     isSP1 = false;
                     isMP1 = false;
-                    TryFire();
+                    if (TryFire()) firedDuringRightPress = true;
+                }
+                else if (InputManager.instance.controls.Weapon.DualPistolRight.WasReleasedThisFrame())
+                {
+                    PlayTailEvent(ref firedDuringRightPress);
                 }
             }
             else if (InputManager.instance.controls.Weapon.Attack.IsPressed())
             {
-                TryFire();
+                if (TryFire()) firedDuringAttackPress = true;
+            }
+            else if (InputManager.instance.controls.Weapon.Attack.WasReleasedThisFrame())
+            {
+                PlayTailEvent(ref firedDuringAttackPress);
             }
         }
     }
 
-    private void TryFire()
+    private bool TryFire()
     {
-        if (isReloading) return;
+        if (isReloading) return false;
         if (!isMeleeWeapon && currentAmmo <= 0)
         {
             StartCoroutine(Reload());
-            return;
+            return false;
         }
 
-        if (Time.time < nextTimeToFire) return;
+        if (Time.time < nextTimeToFire) return false;
 
         nextTimeToFire = Time.time + (1f / fireRate);
 
         if (isMeleeWeapon)
         {
             StartCoroutine(MeleeAttack());
+            return false;
         }
         else
         {
             Fire();
+            return true;
         }
+    }
+
+    private void PlayTailEvent(ref bool firedDuringPress)
+    {
+        if (firedDuringPress && !tailEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(tailEventFmod, gameObject);
+        }
+
+        firedDuringPress = false;
     }
 
     private IEnumerator Reload()
     {
         isReloading = true;
+
+        if (!reloadEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(reloadEventFmod, gameObject);
+        }
+
         if (audioSource != null & reloadSound != null)
         {
             if (isDualPistol)
@@ -477,6 +558,10 @@ public class Weapon : MonoBehaviour
             }
         }
 
+        if (!fireEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(fireEventFmod, gameObject);
+        }
         if (muzzleFlash != null && !isDualPistol)
         {
             muzzleFlash.Play();
@@ -542,38 +627,90 @@ public class Weapon : MonoBehaviour
                 }
             }
 
-            if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, range, ~0, QueryTriggerInteraction.Ignore))
+            if (isRailGun)
             {
-                EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
-                Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
+                RaycastHit[] hits = Physics.RaycastAll(rayOrigin, fireDirection, range, ~0, QueryTriggerInteraction.Ignore);
+                System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
 
-                if (enemy != null && enemyHitBox != null)
+                if (hits.Length == 0)
                 {
-                    if (enemyHitBox.bodyPart == BodyPart.Head)
-                    {
-                        Debug.Log("Head Shot");
-                        enemy.TakeDamage(damageToEnemyHead);
-                        StartCoroutine(headShotEffect());
-                    }
-                    else if (enemyHitBox.bodyPart == BodyPart.Body)
-                    {
-                        Debug.Log("Body Shot");
-                        enemy.TakeDamage(damageToEnemyBody);
-                    }
-
-                    StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, true));
+                    Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
+                    StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
                 }
-
-                if (enemy == null)
+                else
                 {
-                    StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
-                }
+                    bool hitWall = false;
+                    foreach (RaycastHit hit in hits)
+                    {
+                        EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
+                        Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
 
+                        if (enemy != null && enemyHitBox != null)
+                        {
+                            if (enemyHitBox.bodyPart == BodyPart.Head)
+                            {
+                                Debug.Log("Head Shot");
+                                enemy.TakeDamage(damageToEnemyHead);
+                                StartCoroutine(headShotEffect());
+                            }
+                            else if (enemyHitBox.bodyPart == BodyPart.Body)
+                            {
+                                Debug.Log("Body Shot");
+                                enemy.TakeDamage(damageToEnemyBody);
+                            }
+
+                            StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, true));
+                        }
+                        else
+                        {
+                            StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
+                            hitWall = true;
+                            break;
+                        }
+                    }
+
+                    if (!hitWall)
+                    {
+                        Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
+                        StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
+                    }
+                }
             }
             else
             {
-                Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
-                StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
+                if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, range, ~0, QueryTriggerInteraction.Ignore))
+                {
+                    EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
+                    Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
+
+                    if (enemy != null && enemyHitBox != null)
+                    {
+                        if (enemyHitBox.bodyPart == BodyPart.Head)
+                        {
+                            Debug.Log("Head Shot");
+                            enemy.TakeDamage(damageToEnemyHead);
+                            StartCoroutine(headShotEffect());
+                        }
+                        else if (enemyHitBox.bodyPart == BodyPart.Body)
+                        {
+                            Debug.Log("Body Shot");
+                            enemy.TakeDamage(damageToEnemyBody);
+                        }
+
+                        StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, true));
+                    }
+
+                    if (enemy == null)
+                    {
+                        StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
+                    }
+
+                }
+                else
+                {
+                    Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
+                    StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
+                }
             }
         }
     }
