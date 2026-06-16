@@ -176,7 +176,7 @@ public class Enemy : MonoBehaviour
                             transform.position += moveDirection * speed * Time.deltaTime;
                         }
 
-                        if (!walkAnimPlaying)
+                        if (!walkAnimPlaying && !isAttacking)
                         {
                             ReturnToWalk();
                         }
@@ -185,14 +185,14 @@ public class Enemy : MonoBehaviour
                     {
                         if (navAgent != null) navAgent.isStopped = true;
 
-                        if (!isIdle)
+                        if (!isIdle && !isAttacking)
                         {
                             ReturnToIdle();
                         }
 
-                        if (Time.time >= nextAttackTime)
+                        if (Time.time >= nextAttackTime && !isAttacking)
                         {
-                            Shoot(rayShootPos, rayShootDirection);
+                            StartCoroutine(Shoot(rayShootPos, rayShootDirection));
                             nextAttackTime = Time.time + (1f / attackRate);
                         }
                     }
@@ -215,7 +215,7 @@ public class Enemy : MonoBehaviour
                         transform.position += newMoveDirection * speed * Time.deltaTime;
                     }
 
-                    if (!walkAnimPlaying)
+                    if (!walkAnimPlaying && !isAttacking)
                     {
                         ReturnToWalk();
                     }
@@ -224,7 +224,7 @@ public class Enemy : MonoBehaviour
                 {
                     if (navAgent != null) navAgent.isStopped = true;
 
-                    if (!isIdle)
+                    if (!isIdle && !isAttacking)
                     {
                         ReturnToIdle();
                     }
@@ -338,9 +338,9 @@ public class Enemy : MonoBehaviour
         ReturnToWalk();
     }
 
-    private void Shoot(Vector3 shootPos, Vector3 shootDirection)
+    private IEnumerator Shoot(Vector3 shootPos, Vector3 shootDirection)
     {
-        PlayAnimation(attackAnimString);
+        isAttacking = true;
         if (audioSource != null && attackSound != null)
             StartCoroutine(AudioManager.Instance.PlaySound(audioSource, attackSound, attackVolume, true));
 
@@ -350,6 +350,8 @@ public class Enemy : MonoBehaviour
 
             if (hit.collider.CompareTag("Player"))
             {
+                PlayAnimation(attackAnimString);
+
                 if (!canShootProjectile)
                 {
                     StartCoroutine(SpawnTracer(shootPos, maxRangePoint));
@@ -360,6 +362,20 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
+
+        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+
+        if (clipInfo.Length > 0)
+        {
+            yield return new WaitForSeconds(clipInfo[0].clip.length);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isAttacking = false;
+        ReturnToIdle();
     }
 
     private void ReturnToWalk()
