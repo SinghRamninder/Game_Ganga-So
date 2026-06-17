@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosiveBarrels
   explosionParticlePrefab: {fileID: 1620140131458703901, guid: 57e5b83dfee152a47aedf7d83c83e9f5, type: 3}
-  maxExplosiveImpactArea: 5
-  maxDamageToEnemy: 50
+  maxExplosiveImpactArea: 40
+  maxDamageToEnemy: 100
   maxDamageToPlayer: 40
   splatterParticlePrefab: {fileID: 8724896405505394418, guid: 5aea454c35c69074f953b826ca0e69d7, type: 3}
   splatterColor: {r: 1, g: 1, b: 1, a: 1}
