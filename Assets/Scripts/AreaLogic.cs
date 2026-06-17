@@ -46,6 +46,15 @@ public class AreaLogic : MonoBehaviour
                 }
             }
         }
+
+foreach (GameObject obj in entryExit)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
+            }
+
     }
 
     private void LateUpdate()
