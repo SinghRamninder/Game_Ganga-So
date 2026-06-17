@@ -58,6 +58,9 @@ public class Enemy : MonoBehaviour
     private float nextWalkSoundTime = 0f;
     private NavMeshAgent navAgent;
 
+    [Header("LayerMask")]
+    public LayerMask layerMask;
+
     private void OnDisable()
     {
         PlayAnimation("Default");
@@ -123,7 +126,7 @@ public class Enemy : MonoBehaviour
 
         //Debug.DrawRay(rayShootPos, rayShootDirection * 100f, Color.red);
         
-        if (Physics.Raycast(rayShootPos, rayShootDirection, out RaycastHit hit, 200f, Physics.AllLayers))
+        if (Physics.Raycast(rayShootPos, rayShootDirection, out RaycastHit hit, 200f, layerMask, QueryTriggerInteraction.Ignore))
         {
             if (hit.collider.CompareTag("Player"))
             {

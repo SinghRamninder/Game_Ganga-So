@@ -12,6 +12,7 @@ public class AreaLogic : MonoBehaviour
     private Enemy[] allEnemies;
     private Vector3[] enemiesStartPosition;
     private bool isFighting = false;
+    private bool startLateUpdate = false;
 
     private void OnEnable()
     {
@@ -47,7 +48,7 @@ public class AreaLogic : MonoBehaviour
             }
         }
 
-foreach (GameObject obj in entryExit)
+        foreach (GameObject obj in entryExit)
             {
                 if (obj != null)
                 {
@@ -59,7 +60,7 @@ foreach (GameObject obj in entryExit)
 
     private void LateUpdate()
     {
-        if (isFighting)
+        if (startLateUpdate)
         {
             bool areEnemiesActive = CheckAllEnemies();
 
@@ -87,6 +88,7 @@ foreach (GameObject obj in entryExit)
                 }
 
                 isFighting = false;
+                startLateUpdate = false;
                 Destroy(this);
             }
         }
@@ -132,6 +134,8 @@ foreach (GameObject obj in entryExit)
 
     private IEnumerator EnemiesSpawnWaitTime()
     {
+        isFighting = true;
+
         for (int i = 0; i < allEnemies.Length; i++)
         {
             if (allEnemies[i] != null)
@@ -143,11 +147,12 @@ foreach (GameObject obj in entryExit)
             yield return new WaitForSeconds(enemiesSpawnDelay);
         }
 
-        isFighting = true;
+        startLateUpdate = true;
     }
 
     private void ResetThisArea()
     {
+        startLateUpdate = false;
         isFighting = false;
 
         for (int i = 0; i < allEnemies.Length; i++)

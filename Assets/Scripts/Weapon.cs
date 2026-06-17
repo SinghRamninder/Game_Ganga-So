@@ -80,6 +80,9 @@ public class Weapon : MonoBehaviour
     public int splatterNumber = 0;
     public BloodImpactProfile particlesProfile;
 
+    [Header("LayerMask Settings")]
+    public LayerMask layerMask;
+
     [Header("Audio Settings")] [Header("FMOD")]
     public EventReference fireEventFmod;
     public EventReference tailEventFmod;
@@ -629,7 +632,7 @@ public class Weapon : MonoBehaviour
 
             if (isRailGun)
             {
-                RaycastHit[] hits = Physics.RaycastAll(rayOrigin, fireDirection, range, ~0, QueryTriggerInteraction.Ignore);
+                RaycastHit[] hits = Physics.RaycastAll(rayOrigin, fireDirection, range, layerMask, QueryTriggerInteraction.Ignore);
                 System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
 
                 if (hits.Length == 0)
@@ -681,7 +684,7 @@ public class Weapon : MonoBehaviour
             }
             else
             {
-                if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, range, ~0, QueryTriggerInteraction.Ignore))
+                if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, range, layerMask, QueryTriggerInteraction.Ignore))
                 {
                     EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
                     Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
