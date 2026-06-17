@@ -40,7 +40,6 @@ public class ParticleCollisionSpawner : MonoBehaviour
         for (int i = 0; i < numCollisionEvents; i++)
         {
             Vector3 pos = collisionEvents[i].intersection;
-            Debug.LogWarning(collisionEvents[i].colliderComponent.gameObject.name);
 
             Vector3 startPos = transform.position;
             Vector3 direction = (pos - startPos).normalized;

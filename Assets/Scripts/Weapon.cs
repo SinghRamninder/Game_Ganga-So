@@ -644,18 +644,17 @@ public class Weapon : MonoBehaviour
                     {
                         EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
                         Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
+                        ExplosiveBarrels barrel = hit.collider.GetComponent<ExplosiveBarrels>();
 
                         if (enemy != null && enemyHitBox != null)
                         {
                             if (enemyHitBox.bodyPart == BodyPart.Head)
                             {
-                                Debug.Log("Head Shot");
                                 enemy.TakeDamage(damageToEnemyHead);
                                 StartCoroutine(headShotEffect());
                             }
                             else if (enemyHitBox.bodyPart == BodyPart.Body)
                             {
-                                Debug.Log("Body Shot");
                                 enemy.TakeDamage(damageToEnemyBody);
                             }
 
@@ -663,6 +662,10 @@ public class Weapon : MonoBehaviour
                         }
                         else
                         {
+                            if (barrel != null)
+                            {
+                                barrel.Explode();
+                            }
                             StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
                             hitWall = true;
                             break;
@@ -682,6 +685,7 @@ public class Weapon : MonoBehaviour
                 {
                     EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
                     Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
+                    ExplosiveBarrels barrel = hit.collider.GetComponent<ExplosiveBarrels>();
 
                     if (enemy != null && enemyHitBox != null)
                     {
@@ -702,6 +706,10 @@ public class Weapon : MonoBehaviour
 
                     if (enemy == null)
                     {
+                        if (barrel != null)
+                        {
+                            barrel.Explode();
+                        }
                         StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
                     }
 
@@ -736,7 +744,8 @@ public class Weapon : MonoBehaviour
         {
             if (impactPrefab != null)
             {
-                if (IsFullyOnWall(targetPos, hitNormal, 1.5f))
+                float targetSize = SplatterMeshManager.Instance != null ? SplatterMeshManager.Instance.GetMaxSplatterSize(splatterNumber) : 1.5f;
+                if (IsFullyOnWall(targetPos, hitNormal, targetSize))
                 {
                     if (useOldMethod) //Testing purposes
                     {
