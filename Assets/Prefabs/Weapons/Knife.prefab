@@ -58,9 +58,9 @@ Transform:
   m_GameObject: {fileID: 2569737430441234561}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.0000000010088, y: 0.00000006208, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 506611863354532131}
   m_Father: {fileID: 1540635668589467949}
@@ -196,7 +196,7 @@ MonoBehaviour:
   isMeleeWeapon: 1
   fireMode: 0
   fireRate: 2
-  range: 20
+  range: 15
   cameraShakeIntensity: 0.003
   cameraShakeDuration: 0.4
   recoilForce: 0
@@ -225,6 +225,7 @@ MonoBehaviour:
   weaponSpawnRotation: {x: -0.008124559, y: 0.99996704, z: -0, w: 0}
   weaponSpawnScale: {x: 0.15, y: 0.15, z: 0.15}
   isDualPistol: 0
+  isRailGun: 0
   differentShootButtons: 1
   shootPoint1: {fileID: 0}
   shootPoint2: {fileID: 0}
@@ -305,6 +306,30 @@ MonoBehaviour:
         m_RotationOrder: 4
       m_ConstantMin: 10
       m_ConstantMax: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  fireEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  tailEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  reloadEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   reloadSound: {fileID: 0}
   reloadVolume: 1
   shootSound: {fileID: 8300000, guid: e537c017b3bbe4278911330ebf29634d, type: 3}
