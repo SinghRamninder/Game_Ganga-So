@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7496852095804321536}
   - component: {fileID: -5826323292920084965}
-  - component: {fileID: -3331278236013171918}
+  - component: {fileID: 8658054225172990594}
   m_Layer: 0
   m_Name: Canister
   m_TagString: Untagged
@@ -53,8 +53,8 @@ MonoBehaviour:
   splatterParticlePrefab: {fileID: 8724896405505394418, guid: 5aea454c35c69074f953b826ca0e69d7, type: 3}
   splatterColor: {r: 1, g: 1, b: 1, a: 1}
   splatterNumber: 3
---- !u!136 &-3331278236013171918
-CapsuleCollider:
+--- !u!65 &8658054225172990594
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -71,11 +71,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.01839105, y: 0.027804803, z: 0.02014495}
+  m_Center: {x: -0.0006640565, y: 0.014046149, z: -0.00012608051}
 --- !u!1001 &3523118856059765956
 PrefabInstance:
   m_ObjectHideFlags: 0
