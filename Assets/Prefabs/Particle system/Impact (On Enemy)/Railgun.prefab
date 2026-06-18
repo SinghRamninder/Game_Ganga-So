@@ -3851,7 +3851,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 55
+      m_Bits: 2048
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -4909,3 +4909,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ParticleCollisionSpawner
   prefabToSpawn: {fileID: 7226583673155636401, guid: 1864275fa783e4bec85cc8145c26193b, type: 3}
   splatterNumber: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2048

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7576916102217342528}
   - component: {fileID: 2544051325423607129}
   - component: {fileID: 5453714493826274116}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (156)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 3075492267293067030}
   - component: {fileID: 4219907743518124110}
   - component: {fileID: 5591302772428729581}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Quad (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 5221438865246387368}
   - component: {fileID: 7717832967985527278}
   - component: {fileID: 8550285211949374936}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (154)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -839,7 +839,7 @@ GameObject:
   - component: {fileID: 3010959420350228597}
   - component: {fileID: 6488829587002532064}
   - component: {fileID: 3198108662213470171}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Indicator
   m_TagString: Card Reader
   m_Icon: {fileID: 0}
@@ -1195,7 +1195,7 @@ GameObject:
   - component: {fileID: 6142142456004190473}
   - component: {fileID: 6820265720121830729}
   - component: {fileID: 4472318618236731700}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (132)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1552,9 +1552,10 @@ GameObject:
   - component: {fileID: 1934123126924106185}
   - component: {fileID: 2374197739186684091}
   - component: {fileID: 5881286921265892490}
-  m_Layer: 0
+  - component: {fileID: 7924400302206555627}
+  m_Layer: 11
   m_Name: Sliding
-  m_TagString: Untagged
+  m_TagString: MovingDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1916,6 +1917,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7924400302206555627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3721580465831547792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc4dd226ba76b645a2df9a3ec851eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NoSplatterSurface
 --- !u!1 &4016324093285403712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1930,7 +1943,7 @@ GameObject:
   - component: {fileID: 2602595722797932994}
   - component: {fileID: 7887802623489574350}
   - component: {fileID: 75952387915639769}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (153)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2284,7 +2297,7 @@ GameObject:
   - component: {fileID: 1757886453169154401}
   - component: {fileID: 7637660922255062504}
   - component: {fileID: 4292342392728311256}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2396,7 +2409,7 @@ GameObject:
   - component: {fileID: 6507296607501476700}
   - component: {fileID: 8365630490802732278}
   - component: {fileID: 5283905717821851698}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ElectricDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2573,7 +2586,7 @@ GameObject:
   - component: {fileID: 8309300907163326895}
   - component: {fileID: 1679297779803399931}
   - component: {fileID: 209066455617581383}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (155)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2929,7 +2942,7 @@ GameObject:
   - component: {fileID: 7647793421035682522}
   - component: {fileID: 4790196307085054732}
   - component: {fileID: 1276360623029175231}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (157)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3285,7 +3298,7 @@ GameObject:
   - component: {fileID: 1319756287178793449}
   - component: {fileID: 4383791366476502969}
   - component: {fileID: 1674233604774188976}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (152)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3641,7 +3654,7 @@ GameObject:
   - component: {fileID: 9080020624059120006}
   - component: {fileID: 6760514260213018401}
   - component: {fileID: 5307925776970122597}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (133)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3999,7 +4012,7 @@ GameObject:
   - component: {fileID: 8636423102561329209}
   - component: {fileID: 8279971107844707153}
   - component: {fileID: 6558432632321862666}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CardReader
   m_TagString: Card Reader
   m_Icon: {fileID: 0}
@@ -4354,7 +4367,7 @@ GameObject:
   - component: {fileID: 5680351070209290947}
   - component: {fileID: 1537441647976217529}
   - component: {fileID: 1294178975647572924}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Highlighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4447,7 +4460,7 @@ GameObject:
   - component: {fileID: 4001996199608620334}
   - component: {fileID: 2688257254095204827}
   - component: {fileID: 4563685879025238273}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (196)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

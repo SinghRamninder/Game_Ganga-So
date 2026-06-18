@@ -25,9 +25,20 @@ public class ParticleCollisionSpawner : MonoBehaviour
 
     public int splatterNumber = 0;
 
+    [Header("LayerMask")]
+    public LayerMask layerMask;
+
     private void OnEnable()
     {
         ps = GetComponent<ParticleSystem>();
+    }
+
+    private void LateUpdate()
+    {
+        if (ps != null && ps.particleCount == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnParticleCollision(GameObject other)
@@ -35,7 +46,6 @@ public class ParticleCollisionSpawner : MonoBehaviour
         if (ps == null || prefabToSpawn == null) return;
 
         int numCollisionEvents = ps.GetCollisionEvents(other, collisionEvents);
-        int layerMask = LayerMask.GetMask("Default");
 
         for (int i = 0; i < numCollisionEvents; i++)
         {
@@ -47,19 +57,15 @@ public class ParticleCollisionSpawner : MonoBehaviour
 
             if (Physics.Raycast(startPos, direction, out RaycastHit hit, distance, layerMask, QueryTriggerInteraction.Ignore))
             {
+                NoSplatterSurface noSplatterSurface = hit.collider.GetComponent<NoSplatterSurface>();
+                if (noSplatterSurface != null)
+                    continue;
+
                 float targetSize = SplatterMeshManager.Instance != null ? SplatterMeshManager.Instance.GetMaxSplatterSize(splatterNumber) : 1.5f;
                 if (IsFullyOnWall(hit.point, hit.normal, targetSize))
                 {
                     SplatterMeshManager.Instance.AddSplatter(splatterNumber, hit.point, hit.normal);
                 }
-                else
-                {
-                    Debug.LogWarning("Not spawned!! Collision detected on Edge");
-                }
-            }
-            else
-            {
-                Debug.LogWarning("No collision detected");
             }
         }
     }

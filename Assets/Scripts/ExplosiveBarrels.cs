@@ -12,7 +12,6 @@ public class ExplosiveBarrels : MonoBehaviour
     [Header("Splatter Settings")]
     public ParticleSystem splatterParticlePrefab;
     public Color splatterColor = Color.white;
-    public int splatterNumber = 0;
 
     private bool hasExploded = false;
 
@@ -29,20 +28,17 @@ public class ExplosiveBarrels : MonoBehaviour
 
         if (explosionParticlePrefab != null)
         {
-            ParticleSystem explosion = Instantiate(explosionParticlePrefab, transform.position, Quaternion.identity);
+            ParticleSystem explosion = Instantiate(explosionParticlePrefab, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
             explosion.Play();
             Destroy(explosion.gameObject, explosion.main.duration + explosion.main.startLifetime.constantMax);
         }
 
         if (splatterParticlePrefab != null)
         {
-            ParticleSystem splatter = Instantiate(splatterParticlePrefab, transform.position, Quaternion.identity);
+            ParticleSystem splatter = Instantiate(splatterParticlePrefab, transform.position + new Vector3(0f, 5f, 0f), Quaternion.identity);
 
-            ParticleSystemRenderer psr = splatter.GetComponent<ParticleSystemRenderer>();
-            if (psr != null)
-            {
-                psr.material.color = splatterColor;
-            }
+            var psr = splatter.main;
+            psr.startColor = splatterColor;
 
             splatter.Play();
             Destroy(splatter.gameObject, splatter.main.duration + splatter.main.startLifetime.constantMax);
