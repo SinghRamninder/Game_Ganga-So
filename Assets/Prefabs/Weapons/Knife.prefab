@@ -225,6 +225,7 @@ MonoBehaviour:
   weaponSpawnRotation: {x: -0.008124559, y: 0.99996704, z: -0, w: 0}
   weaponSpawnScale: {x: 0.15, y: 0.15, z: 0.15}
   isDualPistol: 0
+  isRailGun: 0
   differentShootButtons: 1
   shootPoint1: {fileID: 0}
   shootPoint2: {fileID: 0}
@@ -305,6 +306,27 @@ MonoBehaviour:
         m_RotationOrder: 4
       m_ConstantMin: 10
       m_ConstantMax: 3
+  fireEventFmod:
+    Guid:
+      Data1: 711692301
+      Data2: 1149257603
+      Data3: -690038369
+      Data4: -1542116378
+    Path: event:/Weapon_knife_attack
+  tailEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  reloadEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   reloadSound: {fileID: 0}
   reloadVolume: 1
   shootSound: {fileID: 8300000, guid: e537c017b3bbe4278911330ebf29634d, type: 3}

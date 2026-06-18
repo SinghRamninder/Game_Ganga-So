@@ -373,6 +373,7 @@ MonoBehaviour:
   weaponSpawnRotation: {x: 0, y: 0, z: 0, w: 1}
   weaponSpawnScale: {x: 0.8500001, y: 0.8500001, z: 0.8500001}
   isDualPistol: 1
+  isRailGun: 0
   differentShootButtons: 1
   shootPoint1: {fileID: 6592937034079664169}
   shootPoint2: {fileID: 1654155296357855754}
@@ -496,6 +497,20 @@ MonoBehaviour:
       Data3: -62922579
       Data4: 2030593149
     Path: event:/Weapons_inkpistol_fire
+  tailEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  reloadEventFmod:
+    Guid:
+      Data1: 1548662326
+      Data2: 1082308658
+      Data3: 1660415423
+      Data4: 1117731218
+    Path: event:/Weapon_inkpistol_reload
   reloadSound: {fileID: 8300000, guid: eca330f5ad3de43ee80cebb73a4119a0, type: 3}
   reloadVolume: 1
   shootSound: {fileID: 0}

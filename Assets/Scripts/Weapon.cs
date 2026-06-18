@@ -449,7 +449,12 @@ public class Weapon : MonoBehaviour
                 StartCoroutine(AudioManager.Instance.PlaySound(currentAudio, shootSound, shootVolume, false));
             }
         }
-        
+
+        if (!fireEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(fireEventFmod, gameObject);
+        }
+
         if (isDualPistol)
         {
             isSP1 = !isSP1;
