@@ -490,9 +490,6 @@ MonoBehaviour:
         m_RotationOrder: 4
       m_ConstantMin: 1
       m_ConstantMax: 1.5
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 2112
   fireEventFmod:
     Guid:
       Data1: -1508746623
@@ -509,11 +506,11 @@ MonoBehaviour:
     Path: 
   reloadEventFmod:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1548662326
+      Data2: 1082308658
+      Data3: 1660415423
+      Data4: 1117731218
+    Path: event:/Weapon_inkpistol_reload
   reloadSound: {fileID: 8300000, guid: eca330f5ad3de43ee80cebb73a4119a0, type: 3}
   reloadVolume: 1
   shootSound: {fileID: 0}
