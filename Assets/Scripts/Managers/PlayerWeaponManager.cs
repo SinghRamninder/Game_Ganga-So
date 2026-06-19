@@ -124,4 +124,14 @@ public class PlayerWeaponManager : MonoBehaviour
             HealthBarUI.instance.ChangeHealthBarVisuals(currentWeaponScript.weaponPortraitData);
         }
     }
+
+    // 🔵 خطوط جدید: تابع رادار برای دادن دیتای تفنگ فعلی به اسکریپت مرگ
+    public PlayerPortraitData GetCurrentWeaponPortraitData()
+    {
+        if (currentWeaponScript != null)
+        {
+            return currentWeaponScript.weaponPortraitData;
+        }
+        return null;
+    }
 }
