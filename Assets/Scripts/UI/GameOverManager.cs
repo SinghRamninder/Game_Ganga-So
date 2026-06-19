@@ -43,7 +43,10 @@ public class GameOverManager : MonoBehaviour
     public void ContinueGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (CheckpointManager.Instance != null)
+        {
+            CheckpointManager.Instance.SpawnAtCheckpoint();
+        }
     }
 
     // عملکرد دکمه منوی اصلی
