@@ -379,7 +379,7 @@ MonoBehaviour:
   shootPoint2: {fileID: 1654155296357855754}
   attackAnimString: Attack
   reloadAnimString: Reload
-  useReloadAnimLength: 0
+  useReloadAnimLength: 1
   weaponPortraitData: {fileID: 11400000, guid: 130b2af207bdbc94ca36cc70ac6b5cdc, type: 2}
   useOldMethod: 0
   splatterNumber: 0
@@ -490,6 +490,9 @@ MonoBehaviour:
         m_RotationOrder: 4
       m_ConstantMin: 1
       m_ConstantMax: 1.5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2112
   fireEventFmod:
     Guid:
       Data1: -1508746623
