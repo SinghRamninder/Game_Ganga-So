@@ -102,6 +102,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""a866ed33-ac44-4d45-8821-3c590dc9e7cf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""DualPistolLeft"",
                     ""type"": ""Button"",
                     ""id"": ""f0033607-ed5b-4706-a5b5-27fecd1360dc"",
@@ -345,6 +354,17 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""DualPistolRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a30a3d0d-fcb1-45b6-996c-6c9e3314b699"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -584,6 +604,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_Attack = m_Weapon.FindAction("Attack", throwIfNotFound: true);
+        m_Weapon_Reload = m_Weapon.FindAction("Reload", throwIfNotFound: true);
         m_Weapon_DualPistolLeft = m_Weapon.FindAction("DualPistolLeft", throwIfNotFound: true);
         m_Weapon_DualPistolRight = m_Weapon.FindAction("DualPistolRight", throwIfNotFound: true);
         m_Weapon_Equip = m_Weapon.FindAction("Equip", throwIfNotFound: true);
@@ -678,6 +699,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Weapon;
     private List<IWeaponActions> m_WeaponActionsCallbackInterfaces = new List<IWeaponActions>();
     private readonly InputAction m_Weapon_Attack;
+    private readonly InputAction m_Weapon_Reload;
     private readonly InputAction m_Weapon_DualPistolLeft;
     private readonly InputAction m_Weapon_DualPistolRight;
     private readonly InputAction m_Weapon_Equip;
@@ -698,6 +720,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Weapon/Attack".
         /// </summary>
         public InputAction @Attack => m_Wrapper.m_Weapon_Attack;
+        /// <summary>
+        /// Provides access to the underlying input action "Weapon/Reload".
+        /// </summary>
+        public InputAction @Reload => m_Wrapper.m_Weapon_Reload;
         /// <summary>
         /// Provides access to the underlying input action "Weapon/DualPistolLeft".
         /// </summary>
@@ -747,6 +773,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
             @DualPistolLeft.started += instance.OnDualPistolLeft;
             @DualPistolLeft.performed += instance.OnDualPistolLeft;
             @DualPistolLeft.canceled += instance.OnDualPistolLeft;
@@ -776,6 +805,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
             @DualPistolLeft.started -= instance.OnDualPistolLeft;
             @DualPistolLeft.performed -= instance.OnDualPistolLeft;
             @DualPistolLeft.canceled -= instance.OnDualPistolLeft;
@@ -1017,6 +1049,13 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAttack(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Reload" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnReload(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "DualPistolLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
