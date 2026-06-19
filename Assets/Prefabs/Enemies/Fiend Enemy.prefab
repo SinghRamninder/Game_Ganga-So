@@ -144,6 +144,9 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: bc5a62d34f90ee34d8dbf3cd8da52e04, type: 3}
   deathVolume: 1
   audioSource: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2056
 --- !u!54 &6764571918099231639
 Rigidbody:
   m_ObjectHideFlags: 0

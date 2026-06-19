@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+[CanEditMultipleObjects]
 [CustomEditor(typeof(Weapon))]
 public class WeaponEditor : Editor
 {

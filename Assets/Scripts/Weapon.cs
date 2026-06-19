@@ -228,9 +228,14 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
+        if (!isMeleeWeapon && !isReloading && currentAmmo == 0)
+        {
+            StartCoroutine(Reload());
+        }
+
         if (!isMeleeWeapon && !isReloading && currentAmmo < maxAmmo)
         {
-            if (UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.rKey.wasPressedThisFrame)
+            if (InputManager.instance.controls.Weapon.Reload.WasPressedThisFrame())
             {
                 StartCoroutine(Reload());
             }
@@ -452,7 +457,12 @@ public class Weapon : MonoBehaviour
                 StartCoroutine(AudioManager.Instance.PlaySound(currentAudio, shootSound, shootVolume, false));
             }
         }
-        
+
+        if (!fireEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(fireEventFmod, gameObject);
+        }
+
         if (isDualPistol)
         {
             isSP1 = !isSP1;
@@ -638,7 +648,7 @@ public class Weapon : MonoBehaviour
                 if (hits.Length == 0)
                 {
                     Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
-                    StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
+                    StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, false, null));
                 }
                 else
                 {
@@ -648,6 +658,7 @@ public class Weapon : MonoBehaviour
                         EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
                         Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
                         ExplosiveBarrels barrel = hit.collider.GetComponent<ExplosiveBarrels>();
+                        NoSplatterSurface noSplatterSurface = hit.collider.GetComponent<NoSplatterSurface>();
 
                         if (enemy != null && enemyHitBox != null)
                         {
@@ -661,15 +672,21 @@ public class Weapon : MonoBehaviour
                                 enemy.TakeDamage(damageToEnemyBody);
                             }
 
-                            StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, true));
+                            StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false, true));
                         }
                         else
                         {
+                            bool isSplatterSurface = true;
+                            if (noSplatterSurface != null)
+                            {
+                                isSplatterSurface = false;
+                            }
+
                             if (barrel != null)
                             {
                                 barrel.Explode();
                             }
-                            StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
+                            StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, isSplatterSurface, false));
                             hitWall = true;
                             break;
                         }
@@ -678,7 +695,7 @@ public class Weapon : MonoBehaviour
                     if (!hitWall)
                     {
                         Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
-                        StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
+                        StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, false, null));
                     }
                 }
             }
@@ -689,6 +706,7 @@ public class Weapon : MonoBehaviour
                     EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
                     Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
                     ExplosiveBarrels barrel = hit.collider.GetComponent<ExplosiveBarrels>();
+                    NoSplatterSurface noSplatterSurface = hit.collider.GetComponent<NoSplatterSurface>();
 
                     if (enemy != null && enemyHitBox != null)
                     {
@@ -704,29 +722,35 @@ public class Weapon : MonoBehaviour
                             enemy.TakeDamage(damageToEnemyBody);
                         }
 
-                        StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, true));
+                        StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false, true));
                     }
 
                     if (enemy == null)
                     {
+                        bool isSplatterSurface = true;
+                        if (noSplatterSurface != null)
+                        {
+                            isSplatterSurface = false;
+                        }
+
                         if (barrel != null)
                         {
                             barrel.Explode();
                         }
-                        StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false));
+                        StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, isSplatterSurface, false));
                     }
 
                 }
                 else
                 {
                     Vector3 maxRangePoint = rayOrigin + (fireDirection * range);
-                    StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, null));
+                    StartCoroutine(SpawnTracer(trailSpawnPos.position, maxRangePoint, Vector3.zero, Vector3.zero, false, null));
                 }
             }
         }
     }
 
-    private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos, Vector3 hitNormal,Vector3 bulletDirection, bool? isEnemyHit = null)
+    private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos, Vector3 hitNormal, Vector3 bulletDirection, bool spawnSplatter, bool? isEnemyHit = null)
     {
         float time = 0;
 
@@ -745,7 +769,7 @@ public class Weapon : MonoBehaviour
 
         if (isEnemyHit == false)
         {
-            if (impactPrefab != null)
+            if (impactPrefab != null && spawnSplatter)
             {
                 float targetSize = SplatterMeshManager.Instance != null ? SplatterMeshManager.Instance.GetMaxSplatterSize(splatterNumber) : 1.5f;
                 if (IsFullyOnWall(targetPos, hitNormal, targetSize))
