@@ -379,7 +379,7 @@ MonoBehaviour:
   shootPoint2: {fileID: 1654155296357855754}
   attackAnimString: Attack
   reloadAnimString: Reload
-  useReloadAnimLength: 0
+  useReloadAnimLength: 1
   weaponPortraitData: {fileID: 11400000, guid: 130b2af207bdbc94ca36cc70ac6b5cdc, type: 2}
   useOldMethod: 0
   splatterNumber: 0
@@ -509,11 +509,11 @@ MonoBehaviour:
     Path: 
   reloadEventFmod:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1548662326
+      Data2: 1082308658
+      Data3: 1660415423
+      Data4: 1117731218
+    Path: event:/Weapon_inkpistol_reload
   reloadSound: {fileID: 8300000, guid: eca330f5ad3de43ee80cebb73a4119a0, type: 3}
   reloadVolume: 1
   shootSound: {fileID: 0}

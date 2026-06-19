@@ -7,17 +7,20 @@ public class MainMenuController : MonoBehaviour
     [Tooltip("Type the exact name of your gameplay scene to load when clicking Play.")]
     public string gameplaySceneName = "GameplayScene";
 
-    [Header("Optional UI Panels")]
+    [Header("UI Panels")]
+    [Tooltip("Drag your Main Menu panel GameObject here.")]
+    public GameObject mainMenuPanel;
+    
     [Tooltip("Drag your Settings panel GameObject here if you have one.")]
     public GameObject settingsPanel;
+    
     [Tooltip("Drag your Credits panel GameObject here if you have one.")]
     public GameObject creditsPanel;
 
     private void Start()
     {
-        // Ensure panels are hidden when the game starts
-        if (settingsPanel != null) settingsPanel.SetActive(false);
-        if (creditsPanel != null) creditsPanel.SetActive(false);
+        // Ensure only the main menu is visible when the game starts
+        ShowMainMenu();
     }
 
     /// <summary>
@@ -25,14 +28,12 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
     public void PlayGame()
     {
-        // Option A: Load by scene name specified in the Inspector
         if (!string.IsNullOrEmpty(gameplaySceneName))
         {
             SceneManager.LoadScene(gameplaySceneName);
         }
         else
         {
-            // Option B: Fallback to load the next scene in the Build Index queue
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
@@ -47,24 +48,32 @@ public class MainMenuController : MonoBehaviour
     }
 
     /// <summary>
-    /// Toggles the visibility of the Settings Panel.
+    /// Opens Settings and hides the main menu.
     /// </summary>
-    public void ToggleSettings(bool isOpen)
+    public void OpenSettings()
     {
-        if (settingsPanel != null)
-        {
-            settingsPanel.SetActive(isOpen);
-        }
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
+        if (settingsPanel != null) settingsPanel.SetActive(true);
+        if (creditsPanel != null) creditsPanel.SetActive(false);
     }
 
     /// <summary>
-    /// Toggles the visibility of the Credits Panel.
+    /// Opens Credits and hides the main menu.
     /// </summary>
-    public void ToggleCredits(bool isOpen)
+    public void OpenCredits()
     {
-        if (creditsPanel != null)
-        {
-            creditsPanel.SetActive(isOpen);
-        }
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(false);
+        if (settingsPanel != null) settingsPanel.SetActive(false);
+        if (creditsPanel != null) creditsPanel.SetActive(true);
+    }
+
+    /// <summary>
+    /// Returns back to the main menu panel.
+    /// </summary>
+    public void ShowMainMenu()
+    {
+        if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
+        if (settingsPanel != null) settingsPanel.SetActive(false);
+        if (creditsPanel != null) creditsPanel.SetActive(false);
     }
 }

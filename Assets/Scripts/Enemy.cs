@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
     private bool walkAnimPlaying = false;
     public string attackAnimString = "Attack";
     public string deathAnimString = "Death";
+    public string hitAnimString = "hit";
     private bool isIdle = true;
 
     [Header("Sound settings")]
@@ -60,6 +61,9 @@ public class Enemy : MonoBehaviour
 
     [Header("LayerMask")]
     public LayerMask layerMask;
+
+    [Header("Spawn Animation clone")]
+    public GameObject spawnAnimClone;
 
     private void OnDisable()
     {
@@ -401,10 +405,38 @@ public class Enemy : MonoBehaviour
     {
         if (isDead) return;
 
+        PlayAnimation(hitAnimString);
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
             StartCoroutine(Die());
+        }
+        else
+        {
+            StartCoroutine(RecoverFromHit());
+        }
+    }
+
+    private IEnumerator RecoverFromHit()
+    {
+        yield return new WaitForEndOfFrame();
+        float waitTime = 0.5f;
+
+        if (animator != null)
+        {
+            AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+            if (clipInfo != null && clipInfo.Length > 0 && clipInfo[0].clip != null)
+            {
+                waitTime = clipInfo[0].clip.length;
+            }
+        }
+
+        yield return new WaitForSeconds(waitTime);
+
+        if (!isDead && !isAttacking)
+        {
+            walkAnimPlaying = false;
+            isIdle = false;
         }
     }
 
