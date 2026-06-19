@@ -48,32 +48,32 @@ MonoBehaviour:
   - name: InkSplatter
     temporaryPrefab: {fileID: 8390140630907516658, guid: 8744311d6398d44308574d43fb805dc6, type: 3}
     material: {fileID: 2100000, guid: e9ff5c85a6b0ecd42be0f786aa54fcab, type: 2}
-    minSize: 2
-    maxSize: 3
+    minSize: 4
+    maxSize: 7
     isInkSplatter: 1
   - name: DigitalSplatter
     temporaryPrefab: {fileID: 8390140630907516658, guid: c65d0a62cb44e40e688c279a7f7bcad4, type: 3}
     material: {fileID: 2100000, guid: 8d02917efda734f1bbd72c1267f6de57, type: 2}
-    minSize: 2
-    maxSize: 3
+    minSize: 4
+    maxSize: 6
     isInkSplatter: 0
   - name: PrintSplatter
     temporaryPrefab: {fileID: 8390140630907516658, guid: eb79584012108d54292b3ff29364b37a, type: 3}
     material: {fileID: 2100000, guid: bdf4cd2d07d43fd4ea80bb5bf3f96038, type: 2}
-    minSize: 1.5
-    maxSize: 2
+    minSize: 3
+    maxSize: 4
     isInkSplatter: 0
   - name: RailgunSplatter
     temporaryPrefab: {fileID: 8390140630907516658, guid: 176f76a455a6740828c2d7e9f43957f2, type: 3}
     material: {fileID: 2100000, guid: 749a38adb22424498bb732b2a371eb62, type: 2}
-    minSize: 2
-    maxSize: 3
+    minSize: 50
+    maxSize: 55
     isInkSplatter: 0
   - name: KnifeSplatter
     temporaryPrefab: {fileID: 8390140630907516658, guid: 8a0c3171daa324616ab85075a039ca7c, type: 3}
     material: {fileID: 2100000, guid: e62f3b328fbb24bfaa3b3e833bc0b8ca, type: 2}
-    minSize: 2
-    maxSize: 3
+    minSize: 10
+    maxSize: 15
     isInkSplatter: 0
   defaultAreaId: Default
   maxSplattersPerChunk: 1000
