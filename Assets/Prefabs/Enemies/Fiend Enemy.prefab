@@ -137,6 +137,7 @@ MonoBehaviour:
   walkAnimString: walk
   attackAnimString: attack
   deathAnimString: death
+  hitAnimString: hit
   walkSound: {fileID: 0}
   walkVolume: 1
   attackSound: {fileID: 0}
@@ -147,6 +148,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2056
+  spawnAnimClone: {fileID: 5434014934228774989, guid: fdfab10b2151d7c44aba6396234240c4, type: 3}
 --- !u!54 &6764571918099231639
 Rigidbody:
   m_ObjectHideFlags: 0

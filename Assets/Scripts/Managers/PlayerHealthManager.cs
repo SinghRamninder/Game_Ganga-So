@@ -65,7 +65,7 @@ public class PlayerHealthManager : MonoBehaviour
 
         UpdateUI();
 
-        // فعال کردن افکت گلیچِ ضربه خوردن چهره به مدت ۰.۳ ثانیه
+        // Trigger face hit glitch effect for 0.3 seconds
         if (PlayerWeaponManager.instance != null && PlayerWeaponManager.instance.portraitUI != null && currentHealth > 0)
         {
             PlayerWeaponManager.instance.portraitUI.TriggerHitEffect(0.3f);
@@ -100,7 +100,7 @@ public class PlayerHealthManager : MonoBehaviour
             }
         }
 
-        // آپدیت کردن وضعیت پورتریت پایه بر اساس میزان خون فعلی
+        // Update base portrait state based on current health
         if (PlayerWeaponManager.instance != null && PlayerWeaponManager.instance.portraitUI != null)
         {
             PlayerWeaponManager.instance.portraitUI.UpdateHealth((int)currentHealth, (int)currentMaxHealth);
@@ -111,22 +111,30 @@ public class PlayerHealthManager : MonoBehaviour
     {
         Debug.Log("Player died!");
         
-        // فعال کردن پورتریت مرگ (صفحه بلواسکرین)
+        // Activate death portrait (blue screen effect)
         if (PlayerWeaponManager.instance != null && PlayerWeaponManager.instance.portraitUI != null)
         {
             PlayerWeaponManager.instance.portraitUI.UpdateHealth(0, (int)currentMaxHealth);
         }
 
-        // ایجاد تاخیر کوتاه برای نمایش صفحه مرگ و سپس ریست لول
-        //StartCoroutine(ResetLevelAfterDelay(0.6f));
+        // Open game over screen and pass current weapon data
+        if (GameOverManager.instance != null && PlayerWeaponManager.instance != null)
+        {
+            PlayerPortraitData currentWeaponData = PlayerWeaponManager.instance.GetCurrentWeaponPortraitData();
+            GameOverManager.instance.ShowGameOverScreen(currentWeaponData);
+        }
 
+        // ⚠️ Important note for your checkpoint system:
+        // This line instantly teleports the player to the checkpoint upon death.
+        // If you want the game to pause, show the game over screen, and let the player click Continue,
+        // it's better to keep this line commented out for now so the menu works properly:
+        /*
         if (CheckpointManager.Instance != null)
         {
             CheckpointManager.Instance.SpawnAtCheckpoint();
         }
+        */
     }
-
-
 
     public void Heal(float amount)
     {
