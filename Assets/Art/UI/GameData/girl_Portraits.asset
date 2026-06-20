@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3103df4eafb07e94c826eeedc5db2d82, type: 3}
+  m_Name: girl_Portraits
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerPortraitData
+  fullHealth: {fileID: 21300000, guid: 49895d0d1f63240149b4daf8f30e3298, type: 3}
+  midHealth: {fileID: 21300000, guid: bd0dcbbe627ff43d2979e3db022d4dc8, type: 3}
+  lowHealth: {fileID: 21300000, guid: 3f6f85d4ecd9b4c9aba0300dce334f8f, type: 3}
+  fullHit: {fileID: 21300000, guid: 42c000f64808642488e008317d1f8a37, type: 3}
+  midHit: {fileID: 21300000, guid: 2b18d647a0cc250469bb522860fb3e0f, type: 3}
+  lowHit: {fileID: 21300000, guid: beb968d4020fc764a81e4fb49b40ec44, type: 3}
+  fullBlink: {fileID: 21300000, guid: 0f3288a94162c4179b6a69d35b67e59b, type: 3}
+  midBlink: {fileID: 21300000, guid: 42bf460431c394e879870336d3561c4f, type: 3}
+  lowBlink: {fileID: 21300000, guid: 314951dd9dae24f258f84aeae722f438, type: 3}
+  dead: {fileID: 0}
+  heartIconSprite: {fileID: 0}
+  barFillSprite: {fileID: 0}
+  barBackgroundSprite: {fileID: 0}
+  weaponName: 
+  weaponDescription: 'Range: Long
+
+    Damage: High
+
+    Accuracy: Precise
+
+    Fire
+    Rate: Low'
+  weaponOverviewCardBG: {fileID: 21300000, guid: 3ec8c96ae2bb7de4f926d6892c9ed8fb, type: 3}

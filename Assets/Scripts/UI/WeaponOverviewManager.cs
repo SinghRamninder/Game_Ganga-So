@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class WeaponOverviewManager : MonoBehaviour
 {
@@ -9,24 +10,24 @@ public class WeaponOverviewManager : MonoBehaviour
 
     [Header("UI References")]
     [SerializeField] private GameObject overviewPanel;
-    [SerializeField] private RectTransform cardRectTransform; // 🆕 رفرنس کادر کارت برای تغییر سایز کدی
+    [SerializeField] private RectTransform cardRectTransform;
     [SerializeField] private Image cardBackgroundImage;
     [SerializeField] private TextMeshProUGUI weaponNameText;
     [SerializeField] private TextMeshProUGUI weaponDescriptionText;
-    [SerializeField] private Button collectedButton;
 
     [Header("FX Settings")]
-    [SerializeField] private GameObject vfxEffectObject; // گیم‌اوبجکت افکت پارتیکل شما
-    [SerializeField] private float fxPopSpeed = 8f; // سرعت باز شدن کارت
+    [SerializeField] private GameObject vfxEffectObject;
+    [SerializeField] private float fxPopSpeed = 8f;
 
     [Header("Display Settings")]
-    [SerializeField] private float buttonDelayDuration = 2.0f;
+    [SerializeField] private float clickDelayDuration = 1.0f; // Safety delay before double-click is allowed
 
     [Header("Audio Settings")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip openSound;
     [SerializeField] private AudioClip closeSound;
 
+    private bool canClose = false;
     private Coroutine UIAnimCoroutine;
 
     private void Awake()
@@ -49,7 +50,6 @@ public class WeaponOverviewManager : MonoBehaviour
 
         if (UIAnimCoroutine != null) StopCoroutine(UIAnimCoroutine);
 
-        // تزریق اطلاعات متنی و تصویری فیگما
         if (weaponNameText != null) weaponNameText.text = data.weaponName;
         if (weaponDescriptionText != null) weaponDescriptionText.text = data.weaponDescription;
         if (cardBackgroundImage != null && data.weaponOverviewCardBG != null)
@@ -57,36 +57,28 @@ public class WeaponOverviewManager : MonoBehaviour
             cardBackgroundImage.sprite = data.weaponOverviewCardBG;
         }
 
-        // فعال‌سازی اوبجکت‌ها
         overviewPanel.SetActive(true);
         if (vfxEffectObject != null) vfxEffectObject.SetActive(true);
-        if (collectedButton != null) collectedButton.gameObject.SetActive(false);
 
-        // 🛑 متوقف کردن زمان بازی و آزاد کردن ماوس
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // 🔊 پخش صدای ورود
         if (audioSource != null && openSound != null)
         {
             audioSource.PlayOneShot(openSound);
         }
 
-        // ⚡ شروع افکت کدیِ ورود و باز شدن دکمه
-        UIAnimCoroutine = StartCoroutine(AnimateOpenAndShowButton());
+        canClose = false;
+        UIAnimCoroutine = StartCoroutine(AnimateOpenAndEnableClick());
         return true;
     }
 
-    // 🎬 افکت پاپ‌آپ کاملاً کدی بدون نیاز به انیماتور
-    private IEnumerator AnimateOpenAndShowButton()
+    private IEnumerator AnimateOpenAndEnableClick()
     {
         if (cardRectTransform != null)
         {
-            // ابتدا سایز کارت را صفر می‌کنیم
             cardRectTransform.localScale = Vector3.zero;
-
-            // کارت را به آرامی بزرگ می‌کنیم (با استفاده از unscaledDeltaTime چون زمان متوقف است)
             while (cardRectTransform.localScale.x < 0.99f)
             {
                 cardRectTransform.localScale = Vector3.Lerp(cardRectTransform.localScale, Vector3.one, Time.unscaledDeltaTime * fxPopSpeed);
@@ -95,12 +87,19 @@ public class WeaponOverviewManager : MonoBehaviour
             cardRectTransform.localScale = Vector3.one;
         }
 
-        // حالا منتظر می‌مانیم تا دکمه ظاهر شود
-        yield return new WaitForSecondsRealtime(buttonDelayDuration);
-        
-        if (collectedButton != null)
+        yield return new WaitForSecondsRealtime(clickDelayDuration);
+        canClose = true;
+    }
+
+    // Called automatically via Event Trigger on the CardBackground
+    public void OnCardClick(BaseEventData baseEventData)
+    {
+        if (!canClose) return;
+
+        PointerEventData pointerEventData = baseEventData as PointerEventData;
+        if (pointerEventData != null && pointerEventData.clickCount == 2)
         {
-            collectedButton.gameObject.SetActive(true);
+            CloseWeaponOverview();
         }
     }
 
@@ -111,7 +110,6 @@ public class WeaponOverviewManager : MonoBehaviour
             audioSource.PlayOneShot(closeSound);
         }
 
-        // غیرفعال‌سازی افکت‌ها و برگشت به بازی
         if (vfxEffectObject != null) vfxEffectObject.SetActive(false);
         if (overviewPanel != null) overviewPanel.SetActive(false);
 
