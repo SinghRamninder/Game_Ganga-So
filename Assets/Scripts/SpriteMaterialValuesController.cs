@@ -14,10 +14,7 @@ public class SpriteMaterialValuesController : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float spiralStrength = 0f;
     [SerializeField, Range(0f, 1f)] private float verticalDissolve = 0f;
 
-    [SerializeField] private GameObject mainSpriteObject;
-    [SerializeField] private GameObject animationSpriteObject;
-    [SerializeField] private Enemy enemyScript;
-    [SerializeField] private Animator animator;
+    private Animator animator;
 
     private SpriteRenderer[] spriteRenderers;
     private MaterialPropertyBlock propertyBlock;
@@ -46,6 +43,14 @@ public class SpriteMaterialValuesController : MonoBehaviour
         {
             RefreshRenderers();
             ApplyValuesToMaterial();
+        }
+    }
+
+    private void Start()
+    {
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
         }
     }
 

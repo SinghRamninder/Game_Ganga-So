@@ -245,6 +245,10 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 759b21f27fca6164c9173cc62b53809b, type: 3}
   deathVolume: 1
   audioSource: {fileID: 3575410511933415941}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2056
+  spawnAnimClone: {fileID: 5655383073827375967, guid: 053293a47fb86954780850c3dd55d6fe, type: 3}
 --- !u!54 &6458104901873181042
 Rigidbody:
   m_ObjectHideFlags: 0

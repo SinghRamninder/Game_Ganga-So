@@ -144,6 +144,9 @@ MonoBehaviour:
   deathSound: {fileID: 0}
   deathVolume: 1
   audioSource: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2056
 --- !u!54 &6458104901873181042
 Rigidbody:
   m_ObjectHideFlags: 0

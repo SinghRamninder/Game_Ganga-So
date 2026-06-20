@@ -11,6 +11,7 @@ public class AreaLogic : MonoBehaviour
 
     private Enemy[] allEnemies;
     private Vector3[] enemiesStartPosition;
+    private GameObject[] allEnemiesAnimClone;
     private bool isFighting = false;
     private bool startLateUpdate = false;
 
@@ -37,12 +38,21 @@ public class AreaLogic : MonoBehaviour
         if (allEnemies.Length > 0)
         {
             enemiesStartPosition = new Vector3[allEnemies.Length];
+            allEnemiesAnimClone = new GameObject[allEnemies.Length];
 
             for (int i = 0; i < allEnemies.Length; i++)
             {
                 if (allEnemies[i] != null)
                 {
                     enemiesStartPosition[i] = allEnemies[i].transform.position;
+
+                    if (allEnemies[i].spawnAnimClone != null)
+                    {
+                        allEnemiesAnimClone[i] = Instantiate(allEnemies[i].spawnAnimClone, enemiesStartPosition[i], Quaternion.identity);
+                        allEnemiesAnimClone[i].transform.localScale = allEnemies[i].transform.localScale;
+                        allEnemiesAnimClone[i].SetActive(false);
+                    }
+                    
                     allEnemies[i].gameObject.SetActive(false);
                 }
             }
@@ -124,7 +134,6 @@ public class AreaLogic : MonoBehaviour
                 if (obj != null)
                 {
                     obj.SetActive(true);
-                    Debug.Log("Entry exit active!!");
                 }
             }
 
@@ -141,13 +150,27 @@ public class AreaLogic : MonoBehaviour
             if (allEnemies[i] != null)
             {
                 allEnemies[i].transform.position = enemiesStartPosition[i];
-                allEnemies[i].gameObject.SetActive(true);
+                allEnemiesAnimClone[i].transform.position = enemiesStartPosition[i];
+                allEnemiesAnimClone[i].SetActive(true);
+
+                Animator animator = allEnemiesAnimClone[i].GetComponent<Animator>();
+                float animationTime = animator != null ? animator.GetCurrentAnimatorClipInfo(0)[0].clip.length : 0;
+
+                StartCoroutine(AppearAnimationWait(animationTime, allEnemies[i].gameObject, allEnemiesAnimClone[i]));
             }
 
             yield return new WaitForSeconds(enemiesSpawnDelay);
         }
 
         startLateUpdate = true;
+    }
+
+    private IEnumerator AppearAnimationWait(float time, GameObject enemyObject, GameObject enemyCloneObject)
+    {
+        yield return new WaitForSeconds(time);
+
+        enemyObject.SetActive(true);
+        enemyCloneObject.SetActive(false);
     }
 
     private void ResetThisArea()
@@ -163,6 +186,7 @@ public class AreaLogic : MonoBehaviour
             Collider[] allColliders = enemy.GetComponentsInChildren<Collider>(true);
 
             enemy.gameObject.SetActive(false);
+            allEnemiesAnimClone[i].SetActive(false);
 
             if (rb != null)
             {

@@ -16,6 +16,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "a866ed33-ac44-4d45-8821-3c590dc9e7cf",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "DualPistolLeft",
                     "type": "Button",
                     "id": "f0033607-ed5b-4706-a5b5-27fecd1360dc",
@@ -257,6 +266,17 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "DualPistolRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a30a3d0d-fcb1-45b6-996c-6c9e3314b699",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
