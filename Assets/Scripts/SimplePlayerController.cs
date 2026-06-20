@@ -47,7 +47,6 @@ public class SimplePlayerController : MonoBehaviour
     private float shakeDuration = 0f;
     private float shakeIntensity = 0f;
 
-
     private void Start()
     {
         controller = GetComponent<CharacterController>();
