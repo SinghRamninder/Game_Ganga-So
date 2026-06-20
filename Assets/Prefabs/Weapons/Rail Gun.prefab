@@ -5159,7 +5159,7 @@ MonoBehaviour:
   useOldMethod: 0
   splatterNumber: 3
   particlesProfile:
-    particleCount: 1
+    particleCount: 10
     speed:
       m_Mode: 0
       m_CurveMultiplier: 0
@@ -5176,8 +5176,8 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 100
-    spread: 0.25
+      m_ConstantMax: 40
+    spread: 0.179
     gravityModifier:
       m_Mode: 0
       m_CurveMultiplier: 0
@@ -5211,7 +5211,7 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       m_ConstantMin: 0
-      m_ConstantMax: 10
+      m_ConstantMax: 0.2
     size:
       m_Mode: 0
       m_CurveMultiplier: 0
