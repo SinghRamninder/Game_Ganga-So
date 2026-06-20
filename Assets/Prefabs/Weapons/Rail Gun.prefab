@@ -5155,6 +5155,7 @@ MonoBehaviour:
   attackAnimString: Attack
   reloadAnimString: Reload
   useReloadAnimLength: 1
+  weaponPortraitData: {fileID: 11400000, guid: 1f2849102cb216f47be5772058dca15a, type: 2}
   useOldMethod: 0
   splatterNumber: 3
   particlesProfile:
@@ -5228,6 +5229,9 @@ MonoBehaviour:
         m_RotationOrder: 4
       m_ConstantMin: 0
       m_ConstantMax: 20
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2112
   fireEventFmod:
     Guid:
       Data1: 0

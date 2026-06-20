@@ -260,7 +260,7 @@ MonoBehaviour:
   moveSpeed: 30
   mouseSensitivity: 0.1
   controllerSensitivity: 150
-  maxLookAngle: 39
+  maxLookAngle: 90
   jumpHeight: 8
   gravityMultiplier: 15
   simpleMovement: 0
@@ -288,6 +288,7 @@ MonoBehaviour:
   weaponHolder: {fileID: 248039951975568822}
   crosshair: {fileID: 0}
   headCrosshair: {fileID: 0}
+  portraitUI: {fileID: 0}
   weaponsSpawned: []
   weaponLayerNumber: 0
 --- !u!114 &8194632082880771969
@@ -410,7 +411,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 895
+    m_Bits: 2943
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
