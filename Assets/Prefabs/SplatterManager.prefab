@@ -75,6 +75,12 @@ MonoBehaviour:
     minSize: 10
     maxSize: 15
     isInkSplatter: 0
+  - name: Barrel
+    temporaryPrefab: {fileID: 8390140630907516658, guid: 2d443f1fbacea3049bcef40c0428d908, type: 3}
+    material: {fileID: 2100000, guid: 3d435c4b3661c1c49a00a7f370c339f1, type: 2}
+    minSize: 10
+    maxSize: 15
+    isInkSplatter: 0
   defaultAreaId: Default
   maxSplattersPerChunk: 1000
   surfaceOffset: 0.01

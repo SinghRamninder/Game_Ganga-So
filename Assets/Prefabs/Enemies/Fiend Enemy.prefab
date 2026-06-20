@@ -126,10 +126,10 @@ MonoBehaviour:
   projectileSpeed: 15
   rayShootOfset: 5
   maxHealth: 10
-  speed: 20
+  speed: 40
   damageToPlayer: 10
   attackRange: 7
-  attackRate: 1
+  attackRate: 2
   moveTowardsLastPlayerPosition: 1
   deathEffect: {fileID: 0}
   bulletTrail: {fileID: 0}
@@ -137,6 +137,7 @@ MonoBehaviour:
   walkAnimString: walk
   attackAnimString: attack
   deathAnimString: death
+  hitAnimString: hit
   walkSound: {fileID: 0}
   walkVolume: 1
   attackSound: {fileID: 0}
@@ -147,6 +148,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2056
+  spawnAnimClone: {fileID: 0}
 --- !u!54 &6764571918099231639
 Rigidbody:
   m_ObjectHideFlags: 0
