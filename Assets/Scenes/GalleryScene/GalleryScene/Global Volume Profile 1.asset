@@ -15,10 +15,10 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.37
+    m_Value: -0.9
   contrast:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 3
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -48,6 +48,7 @@ MonoBehaviour:
   - {fileID: 9018913016953260708}
   - {fileID: 3082002597692939779}
   - {fileID: 4240154632876197310}
+  - {fileID: 7233623152704443752}
 --- !u!114 &1449227616379338239
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -63,13 +64,13 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.82229507, z: 0.84771734, w: 0}
+    m_Value: {x: 0.9797333, y: 0.9958094, z: 1, w: -0.07670197}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 0.8714093, y: 0.8605964, z: 1, w: 0}
+    m_Value: {x: 1, y: 0.31435776, z: 0.32560417, w: 0.39884928}
   highlights:
     m_OverrideState: 0
-    m_Value: {x: 1, y: 0.57098186, z: 0.9534104, w: 0}
+    m_Value: {x: 0.8214385, y: 0.7713595, z: 1, w: 0}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
   m_Name: ChromaticAberration
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.ChromaticAberration
-  active: 1
+  active: 0
   intensity:
     m_OverrideState: 1
     m_Value: 0.062
@@ -156,13 +157,38 @@ MonoBehaviour:
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.197
+    m_Value: 0.209
   response:
     m_OverrideState: 0
     m_Value: 0.8
   texture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
+--- !u!114 &7233623152704443752
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf1aba9553839d41ae37dd52e9ebcce, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.MotionBlur
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 0
+  quality:
+    m_OverrideState: 1
+    m_Value: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.165
+  clamp:
+    m_OverrideState: 0
+    m_Value: 0.05
 --- !u!114 &7728983992500296048
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -175,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.Bloom
-  active: 1
+  active: 0
   skipIterations:
     m_OverrideState: 0
     m_Value: 1
@@ -193,9 +219,9 @@ MonoBehaviour:
     m_Value: 65472
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.9339622, g: 1, b: 0.9946487, a: 1}
   highQualityFiltering:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   filter:
     m_OverrideState: 0
@@ -208,11 +234,11 @@ MonoBehaviour:
     m_Value: 6
   dirtTexture:
     m_OverrideState: 0
-    m_Value: {fileID: 0}
+    m_Value: {fileID: 2800000, guid: eb0e96763f2c19f49bfc8aab300d5441, type: 3}
     dimension: 1
   dirtIntensity:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 1.58
 --- !u!114 &9018913016953260708
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -234,7 +260,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.374
+    m_Value: 0.175
   smoothness:
     m_OverrideState: 0
     m_Value: 0.2
