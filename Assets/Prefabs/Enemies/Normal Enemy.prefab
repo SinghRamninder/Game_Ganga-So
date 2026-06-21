@@ -229,8 +229,8 @@ MonoBehaviour:
   maxHealth: 100
   speed: 10
   damageToPlayer: 20
-  attackRange: 7
-  attackRate: 1
+  attackRange: 8
+  attackRate: 10
   moveTowardsLastPlayerPosition: 1
   deathEffect: {fileID: 0}
   bulletTrail: {fileID: 0}
@@ -238,6 +238,7 @@ MonoBehaviour:
   walkAnimString: walk
   attackAnimString: attack
   deathAnimString: death
+  hitAnimString: hit
   walkSound: {fileID: 0}
   walkVolume: 1
   attackSound: {fileID: 0}
@@ -372,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4577469212691359098, guid: e00a7b8455c5240068877d8704faa134, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5880915
+      value: 0.5880911
       objectReference: {fileID: 0}
     - target: {fileID: 4577469212691359098, guid: e00a7b8455c5240068877d8704faa134, type: 3}
       propertyPath: m_LocalRotation.y
@@ -380,7 +381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4577469212691359098, guid: e00a7b8455c5240068877d8704faa134, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.8087945
+      value: -0.8087948
       objectReference: {fileID: 0}
     - target: {fileID: 7079222895614566616, guid: e00a7b8455c5240068877d8704faa134, type: 3}
       propertyPath: m_LocalRotation.w
@@ -424,7 +425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8707232128714761211, guid: e00a7b8455c5240068877d8704faa134, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000006258487
+      value: -0.0000001490116
       objectReference: {fileID: 0}
     - target: {fileID: 8902775635538689253, guid: e00a7b8455c5240068877d8704faa134, type: 3}
       propertyPath: m_LocalRotation.w
