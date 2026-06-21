@@ -816,6 +816,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallOffset
       objectReference: {fileID: 0}
+    - target: {fileID: 7013064001064914321, guid: c2dd4c8dfe058f34c925ba31a066f599, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 40f0c5ffb739a8444b8eded7adf03fc6, type: 2}
     - target: {fileID: 8508897952015211776, guid: c2dd4c8dfe058f34c925ba31a066f599, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1946.5167
@@ -12916,7 +12920,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 42f7806b90e604ecaa9302a82e674475, type: 2}
+  - {fileID: 2100000, guid: 1b17534217d284d329d1c254adba3d69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19189,7 +19193,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1b17534217d284d329d1c254adba3d69, type: 2}
+  - {fileID: 2100000, guid: 40f0c5ffb739a8444b8eded7adf03fc6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
