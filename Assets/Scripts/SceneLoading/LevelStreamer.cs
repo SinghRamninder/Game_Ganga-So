@@ -7,12 +7,12 @@ public class LevelStreamer : MonoBehaviour
     public static LevelStreamer Instance;
 
     [SerializeField] string mainScene = "GalaryScene";
-    [SerializeField] string[] additiveScenes;        // the extra scenes on top
+    [SerializeField] string[] additiveScenes;
 
-    [SerializeField] GameObject loadingScreen;       // child, starts OFF
-    [SerializeField] Animator transitionAnimator;    // child
-    [SerializeField] string inState = "Start";       // covers the screen
-    [SerializeField] string outState = "End";        // reveals the screen
+    [SerializeField] GameObject loadingScreen;
+    [SerializeField] Animator transitionAnimator;
+    [SerializeField] string inState = "Start";
+    [SerializeField] string outState = "End";
 
     void Awake()
     {

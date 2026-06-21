@@ -5,6 +5,9 @@ public class PlayerWeaponManager : MonoBehaviour
 {
     public static PlayerWeaponManager instance;
 
+    [HideInInspector] public List<GameObject> ownedPrefabs = new();
+    [HideInInspector] public int currentIndex = 0;
+
     [SerializeField] private GameObject weaponHolder;
     [SerializeField] private GameObject crosshair;
     public GameObject headCrosshair;
@@ -19,10 +22,23 @@ public class PlayerWeaponManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        instance = this;
+        
+        if (weaponHolder == null)
         {
-            instance = this;
+            WeaponsInventory inventory = GetComponentInChildren<WeaponsInventory>(true);
+            if (inventory != null)
+            {
+                weaponHolder = inventory.gameObject;
+            }
         }
+        
+        weaponsSpawned = new List<GameObject>();
+        ownedPrefabs = new List<GameObject>();
+    }
+
+    private void Start()
+    {
     }
 
     private void Update()
@@ -78,27 +94,27 @@ public class PlayerWeaponManager : MonoBehaviour
 
     public void SpawnWeapon(GameObject weaponPrefab)
     {
+        if (ownedPrefabs.Contains(weaponPrefab)) return;
+        
         GameObject spawnedWeapon = Instantiate(weaponPrefab, weaponHolder.transform);
-        Vector3 weaponSpawnPosition = spawnedWeapon.GetComponent<Weapon>().weaponSpawnPosition;
-        Quaternion weaponSpawnRotation = spawnedWeapon.GetComponent<Weapon>().weaponSpawnRotation;
-        Vector3 weaponSpawnScale = spawnedWeapon.GetComponent<Weapon>().weaponSpawnScale;
-        spawnedWeapon.transform.SetLocalPositionAndRotation(weaponSpawnPosition, weaponSpawnRotation);
-        spawnedWeapon.transform.localScale = weaponSpawnScale;
-
-        if (weaponsSpawned.Count == 0)
-        {
-            ChangeWeapon(spawnedWeapon);
-        }
-        else
-        {
-            spawnedWeapon.SetActive(false);
-        }
+        Weapon w = spawnedWeapon.GetComponent<Weapon>();
+        spawnedWeapon.transform.SetLocalPositionAndRotation(w.weaponSpawnPosition, w.weaponSpawnRotation);
+        spawnedWeapon.transform.localScale = w.weaponSpawnScale;
 
         weaponsSpawned.Add(spawnedWeapon);
+        ownedPrefabs.Add(weaponPrefab);          // keep this list parallel to weaponsSpawned
+
+        if (weaponsSpawned.Count == 1)
+            ChangeWeapon(spawnedWeapon);         // first weapon becomes active
+        else
+            spawnedWeapon.SetActive(false);
     }
 
     public void ChangeWeapon(GameObject weaponGameobject)
     {
+        if (weaponGameobject == null) return;
+        if (equipedWeapon == weaponGameobject) return;
+        
         if (equipedWeapon != null) equipedWeapon.SetActive(false);
 
         weaponGameobject.SetActive(true);
@@ -123,6 +139,8 @@ public class PlayerWeaponManager : MonoBehaviour
         {
             HealthBarUI.instance.ChangeHealthBarVisuals(currentWeaponScript.weaponPortraitData);
         }
+
+        currentIndex = weaponsSpawned.IndexOf(weaponGameobject);
     }
 
     // 🔵 خطوط جدید: تابع رادار برای دادن دیتای تفنگ فعلی به اسکریپت مرگ
@@ -133,5 +151,15 @@ public class PlayerWeaponManager : MonoBehaviour
             return currentWeaponScript.weaponPortraitData;
         }
         return null;
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            if (WeaponLoadoutStore.Instance != null)
+                WeaponLoadoutStore.Instance.Save(ownedPrefabs, currentIndex);
+            instance = null;
+        }
     }
 }

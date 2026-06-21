@@ -10,14 +10,18 @@ public class PlayerPortraitUI : MonoBehaviour
     private PlayerPortraitData currentPortraitData; 
     private int currentHealth = 100;
     private int maxHealth = 100;
-    
+
     private bool isDead = false;
     private bool isHitActive = false;
     private bool isBlinking = false;
 
+    // track blink coroutine so we can restart/stop it reliably across state changes
+    private Coroutine blinkCoroutine;
+
     private void Start()
     {
-        StartCoroutine(BlinkRoutine());
+        // start blinking loop and remember the coroutine so we can control it
+        blinkCoroutine = StartCoroutine(BlinkRoutine());
     }
 
     // این تابع توسط PlayerWeaponManager زمان سوئیچ اسلحه صدا زده می‌شود
@@ -25,6 +29,10 @@ public class PlayerPortraitUI : MonoBehaviour
     {
         if (newWeaponData == null) return;
         currentPortraitData = newWeaponData;
+        
+        isHitActive = false;
+        isBlinking = false;
+        
         UpdateBasePortrait(); 
     }
 
@@ -38,8 +46,24 @@ public class PlayerPortraitUI : MonoBehaviour
         {
             isDead = true;
             if (currentPortraitData != null) portraitImage.sprite = currentPortraitData.dead;
-            StopAllCoroutines();
+
+            // stop blink coroutine and other routines related to portrait animations
+            if (blinkCoroutine != null)
+            {
+                StopCoroutine(blinkCoroutine);
+                blinkCoroutine = null;
+            }
+            StopCoroutine(nameof(HitPortraitRoutine));
+            StopCoroutine(nameof(ReloadPortraitRoutine));
             return;
+        }
+
+        // if we were dead before but now alive again, restart blinking routine
+        if (isDead)
+        {
+            isDead = false;
+            if (blinkCoroutine == null)
+                blinkCoroutine = StartCoroutine(BlinkRoutine());
         }
 
         if (!isHitActive && !isBlinking) UpdateBasePortrait();

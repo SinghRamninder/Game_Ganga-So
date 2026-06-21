@@ -17,16 +17,43 @@ public class WeaponsInventory : MonoBehaviour
 
     private void Start()
     {
-        foreach (GameObject weapon in weaponPrefabs)
-        {
-            PlayerWeaponManager.instance.SpawnWeapon(weapon);
-        }
+        var store = WeaponLoadoutStore.Instance;
 
-        //if (!oneEnabled)
-        //{
-        //    PlayerWeaponManager.instance.ChangeWeapon(PlayerWeaponManager.instance.weaponsSpawned[0]);
-        //    oneEnabled = true;
-        //}
+        if (store != null && store.HasData)
+        {
+            foreach (GameObject weaponPrefab in store.OwnedWeaponPrefabs)
+            {
+                if (weaponPrefab != null)
+                {
+                    PlayerWeaponManager.instance.SpawnWeapon(weaponPrefab);
+                }
+            }
+
+            if (PlayerWeaponManager.instance.weaponsSpawned.Count > 0)
+            {
+                currentIndex = Mathf.Clamp(store.CurrentIndex, 0,
+                    PlayerWeaponManager.instance.weaponsSpawned.Count - 1);
+                PlayerWeaponManager.instance.ChangeWeapon(
+                    PlayerWeaponManager.instance.weaponsSpawned[currentIndex]);
+            }
+        }
+        else
+        {
+            foreach (GameObject weapon in weaponPrefabs)
+            {
+                if (weapon != null)
+                {
+                    PlayerWeaponManager.instance.SpawnWeapon(weapon);  // first-scene default loadout
+                }
+            }
+            
+            if (PlayerWeaponManager.instance.weaponsSpawned.Count > 0)
+            {
+                currentIndex = 0;
+                PlayerWeaponManager.instance.ChangeWeapon(
+                    PlayerWeaponManager.instance.weaponsSpawned[0]);
+            }
+        }
     }
 
     private void Update()
