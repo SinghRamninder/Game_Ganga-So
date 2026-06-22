@@ -121,8 +121,8 @@ MonoBehaviour:
   canShoot: 1
   canShootProjectile: 0
   projectile: {fileID: -2003739180757158627, guid: c4e118d2935508d4dabdead61b2a9984, type: 3}
-  shootRange: 250
-  bulletSpeed: 150
+  shootRange: 400
+  bulletSpeed: 100
   projectileSpeed: 15
   rayShootOfset: 8
   maxHealth: 80
@@ -137,6 +137,7 @@ MonoBehaviour:
   walkAnimString: walk
   attackAnimString: attack
   deathAnimString: death
+  hitAnimString: hit
   walkSound: {fileID: 0}
   walkVolume: 1
   attackSound: {fileID: 8300000, guid: 3da110096cd77f14f81ad6d4aebe2c18, type: 3}
@@ -147,6 +148,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2056
+  spawnAnimClone: {fileID: 5655383073827375967, guid: 8f52c434fcc52824180b9b564aa85214, type: 3}
 --- !u!54 &6458104901873181042
 Rigidbody:
   m_ObjectHideFlags: 0

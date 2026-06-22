@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6031343026616608051}
   - component: {fileID: 1919200952376661929}
   - component: {fileID: 8003750127854104925}
+  - component: {fileID: 7247313152918883683}
   m_Layer: 6
   m_Name: Tank Enemy Clone
   m_TagString: Untagged
@@ -49,8 +50,8 @@ MonoBehaviour:
   dissolveAmount: 0
   dissolveScale: 30
   outlineThickness: 0.023
-  outlineColor: {r: 1, g: 0, b: 0, a: 1}
-  spiralStrength: 0
+  outlineColor: {r: 1, g: 0, b: 0.21673298, a: 1}
+  spiralStrength: 0.605
   verticalDissolve: 0
 --- !u!114 &8003750127854104925
 MonoBehaviour:
@@ -65,6 +66,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlwaysLookCamera
   mainCamera: {fileID: 0}
+--- !u!95 &7247313152918883683
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5655383073827375967}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a9eaeb0f95376984ca3f244925e0e431, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &8028908210421085632
 PrefabInstance:
   m_ObjectHideFlags: 0

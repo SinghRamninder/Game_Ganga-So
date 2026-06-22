@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Weapons.assets.bank
   Name: Weapons.assets
   StudioPath: bank:/Weapons.assets
-  lastModified: 639172241216848642
+  lastModified: 639175118185638945
   FileSizes:
   - Name: Desktop
-    Value: 222464
+    Value: 738400
   Exists: 1
 --- !u!114 &-8208245519386133286
 MonoBehaviour:
@@ -35,10 +35,10 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Weapons.bank
   Name: Weapons
   StudioPath: bank:/Weapons
-  lastModified: 639172241216863649
+  lastModified: 639175118185648950
   FileSizes:
   - Name: Desktop
-    Value: 20534
+    Value: 38362
   Exists: 1
 --- !u!114 &-8164490765906777274
 MonoBehaviour:
@@ -67,6 +67,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 125
+--- !u!114 &-6671730099815622035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_inkpistol_fire
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_inkpistol_fire
+  Guid:
+    Data1: -1508746623
+    Data2: 1296696296
+    Data3: -62922579
+    Data4: 2030593149
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
+--- !u!114 &-3753693396318291027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_tommyGun_reload
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_tommyGun_reload
+  Guid:
+    Data1: -688539527
+    Data2: 1222197706
+    Data3: 1146705830
+    Data4: 327753635
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &-445546656609869015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,24 +169,39 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: -8164490765906777274}
   - {fileID: -445546656609869015}
-  - {fileID: 7894394052045749428}
   - {fileID: 7510103461434937812}
+  - {fileID: 6338483747168329894}
+  - {fileID: 3136042726192452453}
+  - {fileID: 2014829028808044992}
+  - {fileID: 2782522857954722435}
+  - {fileID: -3753693396318291027}
+  - {fileID: -6671730099815622035}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7469978475065909250}
   StringsBanks:
   - {fileID: 8761216170072131379}
   cacheVersion: 131859
-  cacheTime: 639172241216863649
+  cacheTime: 639175118185648950
   SerializableEventsDict:
   - key: event:/Weapon_tommyGun_fire
     index: 0
   - key: event:/Weapon_tommyGun_tailburst
     index: 1
-  - key: event:/Weapons_inkpistol_fire
-    index: 2
   - key: event:/Weapon_shotgun_fire
+    index: 2
+  - key: event:/Weapon_knife_attack
     index: 3
+  - key: event:/Weapon_inkpistol_reload
+    index: 4
+  - key: event:/Weapon_shotgun_reload
+    index: 5
+  - key: event:/Weapon_railgun_fire
+    index: 6
+  - key: event:/Weapon_tommyGun_reload
+    index: 7
+  - key: event:/Weapon_inkpistol_fire
+    index: 8
 --- !u!114 &1798613708987533344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,11 +217,119 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Master.assets.bank
   Name: Master.assets
   StudioPath: bank:/Master.assets
-  lastModified: 639172241216813392
+  lastModified: 639173316024175910
   FileSizes:
   - Name: Desktop
     Value: 506
   Exists: 1
+--- !u!114 &2014829028808044992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_shotgun_reload
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_shotgun_reload
+  Guid:
+    Data1: 373048131
+    Data2: 1245498473
+    Data3: -1300716135
+    Data4: -787270520
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
+--- !u!114 &2782522857954722435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_railgun_fire
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_railgun_fire
+  Guid:
+    Data1: -230116280
+    Data2: 1154245165
+    Data3: 467399048
+    Data4: -39809757
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
+--- !u!114 &3136042726192452453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_inkpistol_reload
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_inkpistol_reload
+  Guid:
+    Data1: 1548662326
+    Data2: 1082308658
+    Data3: 1660415423
+    Data4: 1117731218
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1932
+--- !u!114 &6338483747168329894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_knife_attack
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_knife_attack
+  Guid:
+    Data1: 711692301
+    Data2: 1149257603
+    Data3: -690038369
+    Data4: -1542116378
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 955
 --- !u!114 &7469978475065909250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +345,7 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639172241216818427
+  lastModified: 639173316024187909
   FileSizes:
   - Name: Desktop
     Value: 1074
@@ -200,33 +377,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1538
---- !u!114 &7894394052045749428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Weapons_inkpistol_fire
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Weapons_inkpistol_fire
-  Guid:
-    Data1: -1508746623
-    Data2: 1296696296
-    Data3: -62922579
-    Data4: 2030593149
-  Banks:
-  - {fileID: -8208245519386133286}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 488
 --- !u!114 &8761216170072131379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,8 +392,8 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639172241216823460
+  lastModified: 639175118185565494
   FileSizes:
   - Name: Desktop
-    Value: 1096
+    Value: 1302
   Exists: 1
