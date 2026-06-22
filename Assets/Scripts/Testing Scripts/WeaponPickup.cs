@@ -39,6 +39,15 @@ public class WeaponPickup : MonoBehaviour
         {
             if (PlayerWeaponManager.instance != null)
             {
+                Weapon weaponScript = weaponToEquip.GetComponent<Weapon>();
+                if (weaponScript != null && weaponScript.weaponPortraitData != null)
+                {
+                    if (WeaponOverviewManager.instance != null)
+                    {
+                        WeaponOverviewManager.instance.ShowWeaponOverview(weaponScript.weaponPortraitData);
+                    }
+                }
+
                 PlayerWeaponManager.instance.SpawnWeapon(weaponToEquip);
                 Destroy(gameObject);
             }
