@@ -499,11 +499,11 @@ public class Weapon : MonoBehaviour
             {
                 if (enemyHitBox.bodyPart == BodyPart.Head)
                 {
-                    enemy.TakeDamage(damageToEnemyHead);
+                    enemy.TakeDamage(damageToEnemyHead, BodyPart.Head);
                 }
                 else if (enemyHitBox.bodyPart == BodyPart.Body)
                 {
-                    enemy.TakeDamage(damageToEnemyBody);
+                    enemy.TakeDamage(damageToEnemyBody, BodyPart.Body);
                 }
                 
                 if (impactEffectEnemy != null)
@@ -664,12 +664,12 @@ public class Weapon : MonoBehaviour
                         {
                             if (enemyHitBox.bodyPart == BodyPart.Head)
                             {
-                                enemy.TakeDamage(damageToEnemyHead);
+                                enemy.TakeDamage(damageToEnemyHead, BodyPart.Head);
                                 StartCoroutine(headShotEffect());
                             }
                             else if (enemyHitBox.bodyPart == BodyPart.Body)
                             {
-                                enemy.TakeDamage(damageToEnemyBody);
+                                enemy.TakeDamage(damageToEnemyBody, BodyPart.Body);
                             }
 
                             StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false, true));
@@ -713,13 +713,13 @@ public class Weapon : MonoBehaviour
                         if (enemyHitBox.bodyPart == BodyPart.Head)
                         {
                             Debug.Log("Head Shot");
-                            enemy.TakeDamage(damageToEnemyHead);
+                            enemy.TakeDamage(damageToEnemyHead, BodyPart.Head);
                             StartCoroutine(headShotEffect());
                         }
                         else if (enemyHitBox.bodyPart == BodyPart.Body)
                         {
                             Debug.Log("Body Shot");
-                            enemy.TakeDamage(damageToEnemyBody);
+                            enemy.TakeDamage(damageToEnemyBody, BodyPart.Body);
                         }
 
                         StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, false, true));

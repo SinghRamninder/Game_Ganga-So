@@ -15,10 +15,30 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Weapons.assets.bank
   Name: Weapons.assets
   StudioPath: bank:/Weapons.assets
-  lastModified: 639172241216848642
+  lastModified: 639177016859964677
   FileSizes:
   - Name: Desktop
-    Value: 222464
+    Value: 738400
+  Exists: 1
+--- !u!114 &-8925814391398626782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Enemies.assets.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: FMODproj_DrawYourWeapons/Build/Desktop/Enemies.assets.bank
+  Name: Enemies.assets
+  StudioPath: bank:/Enemies.assets
+  lastModified: 639177077813650245
+  FileSizes:
+  - Name: Desktop
+    Value: 271520
   Exists: 1
 --- !u!114 &-8208245519386133286
 MonoBehaviour:
@@ -35,10 +55,10 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Weapons.bank
   Name: Weapons
   StudioPath: bank:/Weapons
-  lastModified: 639172241216863649
+  lastModified: 639177016859484221
   FileSizes:
   - Name: Desktop
-    Value: 20534
+    Value: 38362
   Exists: 1
 --- !u!114 &-8164490765906777274
 MonoBehaviour:
@@ -67,6 +87,168 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 125
+--- !u!114 &-6288586930907827245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_inkpistol_reload
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_inkpistol_reload
+  Guid:
+    Data1: 1548662326
+    Data2: 1082308658
+    Data3: 1660415423
+    Data4: 1117731218
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1932
+--- !u!114 &-6198401045703646194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_knife_attack
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_knife_attack
+  Guid:
+    Data1: 711692301
+    Data2: 1149257603
+    Data3: -690038369
+    Data4: -1542116378
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 955
+--- !u!114 &-3242728078440134513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_inkpistol_fire
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_inkpistol_fire
+  Guid:
+    Data1: -1508746623
+    Data2: 1296696296
+    Data3: -62922579
+    Data4: 2030593149
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
+--- !u!114 &-2040110714440393196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies_PlantLady_Death
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies_PlantLady_Death
+  Guid:
+    Data1: 918014826
+    Data2: 1133985916
+    Data3: 2035796098
+    Data4: 282979830
+  Banks:
+  - {fileID: 8905071769534820680}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
+--- !u!114 &-1942382186840726491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies_MeatGiant_Death
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies_MeatGiant_Death
+  Guid:
+    Data1: -955329581
+    Data2: 1114947762
+    Data3: 2106027650
+    Data4: -63205823
+  Banks:
+  - {fileID: 8905071769534820680}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1500
+--- !u!114 &-1618278837829907061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_railgun_fire
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_railgun_fire
+  Guid:
+    Data1: -230116280
+    Data2: 1154245165
+    Data3: 467399048
+    Data4: -39809757
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &-445546656609869015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +276,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 955
+--- !u!114 &-281964499811185841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies_BridalFiend_Death
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies_BridalFiend_Death
+  Guid:
+    Data1: -519721344
+    Data2: 1081156430
+    Data3: 1583461035
+    Data4: -660068124
+  Banks:
+  - {fileID: 8905071769534820680}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,27 +321,86 @@ MonoBehaviour:
   - {fileID: 7469978475065909250}
   - {fileID: -9001152866411910613}
   - {fileID: -8208245519386133286}
+  - {fileID: -8925814391398626782}
+  - {fileID: 8905071769534820680}
   EditorEvents:
   - {fileID: -8164490765906777274}
   - {fileID: -445546656609869015}
-  - {fileID: 7894394052045749428}
   - {fileID: 7510103461434937812}
+  - {fileID: -6198401045703646194}
+  - {fileID: -6288586930907827245}
+  - {fileID: 8472332698792185935}
+  - {fileID: -1618278837829907061}
+  - {fileID: 7657872125022142577}
+  - {fileID: -3242728078440134513}
+  - {fileID: -2040110714440393196}
+  - {fileID: -281964499811185841}
+  - {fileID: 8624963194927019757}
+  - {fileID: 1067623287872462959}
+  - {fileID: -1942382186840726491}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7469978475065909250}
   StringsBanks:
   - {fileID: 8761216170072131379}
   cacheVersion: 131859
-  cacheTime: 639172241216863649
+  cacheTime: 639177077813650245
   SerializableEventsDict:
   - key: event:/Weapon_tommyGun_fire
     index: 0
   - key: event:/Weapon_tommyGun_tailburst
     index: 1
-  - key: event:/Weapons_inkpistol_fire
-    index: 2
   - key: event:/Weapon_shotgun_fire
+    index: 2
+  - key: event:/Weapon_knife_attack
     index: 3
+  - key: event:/Weapon_inkpistol_reload
+    index: 4
+  - key: event:/Weapon_shotgun_reload
+    index: 5
+  - key: event:/Weapon_railgun_fire
+    index: 6
+  - key: event:/Weapon_tommyGun_reload
+    index: 7
+  - key: event:/Weapon_inkpistol_fire
+    index: 8
+  - key: event:/Enemies_PlantLady_Death
+    index: 9
+  - key: event:/Enemies_BridalFiend_Death
+    index: 10
+  - key: event:/Enemies_GunLady_Death
+    index: 11
+  - key: event:/Enemies_Doll_Death
+    index: 12
+  - key: event:/Enemies_MeatGiant_Death
+    index: 13
+--- !u!114 &1067623287872462959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies_Doll_Death
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies_Doll_Death
+  Guid:
+    Data1: -1761826621
+    Data2: 1173279240
+    Data3: -1702011211
+    Data4: 164702341
+  Banks:
+  - {fileID: 8905071769534820680}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &1798613708987533344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +416,7 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Master.assets.bank
   Name: Master.assets
   StudioPath: bank:/Master.assets
-  lastModified: 639172241216813392
+  lastModified: 639177016858704665
   FileSizes:
   - Name: Desktop
     Value: 506
@@ -168,7 +436,7 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639172241216818427
+  lastModified: 639177016858694666
   FileSizes:
   - Name: Desktop
     Value: 1074
@@ -200,7 +468,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1538
---- !u!114 &7894394052045749428
+--- !u!114 &7657872125022142577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,14 +478,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Weapons_inkpistol_fire
+  m_Name: event:/Weapon_tommyGun_reload
   m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Weapons_inkpistol_fire
+  Path: event:/Weapon_tommyGun_reload
   Guid:
-    Data1: -1508746623
-    Data2: 1296696296
-    Data3: -62922579
-    Data4: 2030593149
+    Data1: -688539527
+    Data2: 1222197706
+    Data3: 1146705830
+    Data4: 327753635
   Banks:
   - {fileID: -8208245519386133286}
   IsStream: 0
@@ -226,7 +494,61 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 488
+  Length: 1000
+--- !u!114 &8472332698792185935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapon_shotgun_reload
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Weapon_shotgun_reload
+  Guid:
+    Data1: 373048131
+    Data2: 1245498473
+    Data3: -1300716135
+    Data4: -787270520
+  Banks:
+  - {fileID: -8208245519386133286}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
+--- !u!114 &8624963194927019757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies_GunLady_Death
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Enemies_GunLady_Death
+  Guid:
+    Data1: 457134488
+    Data2: 1127752647
+    Data3: -97159552
+    Data4: 1062826315
+  Banks:
+  - {fileID: 8905071769534820680}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &8761216170072131379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,8 +564,28 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639172241216823460
+  lastModified: 639177016858704665
   FileSizes:
   - Name: Desktop
-    Value: 1096
+    Value: 1646
+  Exists: 1
+--- !u!114 &8905071769534820680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Enemies.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: FMODproj_DrawYourWeapons/Build/Desktop/Enemies.bank
+  Name: Enemies
+  StudioPath: bank:/Enemies
+  lastModified: 639177077813489142
+  FileSizes:
+  - Name: Desktop
+    Value: 12160
   Exists: 1

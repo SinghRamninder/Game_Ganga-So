@@ -37,11 +37,16 @@ public class Enemy : MonoBehaviour
     [Header("Sound settings")]
     public AudioClip walkSound;
     [Range(0f, 1f)] public float walkVolume = 1f;
+    public float footstepInterval = 0.4f;
     public AudioClip attackSound;
     [Range(0f, 1f)] public float attackVolume = 1f;
     public AudioClip deathSound;
     [Range(0f, 1f)] public float deathVolume = 1f;
     public GameObject audioSource;
+
+    [Header("Sound settings")] [Header("FMOD")]
+    public EnemyAudioProfile audioProfile;
+    private bool hasPlayedAlert = false;
 
     private float currentHealth;
     private Transform playerTransform;
@@ -138,6 +143,12 @@ public class Enemy : MonoBehaviour
                 //playerLastPosition.y = transform.position.y;
 
                 firstHitWithPlayer = true;
+
+                if (!hasPlayedAlert)
+                {
+                    audioProfile?.PlayAlert(gameObject);
+                    hasPlayedAlert = true;
+                }
 
                 if (!canShoot)
                 {
@@ -302,10 +313,14 @@ public class Enemy : MonoBehaviour
 
         if (isMoving && !isAttacking)
         {
-            if (audioSource != null && walkSound != null && Time.time >= nextWalkSoundTime)
+            if (Time.time >= nextWalkSoundTime)
             {
-                StartCoroutine(AudioManager.Instance.PlaySound(audioSource, walkSound, walkVolume, true));
-                nextWalkSoundTime = Time.time + walkSound.length;
+                if (audioSource != null && walkSound != null)
+                {
+                    StartCoroutine(AudioManager.Instance.PlaySound(audioSource, walkSound, walkVolume, true));
+                }
+                audioProfile?.PlayFootstep(gameObject);
+                nextWalkSoundTime = Time.time + footstepInterval;
             }
         }
 
@@ -318,6 +333,7 @@ public class Enemy : MonoBehaviour
         PlayAnimation(attackAnimString);
         if (audioSource != null && attackSound != null)
             StartCoroutine(AudioManager.Instance.PlaySound(audioSource, attackSound, attackVolume, true));
+        audioProfile?.PlayAttack(gameObject);
 
         AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
 
@@ -350,6 +366,7 @@ public class Enemy : MonoBehaviour
         isAttacking = true;
         if (audioSource != null && attackSound != null)
             StartCoroutine(AudioManager.Instance.PlaySound(audioSource, attackSound, attackVolume, true));
+        audioProfile?.PlayAttack(gameObject);
 
         if (Physics.Raycast(shootPos, shootDirection, out RaycastHit hit, shootRange))
         {
@@ -403,9 +420,15 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        TakeDamage(damage, BodyPart.Body);
+    }
+
+    public void TakeDamage(float damage, BodyPart bodyPart = BodyPart.Body)
+    {
         if (isDead) return;
 
         PlayAnimation(hitAnimString);
+        audioProfile?.PlayHit(gameObject, bodyPart);
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
@@ -458,6 +481,7 @@ public class Enemy : MonoBehaviour
         PlayAnimation(deathAnimString);
         if (audioSource != null && deathSound != null)
             StartCoroutine(AudioManager.Instance.PlaySound(audioSource, deathSound, deathVolume, true));
+        audioProfile?.PlayDeath(gameObject);
 
         if (deathEffect != null)
         {
