@@ -78106,11 +78106,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!4 &242580718 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-  m_PrefabInstance: {fileID: 864607124}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &242767027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268984,63 +268979,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!1001 &864607124
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1853028021}
-    m_Modifications:
-    - target: {fileID: 5655383073827375967, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_Name
-      value: Plant Lady (24)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -91.92993
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 35.316742
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -34.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
 --- !u!4 &864663324 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6031343026616608051, guid: 9b1d4dc4f5dca49608f723447b3440f0, type: 3}
@@ -480671,68 +480609,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1d4dc4f5dca49608f723447b3440f0, type: 3}
---- !u!1001 &1414346206
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1853028021}
-    m_Modifications:
-    - target: {fileID: 5655383073827375967, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_Name
-      value: Plant Lady (25)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -91.92993
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 35.316742
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -17.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
---- !u!4 &1414346207 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-  m_PrefabInstance: {fileID: 1414346206}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1414605881
 Mesh:
   m_ObjectHideFlags: 0
@@ -510270,68 +510146,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!1001 &1523858914
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1853028021}
-    m_Modifications:
-    - target: {fileID: 5655383073827375967, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_Name
-      value: Plant Lady (26)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -91.92993
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 35.316742
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
---- !u!4 &1523858915 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6031343026616608051, guid: d09c1b8a69592434fa4f5355122075a3, type: 3}
-  m_PrefabInstance: {fileID: 1523858914}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1524046611
 GameObject:
   m_ObjectHideFlags: 0
@@ -667743,9 +667557,6 @@ Transform:
   - {fileID: 916645563}
   - {fileID: 419231674}
   - {fileID: 993383218}
-  - {fileID: 242580718}
-  - {fileID: 1414346207}
-  - {fileID: 1523858915}
   - {fileID: 571291056}
   - {fileID: 752062255}
   - {fileID: 1188057396}
