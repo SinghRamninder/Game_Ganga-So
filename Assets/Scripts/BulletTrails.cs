@@ -1,11 +1,20 @@
 using UnityEngine;
+using FMODUnity;
 
 public class BulletTrails : MonoBehaviour
 {
     [HideInInspector] public float damageToPlayer = 0f;
 
+    [Header("FMOD")]
+    public EventReference impactEventFmod;
+
     private void OnTriggerEnter(Collider collision)
     {
+        if (!impactEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(impactEventFmod, gameObject);
+        }
+
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Collided with player " + damageToPlayer);

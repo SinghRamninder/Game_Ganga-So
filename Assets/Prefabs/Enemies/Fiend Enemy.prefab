@@ -140,11 +140,13 @@ MonoBehaviour:
   hitAnimString: hit
   walkSound: {fileID: 0}
   walkVolume: 1
+  footstepInterval: 0.4
   attackSound: {fileID: 0}
   attackVolume: 1
   deathSound: {fileID: 8300000, guid: bc5a62d34f90ee34d8dbf3cd8da52e04, type: 3}
   deathVolume: 1
   audioSource: {fileID: 0}
+  audioProfile: {fileID: 11400000, guid: c0b1711fe1646ef4daefb398f94f617d, type: 2}
   layerMask:
     serializedVersion: 2
     m_Bits: 2056
