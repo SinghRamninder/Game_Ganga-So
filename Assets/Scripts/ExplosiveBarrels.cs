@@ -59,21 +59,11 @@ public class ExplosiveBarrels : MonoBehaviour
 
         foreach (Collider col in colliders)
         {
-            if (col.gameObject == gameObject) continue;
-
-            Vector3 targetPos = col.bounds.center;
-            Vector3 dir = targetPos - transform.position;
-            if (Physics.Raycast(transform.position, dir.normalized, out RaycastHit hit, dir.magnitude, environmentLayerMask))
-            {
-                continue;
-            }
-
-            float distance = Vector3.Distance(transform.position, col.transform.position);
-            float damageMultiplier = 1f - Mathf.Clamp01(distance / maxExplosiveImpactArea);
-
             Enemy enemy = col.GetComponentInParent<Enemy>();
             if (enemy != null && !damagedEnemies.Contains(enemy))
             {
+                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                float damageMultiplier = 1f - Mathf.Clamp01(distance / maxExplosiveImpactArea);
                 enemy.TakeDamage(maxDamageToEnemy * damageMultiplier);
                 damagedEnemies.Add(enemy);
             }
@@ -82,8 +72,10 @@ public class ExplosiveBarrels : MonoBehaviour
             {
                 if (PlayerHealthManager.instance != null)
                 {
+                    float distance = Vector3.Distance(transform.position, PlayerHealthManager.instance.transform.position);
                     if (distance <= maxExplosiveImpactArea)
                     {
+                        float damageMultiplier = 1f - Mathf.Clamp01(distance / maxExplosiveImpactArea);
                         PlayerHealthManager.instance.TakeDamage(maxDamageToPlayer * damageMultiplier);
                     }
                     playerDamaged = true;
@@ -93,7 +85,9 @@ public class ExplosiveBarrels : MonoBehaviour
             ExplosiveServers server = col.GetComponent<ExplosiveServers>();
             if (server != null)
             {
-                server.TakeDamage(maxDamageToServer * damageMultiplier, transform.position, (server.transform.position - transform.position).normalized);
+                float distance = Vector3.Distance(transform.position, server.epicenter);
+                float damageMultiplier = 1f - Mathf.Clamp01(distance / maxExplosiveImpactArea);
+                server.TakeDamage(maxDamageToServer * damageMultiplier, transform.position, (server.epicenter - transform.position).normalized);
             }
 
             ExplosiveBarrels barrel = col.GetComponent<ExplosiveBarrels>();

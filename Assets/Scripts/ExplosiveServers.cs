@@ -13,14 +13,18 @@ public class ExplosiveServers : MonoBehaviour
     public ParticleSystem smokeParticlePrefab;
     public Vector3 smokeSpawnOffset = new Vector3(0, 5f, 0);
     public ParticleSystem sparkParticlePrefab;
-    public Vector3 sparkSpawnOffset = Vector3.zero;
+    [HideInInspector] public Vector3 sparkSpawnOffset = Vector3.zero;
+    [Tooltip("How far the explosion sparks are pushed out along the face normal so they sit just outside the surface.")]
+    public float sparkSurfaceOffset = 0.1f;
     public Vector3 explosionEpicenterOffset = Vector3.zero;
     
-    public float maxExplosiveImpactArea = 5f;
+    [Tooltip("Explosion area size along each axis. Larger values affect more space on that axis.")]
+    public Vector3 maxExplosiveImpactArea = new Vector3(5f, 5f, 5f);
     public float maxDamageToEnemy = 50f;
     public float maxDamageToPlayer = 40f;
     public float maxDamageToServer = 50f;
     public LayerMask environmentLayerMask;
+    [HideInInspector] public Vector3 epicenter;
 
     private bool hasExploded = false;
     private List<Material> glowMaterials = new List<Material>();
@@ -33,6 +37,7 @@ public class ExplosiveServers : MonoBehaviour
     {
         currentHealth = maxHealth;
         flickerThreshold = maxHealth * Random.Range(0.7f, 0.8f);
+        epicenter = transform.position + explosionEpicenterOffset;
 
         Transform[] children = GetComponentsInChildren<Transform>(true);
         bool colorCaptured = false;
@@ -146,7 +151,7 @@ public class ExplosiveServers : MonoBehaviour
 
         if (smokeParticlePrefab != null)
         {
-            ParticleSystem smoke = Instantiate(smokeParticlePrefab, transform.position + smokeSpawnOffset, Quaternion.identity);
+            ParticleSystem smoke = Instantiate(smokeParticlePrefab, transform.position + smokeSpawnOffset, Quaternion.Euler(-90f, 0f, 0f));
             smoke.Play();
         }
 
@@ -157,9 +162,13 @@ public class ExplosiveServers : MonoBehaviour
             for (int i = 0; i < sparkCount; i++)
             {
                 Vector3 randomPos = transform.position + sparkSpawnOffset;
+                Quaternion sparkRotation = Quaternion.identity;
                 if (col is BoxCollider boxCol)
                 {
-                    randomPos = transform.TransformPoint(GetRandomPointOnBoxSurface(boxCol)) + sparkSpawnOffset;
+                    Vector3 localPoint = GetRandomPointOnBoxSurface(boxCol, out Vector3 localNormal);
+                    Vector3 worldNormal = transform.TransformDirection(localNormal).normalized;
+                    randomPos = transform.TransformPoint(localPoint) + worldNormal * sparkSurfaceOffset;
+                    sparkRotation = Quaternion.LookRotation(worldNormal);
                 }
                 else if (col != null)
                 {
@@ -169,7 +178,7 @@ public class ExplosiveServers : MonoBehaviour
                         Random.Range(col.bounds.min.z, col.bounds.max.z)
                     ) + sparkSpawnOffset;
                 }
-                ParticleSystem spark = Instantiate(sparkParticlePrefab, randomPos, Quaternion.identity);
+                ParticleSystem spark = Instantiate(sparkParticlePrefab, randomPos, sparkRotation);
                 var main = spark.main;
                 main.loop = true;
                 var emission = spark.emission;
@@ -189,28 +198,18 @@ public class ExplosiveServers : MonoBehaviour
 
     private void ApplyDamage()
     {
-        Vector3 epicenter = transform.position + explosionEpicenterOffset;
-        Collider[] colliders = Physics.OverlapSphere(epicenter, maxExplosiveImpactArea);
+        epicenter = transform.position + explosionEpicenterOffset;
+        Vector3 halfExtents = maxExplosiveImpactArea * 0.5f;
+        Collider[] colliders = Physics.OverlapBox(epicenter, halfExtents, Quaternion.identity);
         HashSet<Enemy> damagedEnemies = new HashSet<Enemy>();
         bool playerDamaged = false;
 
         foreach (Collider col in colliders)
         {
-            if (col.gameObject == gameObject) continue;
-            
-            Vector3 targetPos = col.bounds.center;
-            Vector3 dir = targetPos - epicenter;
-            if (Physics.Raycast(epicenter, dir.normalized, out RaycastHit hit, dir.magnitude, environmentLayerMask))
-            {
-                continue;
-            }
-
-            float distance = Vector3.Distance(epicenter, col.transform.position);
-            float damageMultiplier = 1f - Mathf.Clamp01(distance / maxExplosiveImpactArea);
-
             Enemy enemy = col.GetComponentInParent<Enemy>();
             if (enemy != null && !damagedEnemies.Contains(enemy))
             {
+                float damageMultiplier = GetDamageMultiplier(epicenter, enemy.transform.position, maxExplosiveImpactArea);
                 enemy.TakeDamage(maxDamageToEnemy * damageMultiplier);
                 damagedEnemies.Add(enemy);
             }
@@ -219,6 +218,7 @@ public class ExplosiveServers : MonoBehaviour
             {
                 if (PlayerHealthManager.instance != null)
                 {
+                    float damageMultiplier = GetDamageMultiplier(epicenter, PlayerHealthManager.instance.transform.position, maxExplosiveImpactArea);
                     PlayerHealthManager.instance.TakeDamage(maxDamageToPlayer * damageMultiplier);
                     playerDamaged = true;
                 }
@@ -227,7 +227,8 @@ public class ExplosiveServers : MonoBehaviour
             ExplosiveServers server = col.GetComponent<ExplosiveServers>();
             if (server != null)
             {
-                server.TakeDamage(maxDamageToServer * damageMultiplier, epicenter, (server.transform.position - epicenter).normalized);
+                float damageMultiplier = GetDamageMultiplier(epicenter, server.epicenter, maxExplosiveImpactArea);
+                server.TakeDamage(maxDamageToServer * damageMultiplier, epicenter, (server.epicenter - epicenter).normalized);
             }
 
             ExplosiveBarrels barrel = col.GetComponent<ExplosiveBarrels>();
@@ -238,7 +239,7 @@ public class ExplosiveServers : MonoBehaviour
         }
     }
 
-    private Vector3 GetRandomPointOnBoxSurface(BoxCollider boxCollider)
+    private Vector3 GetRandomPointOnBoxSurface(BoxCollider boxCollider, out Vector3 localNormal)
     {
         Vector3 extents = boxCollider.size / 2f;
         Vector3 point = new Vector3(
@@ -247,15 +248,14 @@ public class ExplosiveServers : MonoBehaviour
             Random.Range(-extents.z, extents.z)
         );
 
-        int face = Random.Range(0, 6);
+        int face = Random.Range(0, 5);
         switch (face)
         {
-            case 0: point.x = extents.x; break;
-            case 1: point.x = -extents.x; break;
-            case 2: point.y = extents.y; break;
-            case 3: point.y = -extents.y; break;
-            case 4: point.z = extents.z; break;
-            case 5: point.z = -extents.z; break;
+            case 0: point.x = extents.x; localNormal = Vector3.right; break;
+            case 1: point.x = -extents.x; localNormal = Vector3.left; break;
+            case 2: point.y = extents.y; localNormal = Vector3.up; break;
+            case 3: point.z = extents.z; localNormal = Vector3.forward; break;
+            default: point.z = -extents.z; localNormal = Vector3.back; break;
         }
 
         return point + boxCollider.center;
@@ -265,12 +265,22 @@ public class ExplosiveServers : MonoBehaviour
     {
         Vector3 epicenter = transform.position + explosionEpicenterOffset;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(epicenter, maxExplosiveImpactArea);
+        Gizmos.DrawWireCube(epicenter, maxExplosiveImpactArea);
 
         Gizmos.color = Color.gray;
         Gizmos.DrawWireSphere(transform.position + smokeSpawnOffset, 0.5f);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position + sparkSpawnOffset, 0.3f);
+    }
+
+    private float GetDamageMultiplier(Vector3 center, Vector3 targetPosition, Vector3 areaSize)
+    {
+        Vector3 delta = targetPosition - center;
+        float normalizedX = areaSize.x > 0f ? Mathf.Abs(delta.x) / areaSize.x : 0f;
+        float normalizedY = areaSize.y > 0f ? Mathf.Abs(delta.y) / areaSize.y : 0f;
+        float normalizedZ = areaSize.z > 0f ? Mathf.Abs(delta.z) / areaSize.z : 0f;
+        float normalizedDistance = Mathf.Max(normalizedX, Mathf.Max(normalizedY, normalizedZ));
+        return 1f - Mathf.Clamp01(normalizedDistance);
     }
 }
