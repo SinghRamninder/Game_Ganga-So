@@ -269,8 +269,23 @@ MonoBehaviour:
   dashSpeed: 120
   dashDuration: 0.25
   dashCooldown: 1
+  dashEventFmod:
+    Guid:
+      Data1: 1678217686
+      Data2: 1223906601
+      Data3: -1090188371
+      Data4: -361252998
+    Path: event:/Player_Dash
   bobSpeed: 12
   bobAmount: 0.01
+  footstepEventFmod:
+    Guid:
+      Data1: -92876276
+      Data2: 1336951259
+      Data3: -1780048997
+      Data4: -2069335476
+    Path: event:/Player_Footsteps
+  stepInterval: 0.5
   playerCamera: {fileID: 0}
   weaponHolder: {fileID: 248039951975568822}
 --- !u!114 &8861769538984295157
@@ -285,6 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e0b779a3b56eb4c9cfd2cc40f7da50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWeaponManager
+  ownedPrefabs: []
+  currentIndex: 0
   weaponHolder: {fileID: 248039951975568822}
   crosshair: {fileID: 0}
   headCrosshair: {fileID: 0}
@@ -307,6 +324,20 @@ MonoBehaviour:
   healthText: {fileID: 0}
   healthBars: []
   bloodImage: {fileID: 0}
+  hitEventFmod:
+    Guid:
+      Data1: -1819187142
+      Data2: 1280424480
+      Data3: -384513637
+      Data4: 171340965
+    Path: event:/Player_Hit
+  deathEventFmod:
+    Guid:
+      Data1: -1366388625
+      Data2: 1192312111
+      Data3: 260387509
+      Data4: 1858171388
+    Path: event:/Player_Death
 --- !u!54 &1329689543791011293
 Rigidbody:
   m_ObjectHideFlags: 0

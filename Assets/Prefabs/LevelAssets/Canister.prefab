@@ -53,7 +53,13 @@ MonoBehaviour:
   maxDamageToPlayer: 40
   splatterParticlePrefab: {fileID: 8724896405505394418, guid: 5aea454c35c69074f953b826ca0e69d7, type: 3}
   splatterColor: {r: 1, g: 1, b: 1, a: 1}
-  splatterNumber: 3
+  explosionEventFmod:
+    Guid:
+      Data1: -1583673467
+      Data2: 1268684027
+      Data3: -256358221
+      Data4: -614818868
+    Path: event:/World_Barrel_Explosion
 --- !u!65 &8658054225172990594
 BoxCollider:
   m_ObjectHideFlags: 0
