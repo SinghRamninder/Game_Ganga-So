@@ -23,6 +23,9 @@ public class SimplePlayerController : MonoBehaviour
     public float dashDuration = 0.25f;
     public float dashCooldown = 1f;
 
+    [Header("FMOD")]
+    public EventReference dashEventFmod;
+
     private bool isDashing = false;
     private float dashTimer = 0f;
     private float dashCooldownTimer = 0f;
@@ -211,6 +214,11 @@ public class SimplePlayerController : MonoBehaviour
         isDashing = true;
         dashTimer = dashDuration;
         dashCooldownTimer = dashCooldown;
+
+        if (!dashEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(dashEventFmod, gameObject);
+        }
 
         Vector2 moveInput = InputManager.instance.controls.Player.Move.ReadValue<Vector2>();
         float moveX = moveInput.x;

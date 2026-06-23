@@ -1,4 +1,5 @@
 using UnityEngine;
+using FMODUnity;
 
 public enum PickableType
 {
@@ -16,6 +17,9 @@ public class Pickables : MonoBehaviour
     [Header("Animation settings")]
     [SerializeField] private float maxUpAnimPos = 0.5f;
     [SerializeField] private float animationSpeed = 0.5f;
+
+    [Header("FMOD")]
+    public EventReference pickupEventFmod;
 
     private Camera mainCamera;
     private float startYPos;
@@ -62,12 +66,22 @@ public class Pickables : MonoBehaviour
                         InventoryManager.Instance.keyCards.Add(gameObject.name);
                         Debug.Log("Key added into inventory: " +  gameObject.name);
                     }
+
+                    if (!pickupEventFmod.IsNull)
+                    {
+                        RuntimeManager.PlayOneShotAttached(pickupEventFmod, gameObject);
+                    }
                     break;
 
                 case PickableType.HealthPack:
                     if (PlayerHealthManager.instance != null)
                     {
                         PlayerHealthManager.instance.Heal(healAmount);
+                    }
+
+                    if (!pickupEventFmod.IsNull)
+                    {
+                        RuntimeManager.PlayOneShotAttached(pickupEventFmod, gameObject);
                     }
                     break;
 
