@@ -312,4 +312,10 @@ public class SimplePlayerController : MonoBehaviour
     {
         gunSpeedModifier = modifier;
     }
+
+    public void SetVerticalLook(float pitch)
+{
+    verticalRotation = Mathf.Clamp(pitch, -maxLookAngle, maxLookAngle);
+}
+
 }

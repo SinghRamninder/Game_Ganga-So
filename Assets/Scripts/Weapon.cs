@@ -247,6 +247,9 @@ public class Weapon : MonoBehaviour
         if (PauseMenuController.Instance?.IsGamePaused == true)
             return;
 
+        if (CutsceneManager.Instance?.IsCutscenePlaying == true)
+            return;
+
         if (fireMode == FireMode.SemiAuto)
         {
             if (isDualPistol && differentShootButtons)

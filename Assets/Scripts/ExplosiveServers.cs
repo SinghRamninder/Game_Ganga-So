@@ -12,6 +12,7 @@ public class ExplosiveServers : MonoBehaviour
     public ParticleSystem blastParticlePrefab;
     public ParticleSystem smokeParticlePrefab;
     public Vector3 smokeSpawnOffset = new Vector3(0, 5f, 0);
+    public Vector3 smokeSpawnScale = Vector3.one;
     public ParticleSystem sparkParticlePrefab;
     [HideInInspector] public Vector3 sparkSpawnOffset = Vector3.zero;
     [Tooltip("How far the explosion sparks are pushed out along the face normal so they sit just outside the surface.")]
@@ -28,8 +29,9 @@ public class ExplosiveServers : MonoBehaviour
 
     private bool hasExploded = false;
     private List<Material> glowMaterials = new List<Material>();
-    private Color originalEmissionColor;
-    private float originalIntensity;
+    private Dictionary<Material, Color> baseEmissionColors = new Dictionary<Material, Color>();
+    private Dictionary<Material, Color> expectedEmissionColors = new Dictionary<Material, Color>();
+    private VideoScreen[] videoScreens;
     private bool isFlickering = false;
     private float flickerThreshold;
 
@@ -40,7 +42,6 @@ public class ExplosiveServers : MonoBehaviour
         epicenter = transform.position + explosionEpicenterOffset;
 
         Transform[] children = GetComponentsInChildren<Transform>(true);
-        bool colorCaptured = false;
         foreach (Transform child in children)
         {
             if (child.name == "Glow")
@@ -49,28 +50,21 @@ public class ExplosiveServers : MonoBehaviour
                 if (renderer != null)
                 {
                     Material mat = renderer.material;
-                    if (mat.HasProperty("_EmissionColor"))
+                    if (mat.HasProperty("_EmissionColor") && !glowMaterials.Contains(mat))
                     {
                         glowMaterials.Add(mat);
-                        if (!colorCaptured)
-                        {
-                            originalEmissionColor = mat.GetColor("_EmissionColor");
-                            originalIntensity = Mathf.Max(originalEmissionColor.r, originalEmissionColor.g, originalEmissionColor.b);
-                            if (originalIntensity == 0) originalIntensity = 1f;
-                            colorCaptured = true;
-                        }
+                        baseEmissionColors[mat] = mat.GetColor("_EmissionColor");
+                        expectedEmissionColors[mat] = baseEmissionColors[mat];
                     }
                 }
             }
         }
+
+        videoScreens = GetComponentsInChildren<VideoScreen>(true);
     }
 
     public void TakeDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
-        if (hasExploded) return;
-
-        currentHealth -= damage;
-
         if (sparkParticlePrefab != null)
         {
             ParticleSystem spark = Instantiate(sparkParticlePrefab, hitPoint + sparkSpawnOffset, Quaternion.LookRotation(-hitNormal));
@@ -86,6 +80,10 @@ public class ExplosiveServers : MonoBehaviour
             Destroy(spark.gameObject, main.duration + main.startLifetime.constantMax);
         }
 
+        if (hasExploded) return;
+
+        currentHealth -= damage;
+
         UpdateGlow();
 
         if (currentHealth <= flickerThreshold && !isFlickering)
@@ -99,15 +97,53 @@ public class ExplosiveServers : MonoBehaviour
         }
     }
 
+    private bool ColorsAreDifferent(Color a, Color b)
+    {
+        return Mathf.Abs(a.r - b.r) > 0.05f || Mathf.Abs(a.g - b.g) > 0.05f || 
+               Mathf.Abs(a.b - b.b) > 0.05f || Mathf.Abs(a.a - b.a) > 0.05f;
+    }
+
+    private void SyncBaseColors()
+    {
+        foreach (Material mat in glowMaterials)
+        {
+            if (mat.HasProperty("_EmissionColor"))
+            {
+                Color current = mat.GetColor("_EmissionColor");
+                if (ColorsAreDifferent(current, expectedEmissionColors[mat]))
+                {
+                    // Calculate the base color as if current is divided by our last multiplier
+                    // But if it was completely turned off or changed drastically, just take the new one directly
+                    float diff = Mathf.Max(Mathf.Abs(current.r - expectedEmissionColors[mat].r), 
+                                         Mathf.Max(Mathf.Abs(current.g - expectedEmissionColors[mat].g), 
+                                                   Mathf.Abs(current.b - expectedEmissionColors[mat].b)));
+                    if (diff > 0.1f)
+                    {
+                        baseEmissionColors[mat] = current;
+                        expectedEmissionColors[mat] = current;
+                    }
+                }
+            }
+        }
+    }
+
+    private void ApplyColorMultiplier(float multiplier)
+    {
+        foreach (Material mat in glowMaterials)
+        {
+            Color newColor = baseEmissionColors[mat] * multiplier;
+            mat.SetColor("_EmissionColor", newColor);
+            expectedEmissionColors[mat] = newColor;
+        }
+    }
+
     private void UpdateGlow()
     {
         if (glowMaterials.Count > 0 && !isFlickering && currentHealth > 0)
         {
+            SyncBaseColors();
             float intensityMultiplier = Mathf.Clamp01(currentHealth / maxHealth);
-            foreach (Material mat in glowMaterials)
-            {
-                mat.SetColor("_EmissionColor", originalEmissionColor * intensityMultiplier);
-            }
+            ApplyColorMultiplier(intensityMultiplier);
         }
     }
 
@@ -118,11 +154,9 @@ public class ExplosiveServers : MonoBehaviour
         {
             if (glowMaterials.Count > 0)
             {
+                SyncBaseColors();
                 float randomIntensity = Random.Range(0f, Mathf.Clamp01(currentHealth / maxHealth));
-                foreach (Material mat in glowMaterials)
-                {
-                    mat.SetColor("_EmissionColor", originalEmissionColor * randomIntensity);
-                }
+                ApplyColorMultiplier(randomIntensity);
             }
             yield return new WaitForSeconds(Random.Range(0.05f, 0.5f));
         }
@@ -142,6 +176,17 @@ public class ExplosiveServers : MonoBehaviour
             mat.SetColor("_EmissionColor", Color.black);
         }
 
+        if (videoScreens != null)
+        {
+            foreach (VideoScreen vs in videoScreens)
+            {
+                if (vs != null)
+                {
+                    vs.gameObject.SetActive(false);
+                }
+            }
+        }
+
         if (blastParticlePrefab != null)
         {
             ParticleSystem blast = Instantiate(blastParticlePrefab, epicenter, Quaternion.identity);
@@ -152,6 +197,7 @@ public class ExplosiveServers : MonoBehaviour
         if (smokeParticlePrefab != null)
         {
             ParticleSystem smoke = Instantiate(smokeParticlePrefab, transform.position + smokeSpawnOffset, Quaternion.Euler(-90f, 0f, 0f));
+            smoke.transform.localScale = smokeSpawnScale;
             smoke.Play();
         }
 

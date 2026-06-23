@@ -247,6 +247,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4025938927456644580}
+  - component: {fileID: 125412507495684262}
+  - component: {fileID: 4824992793057634640}
   m_Layer: 11
   m_Name: TechServer
   m_TagString: Untagged
@@ -271,6 +273,55 @@ Transform:
   - {fileID: 7091484298449495598}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &125412507495684262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9203340210679956268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c816de9671345e84a90588acc9adcc24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ExplosiveServers
+  maxHealth: 100
+  blastParticlePrefab: {fileID: 9111320563476075608, guid: c6fb71e58ec36784687d958bc39de3f2, type: 3}
+  smokeParticlePrefab: {fileID: 19800000, guid: 4ecfa3d3919108f4fbff80d1c4d920a1, type: 3}
+  smokeSpawnOffset: {x: 10.94, y: 3.45, z: -8.7}
+  sparkParticlePrefab: {fileID: 7440191685052868192, guid: 5a936c83b1746f14f9100db745e94f04, type: 3}
+  sparkSpawnOffset: {x: 0, y: 0, z: 0}
+  sparkSurfaceOffset: 0.1
+  explosionEpicenterOffset: {x: 10.59, y: 6.74, z: -8.29}
+  maxExplosiveImpactArea: {x: 54.5, y: 34, z: 60.7}
+  maxDamageToEnemy: 500
+  maxDamageToPlayer: 40
+  maxDamageToServer: 30
+  environmentLayerMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  epicenter: {x: 0, y: 0, z: 0}
+--- !u!65 &4824992793057634640
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9203340210679956268}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 32.52101, y: 26.566925, z: 34.030663}
+  m_Center: {x: 10.632561, y: 6.2883377, z: -8.5532875}
 --- !u!1001 &285172783978742743
 PrefabInstance:
   m_ObjectHideFlags: 0
