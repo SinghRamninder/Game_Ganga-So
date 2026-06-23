@@ -8,12 +8,15 @@ public class AreaLogic : MonoBehaviour
     [SerializeField] private Transform checkpointBeforeStart;
     [SerializeField] private Transform checkpointAfterEnd;
     [SerializeField] private float enemiesSpawnDelay = 0.5f;
+    [SerializeField] private float entryExitTransitionTime = 1f;
 
     private Enemy[] allEnemies;
     private Vector3[] enemiesStartPosition;
     private GameObject[] allEnemiesAnimClone;
     private bool isFighting = false;
     private bool startLateUpdate = false;
+    private List<Material> entryExitMaterials = new List<Material>();
+    private Coroutine transitionCoroutine;
 
     private void OnEnable()
     {
@@ -59,12 +62,18 @@ public class AreaLogic : MonoBehaviour
         }
 
         foreach (GameObject obj in entryExit)
+        {
+            if (obj != null)
             {
-                if (obj != null)
+                Renderer[] renderers = obj.GetComponentsInChildren<Renderer>(true);
+                foreach (Renderer r in renderers)
                 {
-                    obj.SetActive(false);
+                    entryExitMaterials.Add(r.material);
+                    r.material.SetFloat("_AppearAmount", 0f);
                 }
+                obj.SetActive(false);
             }
+        }
 
     }
 
@@ -76,32 +85,40 @@ public class AreaLogic : MonoBehaviour
 
             if (!areEnemiesActive)
             {
-                if (CheckpointManager.Instance != null)
-                {
-                    CheckpointManager.Instance.spawnPosition = checkpointAfterEnd;
-                }
-
-                foreach (GameObject obj in entryExit)
-                {
-                    if (obj != null)
-                    {
-                        Destroy(obj);
-                    }
-                }
-
-                foreach (Enemy enemy in allEnemies)
-                {
-                    if (enemy != null)
-                    {
-                        Destroy(enemy.gameObject);
-                    }
-                }
-
-                isFighting = false;
                 startLateUpdate = false;
-                Destroy(this);
+                StartCoroutine(EndAreaSequence());
             }
         }
+    }
+
+    private IEnumerator EndAreaSequence()
+    {
+        if (CheckpointManager.Instance != null)
+        {
+            CheckpointManager.Instance.spawnPosition = checkpointAfterEnd;
+        }
+
+        if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
+        yield return StartCoroutine(TransitionEntryExitMaterials(0f, false));
+
+        foreach (GameObject obj in entryExit)
+        {
+            if (obj != null)
+            {
+                Destroy(obj);
+            }
+        }
+
+        foreach (Enemy enemy in allEnemies)
+        {
+            if (enemy != null)
+            {
+                Destroy(enemy.gameObject);
+            }
+        }
+
+        isFighting = false;
+        Destroy(this);
     }
 
     private bool CheckAllEnemies()
@@ -129,13 +146,8 @@ public class AreaLogic : MonoBehaviour
                 CheckpointManager.Instance.spawnPosition = checkpointBeforeStart;
             }
 
-            foreach (GameObject obj in entryExit)
-            {
-                if (obj != null)
-                {
-                    obj.SetActive(true);
-                }
-            }
+            if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
+            transitionCoroutine = StartCoroutine(TransitionEntryExitMaterials(1f, false));
 
             StartCoroutine(EnemiesSpawnWaitTime());
         }
@@ -206,7 +218,46 @@ public class AreaLogic : MonoBehaviour
             }
 
             enemy.MakeEnemyAlive();
+        }
 
+        if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
+        transitionCoroutine = StartCoroutine(TransitionEntryExitMaterials(0f, true));
+    }
+
+    private IEnumerator TransitionEntryExitMaterials(float targetAmount, bool disableAfter)
+    {
+        float currentAmount = entryExitMaterials.Count > 0 && entryExitMaterials[0] != null ? entryExitMaterials[0].GetFloat("_AppearAmount") : (targetAmount > 0f ? 0f : 1f);
+        float timeElapsed = 0f;
+
+        if (targetAmount > 0f)
+        {
+            foreach (GameObject obj in entryExit)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(true);
+                }
+            }
+        }
+
+        while (timeElapsed < entryExitTransitionTime)
+        {
+            float amount = Mathf.Lerp(currentAmount, targetAmount, timeElapsed / entryExitTransitionTime);
+            foreach (Material mat in entryExitMaterials)
+            {
+                if (mat != null) mat.SetFloat("_AppearAmount", amount);
+            }
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        foreach (Material mat in entryExitMaterials)
+        {
+            if (mat != null) mat.SetFloat("_AppearAmount", targetAmount);
+        }
+
+        if (disableAfter)
+        {
             foreach (GameObject obj in entryExit)
             {
                 if (obj != null)

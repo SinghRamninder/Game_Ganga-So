@@ -734,6 +734,7 @@ MonoBehaviour:
   checkpointBeforeStart: {fileID: 948522988}
   checkpointAfterEnd: {fileID: 1324320396}
   enemiesSpawnDelay: 0.5
+  entryExitTransitionTime: 1
 --- !u!65 &33815133
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2932,7 +2933,7 @@ Transform:
   m_GameObject: {fileID: 108444974}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.03, y: 0, z: -144.76}
+  m_LocalPosition: {x: -20.56, y: 4.8, z: -144.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15590,6 +15591,7 @@ MonoBehaviour:
   checkpointBeforeStart: {fileID: 108444975}
   checkpointAfterEnd: {fileID: 676068671}
   enemiesSpawnDelay: 0.5
+  entryExitTransitionTime: 1
 --- !u!65 &516980190
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25479,7 +25481,7 @@ Transform:
   m_GameObject: {fileID: 676068670}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.79, y: 0, z: -111.75}
+  m_LocalPosition: {x: -4.79, y: 4.63, z: -111.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -60409,7 +60411,7 @@ Transform:
   m_GameObject: {fileID: 1324320395}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6, y: 0, z: -14}
+  m_LocalPosition: {x: 2.6, y: 2.39, z: -14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -66682,7 +66684,7 @@ Transform:
   m_GameObject: {fileID: 1458018778}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -59.82, y: 0, z: 41.27}
+  m_LocalPosition: {x: -52.7, y: 3.1, z: 41.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -68671,7 +68673,7 @@ Transform:
   m_GameObject: {fileID: 1537654132}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.4, y: 0, z: -60.6}
+  m_LocalPosition: {x: 6.4, y: 2.3, z: -62.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103325,6 +103327,7 @@ MonoBehaviour:
   checkpointBeforeStart: {fileID: 1537654133}
   checkpointAfterEnd: {fileID: 1458018779}
   enemiesSpawnDelay: 0.2
+  entryExitTransitionTime: 1
 --- !u!65 &2140571285
 BoxCollider:
   m_ObjectHideFlags: 0

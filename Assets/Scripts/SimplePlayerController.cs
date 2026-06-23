@@ -5,6 +5,8 @@ using FMODUnity;
 [RequireComponent(typeof(CharacterController))]
 public class SimplePlayerController : MonoBehaviour
 {
+    public static SimplePlayerController Instance { get; private set; }
+
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float mouseSensitivity = 0.1f;
@@ -58,6 +60,13 @@ public class SimplePlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
         controller = GetComponent<CharacterController>();
     }
 
@@ -114,6 +123,12 @@ public class SimplePlayerController : MonoBehaviour
     private void HandleLook()
     {
         if (PauseMenuController.Instance?.IsGamePaused == true)
+            return;
+
+        if (CutsceneManager.Instance?.IsCutscenePlaying == true)
+            return;
+
+        if (GameOverManager.instance?.IsGameOver == true)
             return;
 
         Vector2 lookInput = InputManager.instance.controls.Player.Look.ReadValue<Vector2>();
@@ -353,8 +368,14 @@ public class SimplePlayerController : MonoBehaviour
     }
 
     public void SetVerticalLook(float pitch)
-{
-    verticalRotation = Mathf.Clamp(pitch, -maxLookAngle, maxLookAngle);
-}
+    {
+        verticalRotation = Mathf.Clamp(pitch, -maxLookAngle, maxLookAngle);
+    }
 
+    public void Teleport(Vector3 newPosition)
+    {
+        if (controller != null) controller.enabled = false;
+        transform.position = newPosition;
+        if (controller != null) controller.enabled = true;
+    }
 }

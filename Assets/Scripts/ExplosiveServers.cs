@@ -18,6 +18,9 @@ public class ExplosiveServers : MonoBehaviour
     [Tooltip("How far the explosion sparks are pushed out along the face normal so they sit just outside the surface.")]
     public float sparkSurfaceOffset = 0.1f;
     public Vector3 explosionEpicenterOffset = Vector3.zero;
+
+    public float cameraShakeIntensity = 1f;
+    public float cameraShakeDuration = 0.5f;
     
     [Tooltip("Explosion area size along each axis. Larger values affect more space on that axis.")]
     public Vector3 maxExplosiveImpactArea = new Vector3(5f, 5f, 5f);
@@ -236,6 +239,11 @@ public class ExplosiveServers : MonoBehaviour
                 
                 spark.Play();
             }
+        }
+
+        if (SimplePlayerController.Instance != null)
+        {
+            SimplePlayerController.Instance.TriggerCameraShake(cameraShakeIntensity, cameraShakeDuration);
         }
 
         ApplyDamage();

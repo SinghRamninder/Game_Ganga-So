@@ -46,10 +46,6 @@ public class WeaponPickup : MonoBehaviour
             if (!pickupEventFmod.IsNull)
                 {
                     RuntimeManager.PlayOneShotAttached(pickupEventFmod, gameObject);
-
-
-
-
                 }
                 Weapon weaponScript = weaponToEquip.GetComponent<Weapon>();
                 if (weaponScript != null && weaponScript.weaponPortraitData != null)

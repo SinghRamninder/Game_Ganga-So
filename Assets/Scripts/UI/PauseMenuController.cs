@@ -42,6 +42,9 @@ public class PauseMenuController : MonoBehaviour
 
     private void Update()
     {
+        if (GameOverManager.instance?.IsGameOver == true)
+            return;
+        
         // Listen for Escape or 'P' key to toggle Pause
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {

@@ -10,7 +10,9 @@ public class ExplosiveBarrels : MonoBehaviour
     public float maxDamageToEnemy = 50f;
     public float maxDamageToPlayer = 40f;
     public float maxDamageToServer = 50f;
-    public LayerMask environmentLayerMask;
+    public float cameraShakeIntensity = 1f;
+    public float cameraShakeDuration = 0.5f;
+    //public LayerMask environmentLayerMask;
 
     [Header("Splatter Settings")]
     public ParticleSystem splatterParticlePrefab;
@@ -53,6 +55,11 @@ public class ExplosiveBarrels : MonoBehaviour
 
             splatter.Play();
             Destroy(splatter.gameObject, splatter.main.duration + splatter.main.startLifetime.constantMax);
+        }
+
+        if (SimplePlayerController.Instance != null)
+        {
+            SimplePlayerController.Instance.TriggerCameraShake(cameraShakeIntensity, cameraShakeDuration);
         }
 
         ApplyDamage();

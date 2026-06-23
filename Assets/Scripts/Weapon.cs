@@ -250,6 +250,9 @@ public class Weapon : MonoBehaviour
         if (CutsceneManager.Instance?.IsCutscenePlaying == true)
             return;
 
+        if (GameOverManager.instance?.IsGameOver == true)
+            return;
+
         if (fireMode == FireMode.SemiAuto)
         {
             if (isDualPistol && differentShootButtons)

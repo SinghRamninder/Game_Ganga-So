@@ -6,6 +6,8 @@ public class GameOverManager : MonoBehaviour
 {
     public static GameOverManager instance;
 
+    [HideInInspector] public bool IsGameOver = false;
+
     [Header("UI Panels")]
     [SerializeField] private GameObject gameOverPanel;
 
@@ -22,6 +24,8 @@ public class GameOverManager : MonoBehaviour
     public void ShowGameOverScreen(PlayerPortraitData deathData)
     {
         if (gameOverPanel == null) return;
+
+        IsGameOver = true;
 
         gameOverPanel.SetActive(true);
 
@@ -43,6 +47,12 @@ public class GameOverManager : MonoBehaviour
         {
             CheckpointManager.Instance.SpawnAtCheckpoint();
         }
+
+        IsGameOver = false;
+        
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void LoadMainMenu()
