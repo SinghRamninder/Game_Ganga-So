@@ -372,7 +372,7 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Player.assets.bank
   Name: Player.assets
   StudioPath: bank:/Player.assets
-  lastModified: 639178356936834012
+  lastModified: 639178369071265430
   FileSizes:
   - Name: Desktop
     Value: 171872
@@ -724,7 +724,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 8761216170072131379}
   cacheVersion: 131859
-  cacheTime: 639178356936834012
+  cacheTime: 639178369071265430
   SerializableEventsDict:
   - key: event:/Weapon_tommyGun_fire
     index: 0
@@ -788,6 +788,10 @@ MonoBehaviour:
     index: 29
   - key: event:/World_Barrel_Explosion
     index: 30
+  - key: event:/Player_Death
+    index: 31
+  - key: event:/Player_Dash
+    index: 32
 --- !u!114 &3772029404649061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,10 +1090,10 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Player.bank
   Name: Player
   StudioPath: bank:/Player
-  lastModified: 639178356936354425
+  lastModified: 639178369071095304
   FileSizes:
   - Name: Desktop
-    Value: 11808
+    Value: 11954
   Exists: 1
 --- !u!114 &7657872125022142577
 MonoBehaviour:
