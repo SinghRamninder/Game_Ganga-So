@@ -5,7 +5,7 @@
 			<value>Enemies_MeatGiant_Death</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{2503b1c9-55b5-42d8-8364-67a4ac321d37}</destination>
@@ -72,9 +72,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{53b96a25-3ac3-4060-8394-5901dc02508b}">
-		<property name="volume">
-			<value>5.5</value>
-		</property>
 		<relationship name="effectChain">
 			<destination>{01233c7c-01fa-4cea-bb6d-1706a2c9506d}</destination>
 		</relationship>
@@ -122,6 +119,7 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{01233c7c-01fa-4cea-bb6d-1706a2c9506d}">
 		<relationship name="effects">
+			<destination>{ea86879d-4780-4c2e-9279-5b4a5c361136}</destination>
 			<destination>{86024b4c-6981-433e-af9e-2d669442e437}</destination>
 		</relationship>
 	</object>
@@ -132,7 +130,7 @@
 			<value>volume</value>
 		</property>
 		<property name="amount">
-			<value>1</value>
+			<value>2</value>
 		</property>
 	</object>
 	<object class="RandomizerModulator" id="{33aba549-6dd1-49b8-add1-687ff37f7fb5}">
@@ -140,7 +138,7 @@
 			<value>pitch</value>
 		</property>
 		<property name="amount">
-			<value>1</value>
+			<value>2</value>
 		</property>
 	</object>
 	<object class="SingleSound" id="{9ef08e3b-da68-40c3-85bb-59924c2df0fb}">
@@ -169,6 +167,14 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{56cde9c1-e6c1-4083-b669-a118d3326fae}" />
+	<object class="ProxyEffect" id="{ea86879d-4780-4c2e-9279-5b4a5c361136}">
+		<property name="inputFormat">
+			<value>1</value>
+		</property>
+		<relationship name="preset">
+			<destination>{f7b0eaf0-f2a5-428b-b020-360f96d8ebf4}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{86024b4c-6981-433e-af9e-2d669442e437}" />
 	<object class="MixerBusFader" id="{01b99422-c0ef-46b6-8e18-9ae23c95d736}" />
 </objects>

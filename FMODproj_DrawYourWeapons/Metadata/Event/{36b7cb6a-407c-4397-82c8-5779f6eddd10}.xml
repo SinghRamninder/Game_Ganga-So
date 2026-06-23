@@ -5,7 +5,7 @@
 			<value>Enemies_PlantLady_Death</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{2503b1c9-55b5-42d8-8364-67a4ac321d37}</destination>
@@ -72,9 +72,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{c8e3a5bc-c98e-4946-a7b1-b46ca381a4f7}">
-		<property name="volume">
-			<value>5</value>
-		</property>
 		<relationship name="effectChain">
 			<destination>{e3ab4f51-e562-4058-b167-742414704c96}</destination>
 		</relationship>
@@ -120,6 +117,7 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{e3ab4f51-e562-4058-b167-742414704c96}">
 		<relationship name="effects">
+			<destination>{8747149f-83bb-4c56-ac55-491c3c8c181f}</destination>
 			<destination>{9ca20fce-4404-4140-9f39-e047bc0580d6}</destination>
 		</relationship>
 	</object>
@@ -172,6 +170,14 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{9b69cf09-38d2-4cf9-99f4-c0335d70027c}" />
+	<object class="ProxyEffect" id="{8747149f-83bb-4c56-ac55-491c3c8c181f}">
+		<property name="inputFormat">
+			<value>1</value>
+		</property>
+		<relationship name="preset">
+			<destination>{f7b0eaf0-f2a5-428b-b020-360f96d8ebf4}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{9ca20fce-4404-4140-9f39-e047bc0580d6}" />
 	<object class="MixerBusFader" id="{3e3c33a0-9241-4f99-8250-b7cb34131994}" />
 </objects>

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using FMODUnity;
 
 [RequireComponent(typeof(CharacterController))]
 public class SimplePlayerController : MonoBehaviour
@@ -31,6 +32,10 @@ public class SimplePlayerController : MonoBehaviour
     public float bobSpeed = 10f;
     public float bobAmount = 0.05f;
 
+    [Header("Footstep Audio")]
+    public EventReference footstepEventFmod;
+    public float stepInterval = 0.5f;
+
     [Header("References")]
     public Camera playerCamera;
     public GameObject weaponHolder;
@@ -46,6 +51,7 @@ public class SimplePlayerController : MonoBehaviour
     private Vector3 currentShakeOffset = Vector3.zero;
     private float shakeDuration = 0f;
     private float shakeIntensity = 0f;
+    private float footstepTimer = 0f;
 
     private void Awake()
     {
@@ -98,6 +104,7 @@ public class SimplePlayerController : MonoBehaviour
 
         HandleHeadBob();
         HandleCameraShake();
+        HandleFootsteps();
         ApplyOffsets();
     }
 
@@ -265,6 +272,30 @@ public class SimplePlayerController : MonoBehaviour
         {
             bobTimer = 0f;
             currentBobOffset = Vector3.Lerp(currentBobOffset, Vector3.zero, Time.deltaTime * 5f);
+        }
+    }
+
+    private void HandleFootsteps()
+    {
+        float speed = new Vector3(controller.velocity.x, 0f, controller.velocity.z).magnitude;
+
+        if (controller.isGrounded && speed > 0.1f)
+        {
+            footstepTimer -= Time.deltaTime;
+
+            if (footstepTimer <= 0f)
+            {
+                if (!footstepEventFmod.IsNull)
+                {
+                    RuntimeManager.PlayOneShotAttached(footstepEventFmod, gameObject);
+                }
+
+                footstepTimer = stepInterval;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f;
         }
     }
 
