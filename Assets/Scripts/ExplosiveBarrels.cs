@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class ExplosiveBarrels : MonoBehaviour
 {
@@ -15,12 +16,20 @@ public class ExplosiveBarrels : MonoBehaviour
     public ParticleSystem splatterParticlePrefab;
     public Color splatterColor = Color.white;
 
+    [Header("FMOD")]
+    public EventReference explosionEventFmod;
+
     private bool hasExploded = false;
 
     public void Explode()
     {
         if (hasExploded) return;
         hasExploded = true;
+
+        if (!explosionEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(explosionEventFmod, gameObject);
+        }
 
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         if (meshRenderer != null)

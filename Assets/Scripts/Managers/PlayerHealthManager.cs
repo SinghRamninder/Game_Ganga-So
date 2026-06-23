@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 
 public class PlayerHealthManager : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class PlayerHealthManager : MonoBehaviour
     public TextMeshProUGUI healthText;
     public List<GameObject> healthBars = new List<GameObject>();
     public Image bloodImage;
+
+    [Header("FMOD")]
+    public EventReference hitEventFmod;
+    public EventReference deathEventFmod;
 
     private Coroutine playerHitEffect;
 
@@ -54,6 +59,11 @@ public class PlayerHealthManager : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (!hitEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(hitEventFmod, gameObject);
+        }
+
         currentHealth -= damage;
 
         if (playerHitEffect != null)
@@ -110,7 +120,12 @@ public class PlayerHealthManager : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player died!");
-        
+
+        if (!deathEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(deathEventFmod, gameObject);
+        }
+
         // Activate death portrait (blue screen effect)
         if (PlayerWeaponManager.instance != null && PlayerWeaponManager.instance.portraitUI != null)
         {

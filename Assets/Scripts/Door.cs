@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using FMODUnity;
 
 public class Door : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class Door : MonoBehaviour
     [SerializeField] private GameObject indicator;
     [SerializeField] private GameObject instructionKey;
     [SerializeField] private GameObject highlighter;
+
+    [Header("FMOD")]
+    public EventReference unlockEventFmod;
+    public EventReference deniedEventFmod;
 
     private int playersInside = 0;
     private Coroutine closeCoroutine;
@@ -65,13 +70,23 @@ public class Door : MonoBehaviour
                         instructionKey.SetActive(false);
 
                         isUnlocked = true;
+
+                        if (!unlockEventFmod.IsNull)
+                        {
+                            RuntimeManager.PlayOneShotAttached(unlockEventFmod, gameObject);
+                        }
                         break;
                     }
                 }
 
                 if (!isUnlocked)
                 {
-                    Debug.LogWarning("Required Key card not found!!");
+                    Debug.LogWarning($"[{Time.frameCount}] Required Key card not found on {gameObject.name} (id {gameObject.GetInstanceID()})");
+
+                    if (!deniedEventFmod.IsNull)
+                    {
+                        RuntimeManager.PlayOneShotAttached(deniedEventFmod, gameObject);
+                    }
                 }
                 else
                 {

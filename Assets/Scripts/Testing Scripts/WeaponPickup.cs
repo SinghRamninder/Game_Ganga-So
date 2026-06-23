@@ -1,11 +1,15 @@
 using System.Collections;
 using UnityEngine;
+using FMODUnity;
 
 public class WeaponPickup : MonoBehaviour
 {
     [SerializeField] private GameObject weaponToEquip;
     [SerializeField] private float maxUpAnimPos = 2f;
     [SerializeField] private float animationSpeed = 1f;
+
+    [Header("FMOD")]
+    public EventReference pickupEventFmod;
 
     private Camera mainCamera;
     private float startYPos;
@@ -39,6 +43,14 @@ public class WeaponPickup : MonoBehaviour
         {
             if (PlayerWeaponManager.instance != null)
             {
+            if (!pickupEventFmod.IsNull)
+                {
+                    RuntimeManager.PlayOneShotAttached(pickupEventFmod, gameObject);
+
+
+
+
+                }
                 Weapon weaponScript = weaponToEquip.GetComponent<Weapon>();
                 if (weaponScript != null && weaponScript.weaponPortraitData != null)
                 {
