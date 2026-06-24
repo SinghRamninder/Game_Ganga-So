@@ -13,7 +13,7 @@ public class PlayerHealthManager : MonoBehaviour
     [Header("Health Settings")]
     public float baseMaxHealth = 100f;
     private float currentMaxHealth;
-    private float currentHealth;
+    [HideInInspector] public float currentHealth;
     
     [Header("UI")]
     public TextMeshProUGUI healthText;

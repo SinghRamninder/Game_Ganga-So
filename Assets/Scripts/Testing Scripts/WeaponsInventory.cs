@@ -58,6 +58,15 @@ public class WeaponsInventory : MonoBehaviour
 
     private void Update()
     {
+        if (PauseMenuController.Instance?.IsGamePaused == true)
+            return;
+
+        if (CutsceneManager.Instance?.IsCutscenePlaying == true)
+            return;
+
+        if (GameOverManager.instance?.IsGameOver == true)
+            return;
+
         if (PlayerWeaponManager.instance.weaponsSpawned.Count == 0) return;
 
         float scrollValue = InputManager.instance.controls.Weapon.ScrollWeapon.ReadValue<Vector2>().y;

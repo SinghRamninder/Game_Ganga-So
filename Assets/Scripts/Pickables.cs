@@ -57,6 +57,7 @@ public class Pickables : MonoBehaviour
                     if (PlayerWeaponManager.instance != null && weaponToEquip != null)
                     {
                         PlayerWeaponManager.instance.SpawnWeapon(weaponToEquip);
+                        Destroy(gameObject);
                     }
                     break;
 
@@ -71,25 +72,21 @@ public class Pickables : MonoBehaviour
                     {
                         RuntimeManager.PlayOneShotAttached(pickupEventFmod, gameObject);
                     }
+                    Destroy(gameObject);
                     break;
 
                 case PickableType.HealthPack:
-                    if (PlayerHealthManager.instance != null)
+                    if (PlayerHealthManager.instance != null && PlayerHealthManager.instance.currentHealth < PlayerHealthManager.instance.baseMaxHealth)
                     {
                         PlayerHealthManager.instance.Heal(healAmount);
-                    }
-
-                    if (!pickupEventFmod.IsNull)
-                    {
-                        RuntimeManager.PlayOneShotAttached(pickupEventFmod, gameObject);
+                        if (!pickupEventFmod.IsNull)
+                        {
+                            RuntimeManager.PlayOneShotAttached(pickupEventFmod, gameObject);
+                        }
+                        Destroy(gameObject);
                     }
                     break;
-
-                default:
-                    break;
+                    }
             }
-
-            Destroy(gameObject);
         }
     }
-}

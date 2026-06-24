@@ -22,7 +22,17 @@ public class PlayerPortraitData : ScriptableObject
     public Sprite dead;
 
     [Header("Health Bar Visuals")]
-    public Sprite heartIconSprite;       // عکس قلب سمت چپ
-    public Sprite barFillSprite;         // عکس کپسول‌ها/پیکسل‌های پرکننده خون
-    public Sprite barBackgroundSprite;   // عکس ریل یا بک‌گراند نوار خون
+    public Sprite heartIconSprite;       // Left heart icon sprite
+    public Sprite barFillSprite;         // Active health capsule layer
+    public Sprite barBackgroundSprite;   // Missing health rail layer
+
+    [Header("Weapon Overview Info")]
+    [Tooltip("The display name of this weapon.")]
+    public string weaponName;
+
+    [Tooltip("The description or stats of this weapon.")]
+    [TextArea(3, 5)] public string weaponDescription;
+
+    [Tooltip("The specific background card image for this weapon's overview.")]
+    public Sprite weaponOverviewCardBG;
 }

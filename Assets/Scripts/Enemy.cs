@@ -77,8 +77,9 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        //navAgent = GetComponent<NavMeshAgent>();
-        //navAgent.updateRotation = false;
+        // navAgent = GetComponent<NavMeshAgent>();
+        // navAgent.updateRotation = false;
+
         if (navAgent != null)
         {
             navAgent.speed = speed;
@@ -382,7 +383,7 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(SpawnProjectile(shootPos, maxRangePoint));
+                    SpawnProjectile(shootPos, maxRangePoint);
                 }
             }
         }
@@ -576,58 +577,28 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // Temporary (Can be merged with SpawnTracer)
-    private IEnumerator SpawnProjectile(Vector3 spawnPos, Vector3 targetPos)
+    private void SpawnProjectile(Vector3 spawnPos, Vector3 targetPos)
     {
         if (projectile == null)
-            yield break;
+            return;
 
         Projectile projectileSpawned = Instantiate(projectile, spawnPos, Quaternion.identity);
-        projectiles.Add(projectileSpawned);
+        //projectiles.Add(projectileSpawned);
 
-        if (projectileSpawned == null)
-            yield break;
-
-        projectileSpawned.damageToPlayer = damageToPlayer;
-
-        Rigidbody rb = projectileSpawned.GetComponent<Rigidbody>();
-
-        if (rb == null)
+        if (projectileSpawned != null)
         {
-            Debug.LogWarning("Projectile needs a Rigidbody for physics movement.");
-            Destroy(projectileSpawned.gameObject);
-            yield break;
-        }
-
-        while (projectileSpawned != null)
-        {
-            Vector3 newPosition = Vector3.MoveTowards(
-                rb.position,
-                targetPos,
-                projectileSpeed * Time.fixedDeltaTime
-            );
-
-            rb.MovePosition(newPosition);
-
-            if (Vector3.Distance(newPosition, targetPos) <= 0.1f)
-            {
-                Destroy(projectileSpawned.gameObject);
-                yield break;
-            }
-
-            yield return new WaitForFixedUpdate();
+            projectileSpawned.Setup(targetPos, projectileSpeed, damageToPlayer);
         }
     }
-    // Temporary (Can be merged with SpawnTracer)
 
-    private void OnDestroy()
-    {
-        foreach (Projectile current in projectiles)
-        {
-            if (current != null)
-                Destroy(current.gameObject);
-        }
-    }
+    // private void OnDestroy()
+    // {
+    //     foreach (Projectile current in projectiles)
+    //     {
+    //         if (current != null)
+    //             Destroy(current.gameObject);
+    //     }
+    // }
 
     //private void OnDisable()
     //{

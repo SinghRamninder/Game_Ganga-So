@@ -37,10 +37,6 @@ public class PlayerWeaponManager : MonoBehaviour
         ownedPrefabs = new List<GameObject>();
     }
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         if (currentWeaponScript != null)
@@ -104,10 +100,12 @@ public class PlayerWeaponManager : MonoBehaviour
         weaponsSpawned.Add(spawnedWeapon);
         ownedPrefabs.Add(weaponPrefab);          // keep this list parallel to weaponsSpawned
 
-        if (weaponsSpawned.Count == 1)
-            ChangeWeapon(spawnedWeapon);         // first weapon becomes active
-        else
-            spawnedWeapon.SetActive(false);
+        // if (weaponsSpawned.Count == 1)
+        //     ChangeWeapon(spawnedWeapon);         // first weapon becomes active
+        // else
+        //     spawnedWeapon.SetActive(false);
+
+        ChangeWeapon(spawnedWeapon);
     }
 
     public void ChangeWeapon(GameObject weaponGameobject)
