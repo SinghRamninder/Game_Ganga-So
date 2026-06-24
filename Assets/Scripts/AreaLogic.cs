@@ -9,6 +9,7 @@ public class AreaLogic : MonoBehaviour
     [SerializeField] private Transform checkpointAfterEnd;
     [SerializeField] private float enemiesSpawnDelay = 0.5f;
     [SerializeField] private float entryExitTransitionTime = 1f;
+    [SerializeField] private bool isServerArea = false;
 
     private Enemy[] allEnemies;
     private Vector3[] enemiesStartPosition;
@@ -17,6 +18,7 @@ public class AreaLogic : MonoBehaviour
     private bool startLateUpdate = false;
     private List<Material> entryExitMaterials = new List<Material>();
     private Coroutine transitionCoroutine;
+    private ExplosiveServers[] managedServers;
 
     private void OnEnable()
     {
@@ -75,6 +77,10 @@ public class AreaLogic : MonoBehaviour
             }
         }
 
+        if (isServerArea)
+        {
+            managedServers = GetComponentsInChildren<ExplosiveServers>(true);
+        }
     }
 
     private void LateUpdate()
@@ -218,6 +224,17 @@ public class AreaLogic : MonoBehaviour
             }
 
             enemy.MakeEnemyAlive();
+        }
+
+        if (isServerArea && managedServers != null)
+        {
+            foreach (ExplosiveServers server in managedServers)
+            {
+                if (server != null)
+                {
+                    server.ResetServer();
+                }
+            }
         }
 
         if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);

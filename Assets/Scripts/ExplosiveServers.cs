@@ -30,13 +30,15 @@ public class ExplosiveServers : MonoBehaviour
     public LayerMask environmentLayerMask;
     [HideInInspector] public Vector3 epicenter;
 
-    private bool hasExploded = false;
+    [HideInInspector] public bool hasExploded = false;
     private List<Material> glowMaterials = new List<Material>();
     private Dictionary<Material, Color> baseEmissionColors = new Dictionary<Material, Color>();
     private Dictionary<Material, Color> expectedEmissionColors = new Dictionary<Material, Color>();
     private VideoScreen[] videoScreens;
     private bool isFlickering = false;
     private float flickerThreshold;
+    private Coroutine flickerCoroutine;
+    private List<GameObject> activeParticles = new List<GameObject>();
 
     void Start()
     {
@@ -71,6 +73,7 @@ public class ExplosiveServers : MonoBehaviour
         if (sparkParticlePrefab != null)
         {
             ParticleSystem spark = Instantiate(sparkParticlePrefab, hitPoint + sparkSpawnOffset, Quaternion.LookRotation(-hitNormal));
+            activeParticles.Add(spark.gameObject);
             var emission = spark.emission;
             emission.rateOverTime = 0;
             ParticleSystem.Burst burst = new ParticleSystem.Burst(0f, 10, 20, 1, 0.01f);
@@ -91,7 +94,7 @@ public class ExplosiveServers : MonoBehaviour
 
         if (currentHealth <= flickerThreshold && !isFlickering)
         {
-            StartCoroutine(FlickerRoutine());
+            flickerCoroutine = StartCoroutine(FlickerRoutine());
         }
 
         if (currentHealth <= 0)
@@ -193,6 +196,7 @@ public class ExplosiveServers : MonoBehaviour
         if (blastParticlePrefab != null)
         {
             ParticleSystem blast = Instantiate(blastParticlePrefab, epicenter, Quaternion.identity);
+            activeParticles.Add(blast.gameObject);
             blast.Play();
             Destroy(blast.gameObject, blast.main.duration + blast.main.startLifetime.constantMax);
         }
@@ -200,6 +204,7 @@ public class ExplosiveServers : MonoBehaviour
         if (smokeParticlePrefab != null)
         {
             ParticleSystem smoke = Instantiate(smokeParticlePrefab, transform.position + smokeSpawnOffset, Quaternion.Euler(-90f, 0f, 0f));
+            activeParticles.Add(smoke.gameObject);
             smoke.transform.localScale = smokeSpawnScale;
             smoke.Play();
         }
@@ -228,6 +233,7 @@ public class ExplosiveServers : MonoBehaviour
                     ) + sparkSpawnOffset;
                 }
                 ParticleSystem spark = Instantiate(sparkParticlePrefab, randomPos, sparkRotation);
+                activeParticles.Add(spark.gameObject);
                 var main = spark.main;
                 main.loop = true;
                 var emission = spark.emission;
@@ -248,6 +254,46 @@ public class ExplosiveServers : MonoBehaviour
 
         ApplyDamage();
         this.enabled = false; 
+    }
+
+    public void ResetServer()
+    {
+        this.enabled = true;
+        hasExploded = false;
+        currentHealth = maxHealth;
+
+        if (flickerCoroutine != null)
+        {
+            StopCoroutine(flickerCoroutine);
+            flickerCoroutine = null;
+        }
+        isFlickering = false;
+
+        foreach (Material mat in glowMaterials)
+        {
+            mat.SetColor("_EmissionColor", baseEmissionColors[mat]);
+            expectedEmissionColors[mat] = baseEmissionColors[mat];
+        }
+
+        foreach (GameObject p in activeParticles)
+        {
+            if (p != null)
+            {
+                Destroy(p);
+            }
+        }
+        activeParticles.Clear();
+
+        if (videoScreens != null)
+        {
+            foreach (VideoScreen vs in videoScreens)
+            {
+                if (vs != null)
+                {
+                    vs.gameObject.SetActive(true);
+                }
+            }
+        }
     }
 
     private void ApplyDamage()
