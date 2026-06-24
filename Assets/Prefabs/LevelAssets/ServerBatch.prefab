@@ -78,10 +78,13 @@ MonoBehaviour:
   blastParticlePrefab: {fileID: 9111320563476075608, guid: c6fb71e58ec36784687d958bc39de3f2, type: 3}
   smokeParticlePrefab: {fileID: 19800000, guid: 4ecfa3d3919108f4fbff80d1c4d920a1, type: 3}
   smokeSpawnOffset: {x: 7.03, y: -10.3, z: -1.64}
+  smokeSpawnScale: {x: 1, y: 1, z: 1}
   sparkParticlePrefab: {fileID: 7440191685052868192, guid: 5a936c83b1746f14f9100db745e94f04, type: 3}
   sparkSpawnOffset: {x: 0, y: 0, z: 0}
   sparkSurfaceOffset: 0.1
   explosionEpicenterOffset: {x: 9.31, y: -7.81, z: -0.42}
+  cameraShakeIntensity: 0.1
+  cameraShakeDuration: 0.3
   maxExplosiveImpactArea: {x: 70.2, y: 18.03, z: 60.7}
   maxDamageToEnemy: 500
   maxDamageToPlayer: 40
@@ -90,6 +93,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   epicenter: {x: 0, y: 0, z: 0}
+  hasExploded: 0
 --- !u!1001 &3426146046365754360
 PrefabInstance:
   m_ObjectHideFlags: 0
