@@ -6,6 +6,8 @@ public class CheckpointManager : MonoBehaviour
 {
     public static CheckpointManager Instance { get; private set; }
 
+    public GameObject startCheckpointPosition;
+
     public event Action ResetArea;
 
     [SerializeField] private GameObject player;
@@ -30,7 +32,7 @@ public class CheckpointManager : MonoBehaviour
             player = FindFirstObjectByType<SimplePlayerController>().gameObject;
         }
 
-        spawnPosition = player.transform;
+        spawnPosition = startCheckpointPosition.transform;
     }
 
     public void SpawnAtCheckpoint()
@@ -42,6 +44,15 @@ public class CheckpointManager : MonoBehaviour
         }
 
         ResetArea?.Invoke();
-        player.transform.position = spawnPosition.position;
+        
+        SimplePlayerController playerController = player.GetComponent<SimplePlayerController>();
+        if (playerController != null)
+        {
+            playerController.Teleport(spawnPosition.position);
+        }
+        else
+        {
+            player.transform.position = spawnPosition.position;
+        }
     }
 }

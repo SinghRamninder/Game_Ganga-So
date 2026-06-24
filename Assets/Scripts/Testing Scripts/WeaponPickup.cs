@@ -43,9 +43,17 @@ public class WeaponPickup : MonoBehaviour
         {
             if (PlayerWeaponManager.instance != null)
             {
-                if (!pickupEventFmod.IsNull)
+            if (!pickupEventFmod.IsNull)
                 {
                     RuntimeManager.PlayOneShotAttached(pickupEventFmod, gameObject);
+                }
+                Weapon weaponScript = weaponToEquip.GetComponent<Weapon>();
+                if (weaponScript != null && weaponScript.weaponPortraitData != null)
+                {
+                    if (WeaponOverviewManager.instance != null)
+                    {
+                        WeaponOverviewManager.instance.ShowWeaponOverview(weaponScript.weaponPortraitData);
+                    }
                 }
 
                 PlayerWeaponManager.instance.SpawnWeapon(weaponToEquip);

@@ -247,6 +247,12 @@ public class Weapon : MonoBehaviour
         if (PauseMenuController.Instance?.IsGamePaused == true)
             return;
 
+        if (CutsceneManager.Instance?.IsCutscenePlaying == true)
+            return;
+
+        if (GameOverManager.instance?.IsGameOver == true)
+            return;
+
         if (fireMode == FireMode.SemiAuto)
         {
             if (isDualPistol && differentShootButtons)
@@ -658,6 +664,7 @@ public class Weapon : MonoBehaviour
                         EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
                         Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
                         ExplosiveBarrels barrel = hit.collider.GetComponent<ExplosiveBarrels>();
+                        ExplosiveServers server = hit.collider.GetComponent<ExplosiveServers>();
                         NoSplatterSurface noSplatterSurface = hit.collider.GetComponent<NoSplatterSurface>();
 
                         if (enemy != null && enemyHitBox != null)
@@ -686,6 +693,10 @@ public class Weapon : MonoBehaviour
                             {
                                 barrel.Explode();
                             }
+                            if (server != null)
+                            {
+                                server.TakeDamage(damageToEnemyBody, hit.point, hit.normal);
+                            }
                             StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, isSplatterSurface, false));
                             hitWall = true;
                             break;
@@ -706,6 +717,7 @@ public class Weapon : MonoBehaviour
                     EnemyHitBox enemyHitBox = hit.collider.GetComponent<EnemyHitBox>();
                     Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
                     ExplosiveBarrels barrel = hit.collider.GetComponent<ExplosiveBarrels>();
+                    ExplosiveServers server = hit.collider.GetComponent<ExplosiveServers>();
                     NoSplatterSurface noSplatterSurface = hit.collider.GetComponent<NoSplatterSurface>();
 
                     if (enemy != null && enemyHitBox != null)
@@ -736,6 +748,10 @@ public class Weapon : MonoBehaviour
                         if (barrel != null)
                         {
                             barrel.Explode();
+                        }
+                        if (server != null)
+                        {
+                            server.TakeDamage(damageToEnemyBody, hit.point, hit.normal);
                         }
                         StartCoroutine(SpawnTracer(trailSpawnPos.position, hit.point, hit.normal, fireDirection, isSplatterSurface, false));
                     }

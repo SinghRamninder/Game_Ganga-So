@@ -121,8 +121,8 @@ MonoBehaviour:
   canShoot: 1
   canShootProjectile: 0
   projectile: {fileID: -2003739180757158627, guid: c4e118d2935508d4dabdead61b2a9984, type: 3}
-  shootRange: 250
-  bulletSpeed: 150
+  shootRange: 400
+  bulletSpeed: 100
   projectileSpeed: 15
   rayShootOfset: 8
   maxHealth: 80
@@ -150,7 +150,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 2056
-  spawnAnimClone: {fileID: 0}
+  spawnAnimClone: {fileID: 5655383073827375967, guid: 8f52c434fcc52824180b9b564aa85214, type: 3}
 --- !u!54 &6458104901873181042
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -185,9 +185,9 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5655383073827375967}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 3
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -196,7 +196,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 12.69
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 3
@@ -279,11 +279,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1095289304465408819, guid: 5aa8b0cbea5a64437a7d5f70c5858eee, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9991258
+      value: 0.9991257
       objectReference: {fileID: 0}
     - target: {fileID: 1095289304465408819, guid: 5aa8b0cbea5a64437a7d5f70c5858eee, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.041806247
+      value: 0.041806187
       objectReference: {fileID: 0}
     - target: {fileID: 1864845763140740477, guid: 5aa8b0cbea5a64437a7d5f70c5858eee, type: 3}
       propertyPath: m_LocalRotation.w
@@ -335,7 +335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3210124260730398483, guid: 5aa8b0cbea5a64437a7d5f70c5858eee, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.64283943
+      value: 0.6428394
       objectReference: {fileID: 0}
     - target: {fileID: 3210124260730398483, guid: 5aa8b0cbea5a64437a7d5f70c5858eee, type: 3}
       propertyPath: m_LocalRotation.z
