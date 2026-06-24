@@ -19,21 +19,46 @@ public class AreaLogic : MonoBehaviour
     private List<Material> entryExitMaterials = new List<Material>();
     private Coroutine transitionCoroutine;
     private ExplosiveServers[] managedServers;
+    private bool isSubscribedToReset = false;
+
+    private void SubscribeToResetEvent()
+    {
+        if (CheckpointManager.Instance == null)
+        {
+            return;
+        }
+
+        if (!isSubscribedToReset)
+        {
+            CheckpointManager.Instance.ResetArea += ResetThisArea;
+            isSubscribedToReset = true;
+        }
+    }
+
+    private void UnsubscribeFromResetEvent()
+    {
+        if (!isSubscribedToReset || CheckpointManager.Instance == null)
+        {
+            return;
+        }
+
+        CheckpointManager.Instance.ResetArea -= ResetThisArea;
+        isSubscribedToReset = false;
+    }
 
     private void OnEnable()
     {
-        if (CheckpointManager.Instance != null)
-        {
-            CheckpointManager.Instance.ResetArea += ResetThisArea;
-        }
+        SubscribeToResetEvent();
     }
 
     private void OnDisable()
     {
-        if (CheckpointManager.Instance != null)
-        {
-            CheckpointManager.Instance.ResetArea -= ResetThisArea;
-        }
+        UnsubscribeFromResetEvent();
+    }
+
+    private void Start()
+    {
+        SubscribeToResetEvent();
     }
 
     private void Awake()
@@ -165,16 +190,22 @@ public class AreaLogic : MonoBehaviour
 
         for (int i = 0; i < allEnemies.Length; i++)
         {
-            if (allEnemies[i] != null)
+            Enemy enemy = allEnemies[i];
+
+            if (enemy != null)
             {
-                allEnemies[i].transform.position = enemiesStartPosition[i];
-                allEnemiesAnimClone[i].transform.position = enemiesStartPosition[i];
-                allEnemiesAnimClone[i].SetActive(true);
+                enemy.transform.position = enemiesStartPosition[i];
 
-                Animator animator = allEnemiesAnimClone[i].GetComponent<Animator>();
-                float animationTime = animator != null ? animator.GetCurrentAnimatorClipInfo(0)[0].clip.length : 0;
+                if (allEnemiesAnimClone[i] != null)
+                {
+                    allEnemiesAnimClone[i].transform.position = enemiesStartPosition[i];
+                    allEnemiesAnimClone[i].SetActive(true);
 
-                StartCoroutine(AppearAnimationWait(animationTime, allEnemies[i].gameObject, allEnemiesAnimClone[i]));
+                    Animator animator = allEnemiesAnimClone[i].GetComponent<Animator>();
+                    float animationTime = animator != null ? animator.GetCurrentAnimatorClipInfo(0)[0].clip.length : 0;
+
+                    StartCoroutine(AppearAnimationWait(animationTime, enemy.gameObject, allEnemiesAnimClone[i]));
+                }
             }
 
             yield return new WaitForSeconds(enemiesSpawnDelay);
@@ -187,8 +218,15 @@ public class AreaLogic : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        enemyObject.SetActive(true);
-        enemyCloneObject.SetActive(false);
+        if (enemyObject != null)
+        {
+            enemyObject.SetActive(true);
+        }
+
+        if (enemyCloneObject != null)
+        {
+            enemyCloneObject.SetActive(false);
+        }
     }
 
     private void ResetThisArea()
@@ -200,11 +238,20 @@ public class AreaLogic : MonoBehaviour
         {
             Enemy enemy = allEnemies[i];
 
+            if (enemy == null)
+            {
+                continue;
+            }
+
             Rigidbody rb = enemy.GetComponent<Rigidbody>();
             Collider[] allColliders = enemy.GetComponentsInChildren<Collider>(true);
 
             enemy.gameObject.SetActive(false);
-            allEnemiesAnimClone[i].SetActive(false);
+
+            if (allEnemiesAnimClone != null && i < allEnemiesAnimClone.Length && allEnemiesAnimClone[i] != null)
+            {
+                allEnemiesAnimClone[i].SetActive(false);
+            }
 
             if (rb != null)
             {

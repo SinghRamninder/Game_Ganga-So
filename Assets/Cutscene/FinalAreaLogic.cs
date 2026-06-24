@@ -24,21 +24,43 @@ public class FinalAreaLogic : MonoBehaviour
     
     private ExplosiveServers[] serversToMonitor;
     private bool[] isRespawning;
+    private bool isSubscribedToReset = false;
+
+    private void SubscribeToResetEvent()
+    {
+        if (CheckpointManager.Instance == null || isSubscribedToReset)
+        {
+            return;
+        }
+
+        CheckpointManager.Instance.ResetArea += ResetThisArea;
+        isSubscribedToReset = true;
+    }
+
+    private void UnsubscribeFromResetEvent()
+    {
+        if (!isSubscribedToReset || CheckpointManager.Instance == null)
+        {
+            return;
+        }
+
+        CheckpointManager.Instance.ResetArea -= ResetThisArea;
+        isSubscribedToReset = false;
+    }
 
     private void OnEnable()
     {
-        if (CheckpointManager.Instance != null)
-        {
-            CheckpointManager.Instance.ResetArea += ResetThisArea;
-        }
+        SubscribeToResetEvent();
     }
 
     private void OnDisable()
     {
-        if (CheckpointManager.Instance != null)
-        {
-            CheckpointManager.Instance.ResetArea -= ResetThisArea;
-        }
+        UnsubscribeFromResetEvent();
+    }
+
+    private void Start()
+    {
+        SubscribeToResetEvent();
     }
 
     private void Awake()
@@ -286,18 +308,37 @@ public class FinalAreaLogic : MonoBehaviour
         startLateUpdate = false;
         isFighting = false;
 
+        if (allEnemies == null || enemiesStartPosition == null || allEnemiesAnimClone == null || isRespawning == null)
+        {
+            return;
+        }
+
         for (int i = 0; i < allEnemies.Length; i++)
         {
-            if (allEnemies[i] == null) continue;
-            
             Enemy enemy = allEnemies[i];
+
+            if (enemy == null)
+            {
+                if (i < isRespawning.Length)
+                {
+                    isRespawning[i] = false;
+                }
+
+                continue;
+            }
 
             Rigidbody rb = enemy.GetComponent<Rigidbody>();
             Collider[] allColliders = enemy.GetComponentsInChildren<Collider>(true);
 
             enemy.gameObject.SetActive(false);
-            if (allEnemiesAnimClone[i] != null) allEnemiesAnimClone[i].SetActive(false);
-            isRespawning[i] = false;
+            if (i < allEnemiesAnimClone.Length && allEnemiesAnimClone[i] != null)
+            {
+                allEnemiesAnimClone[i].SetActive(false);
+            }
+            if (i < isRespawning.Length)
+            {
+                isRespawning[i] = false;
+            }
 
             if (rb != null)
             {
@@ -334,7 +375,7 @@ public class FinalAreaLogic : MonoBehaviour
         transitionCoroutine = StartCoroutine(TransitionEntryExitMaterials(1f, false));
 
         // Start spawning enemies immediately upon reset
-        StartCoroutine(EnemiesSpawnWaitTime());
+        StartSpawningEnemies();
     }
 
     private IEnumerator TransitionEntryExitMaterials(float targetAmount, bool disableAfter)

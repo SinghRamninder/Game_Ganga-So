@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Weapons.assets.bank
   Name: Weapons.assets
   StudioPath: bank:/Weapons.assets
-  lastModified: 639177763994181298
+  lastModified: 639178870952864671
   FileSizes:
   - Name: Desktop
     Value: 728800
@@ -35,7 +35,7 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Enemies.assets.bank
   Name: Enemies.assets
   StudioPath: bank:/Enemies.assets
-  lastModified: 639177784107316413
+  lastModified: 639178870951918204
   FileSizes:
   - Name: Desktop
     Value: 497504
@@ -82,7 +82,7 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Weapons.bank
   Name: Weapons
   StudioPath: bank:/Weapons
-  lastModified: 639177763993725898
+  lastModified: 639178870953082101
   FileSizes:
   - Name: Desktop
     Value: 38484
@@ -141,33 +141,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
---- !u!114 &-6516519744580582138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/World_CardReader_Denied
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/World_CardReader_Denied
-  Guid:
-    Data1: -1757657333
-    Data2: 1161940160
-    Data3: 2018286510
-    Data4: -1921003932
-  Banks:
-  - {fileID: -339997090198423900}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 530
 --- !u!114 &-6288586930907827245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,33 +276,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1500
---- !u!114 &-4679147403256904177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player_Death
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Player_Death
-  Guid:
-    Data1: -1366388625
-    Data2: 1192312111
-    Data3: 260387509
-    Data4: 1858171388
-  Banks:
-  - {fileID: 7638864479996090290}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
 --- !u!114 &-4341277194308388424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,53 +303,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 62
---- !u!114 &-4229093337659792217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Player.assets.bank
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
-  Path: FMODproj_DrawYourWeapons/Build/Desktop/Player.assets.bank
-  Name: Player.assets
-  StudioPath: bank:/Player.assets
-  lastModified: 639178356936834012
-  FileSizes:
-  - Name: Desktop
-    Value: 171872
-  Exists: 1
---- !u!114 &-4063499641936022896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/World_KeyCard_Pickup
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/World_KeyCard_Pickup
-  Guid:
-    Data1: 248875580
-    Data2: 1136329906
-    Data3: -2001700954
-    Data4: -1622206410
-  Banks:
-  - {fileID: -339997090198423900}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 500
 --- !u!114 &-3242728078440134513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,53 +384,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1500
---- !u!114 &-1927564126778052162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player_Hit
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Player_Hit
-  Guid:
-    Data1: -1819187142
-    Data2: 1280424480
-    Data3: -384513637
-    Data4: 171340965
-  Banks:
-  - {fileID: 7638864479996090290}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 500
---- !u!114 &-1818992487838548510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/World.assets.bank
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
-  Path: FMODproj_DrawYourWeapons/Build/Desktop/World.assets.bank
-  Name: World.assets
-  StudioPath: bank:/World.assets
-  lastModified: 639178339469832691
-  FileSizes:
-  - Name: Desktop
-    Value: 33664
-  Exists: 1
 --- !u!114 &-1618278837829907061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -613,26 +465,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 955
---- !u!114 &-339997090198423900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/World.bank
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
-  Path: FMODproj_DrawYourWeapons/Build/Desktop/World.bank
-  Name: World
-  StudioPath: bank:/World
-  lastModified: 639178339469364683
-  FileSizes:
-  - Name: Desktop
-    Value: 4664
-  Exists: 1
 --- !u!114 &-281964499811185841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,10 +512,6 @@ MonoBehaviour:
   - {fileID: -8208245519386133286}
   - {fileID: -8925814391398626782}
   - {fileID: 8905071769534820680}
-  - {fileID: -4229093337659792217}
-  - {fileID: 7638864479996090290}
-  - {fileID: -1818992487838548510}
-  - {fileID: -339997090198423900}
   EditorEvents:
   - {fileID: -8164490765906777274}
   - {fileID: -445546656609869015}
@@ -710,21 +538,13 @@ MonoBehaviour:
   - {fileID: 3833791691463138594}
   - {fileID: -6007650140507713587}
   - {fileID: -8631767954799253123}
-  - {fileID: 3725731551848571323}
-  - {fileID: -1927564126778052162}
-  - {fileID: -6516519744580582138}
-  - {fileID: 2549220622478245560}
-  - {fileID: -4063499641936022896}
-  - {fileID: 1386733590207109099}
-  - {fileID: -4679147403256904177}
-  - {fileID: 8239820357149214631}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7469978475065909250}
   StringsBanks:
   - {fileID: 8761216170072131379}
   cacheVersion: 131859
-  cacheTime: 639178356936834012
+  cacheTime: 639178870953082101
   SerializableEventsDict:
   - key: event:/Weapon_tommyGun_fire
     index: 0
@@ -776,18 +596,6 @@ MonoBehaviour:
     index: 23
   - key: event:/Enemies_MeatGiant_Attack
     index: 24
-  - key: event:/Player_Footsteps
-    index: 25
-  - key: event:/Player_Hit
-    index: 26
-  - key: event:/World_CardReader_Denied
-    index: 27
-  - key: event:/World_CardReader_Accepted
-    index: 28
-  - key: event:/World_KeyCard_Pickup
-    index: 29
-  - key: event:/World_Barrel_Explosion
-    index: 30
 --- !u!114 &3772029404649061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,33 +650,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
---- !u!114 &1386733590207109099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/World_Barrel_Explosion
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/World_Barrel_Explosion
-  Guid:
-    Data1: -1583673467
-    Data2: 1268684027
-    Data3: -256358221
-    Data4: -614818868
-  Banks:
-  - {fileID: -339997090198423900}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1500
 --- !u!114 &1798613708987533344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -884,38 +665,11 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Master.assets.bank
   Name: Master.assets
   StudioPath: bank:/Master.assets
-  lastModified: 639178356936238034
+  lastModified: 639172997405024568
   FileSizes:
   - Name: Desktop
     Value: 506
   Exists: 1
---- !u!114 &2549220622478245560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/World_CardReader_Accepted
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/World_CardReader_Accepted
-  Guid:
-    Data1: -1906358503
-    Data2: 1212708292
-    Data3: 1066252708
-    Data4: -330428412
-  Banks:
-  - {fileID: -339997090198423900}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1000
 --- !u!114 &3137539343842545090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,33 +697,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
---- !u!114 &3725731551848571323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player_Footsteps
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Player_Footsteps
-  Guid:
-    Data1: -92876276
-    Data2: 1336951259
-    Data3: -1780048997
-    Data4: -2069335476
-  Banks:
-  - {fileID: 7638864479996090290}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 501
 --- !u!114 &3833791691463138594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,7 +766,7 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639178356936227998
+  lastModified: 639172997405034572
   FileSizes:
   - Name: Desktop
     Value: 1074
@@ -1071,26 +798,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 800
---- !u!114 &7638864479996090290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Player.bank
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
-  Path: FMODproj_DrawYourWeapons/Build/Desktop/Player.bank
-  Name: Player
-  StudioPath: bank:/Player
-  lastModified: 639178356936354425
-  FileSizes:
-  - Name: Desktop
-    Value: 11808
-  Exists: 1
 --- !u!114 &7657872125022142577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1111,33 +818,6 @@ MonoBehaviour:
     Data4: 327753635
   Banks:
   - {fileID: -8208245519386133286}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1000
---- !u!114 &8239820357149214631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Player_Dash
-  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
-  Path: event:/Player_Dash
-  Guid:
-    Data1: 1678217686
-    Data2: 1223906601
-    Data3: -1090188371
-    Data4: -361252998
-  Banks:
-  - {fileID: 7638864479996090290}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1214,7 +894,7 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639178356936238034
+  lastModified: 639178870952311328
   FileSizes:
   - Name: Desktop
     Value: 2674
@@ -1234,7 +914,7 @@ MonoBehaviour:
   Path: FMODproj_DrawYourWeapons/Build/Desktop/Enemies.bank
   Name: Enemies
   StudioPath: bank:/Enemies
-  lastModified: 639177784106879434
+  lastModified: 639178870952059100
   FileSizes:
   - Name: Desktop
     Value: 41172
