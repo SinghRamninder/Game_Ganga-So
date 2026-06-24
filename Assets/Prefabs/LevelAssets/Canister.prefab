@@ -55,14 +55,14 @@ MonoBehaviour:
   cameraShakeIntensity: 0.1
   cameraShakeDuration: 0.3
   splatterParticlePrefab: {fileID: 8724896405505394418, guid: 5aea454c35c69074f953b826ca0e69d7, type: 3}
-  splatterColor: {r: 0.22199474, g: 0.91194963, b: 0.048751958, a: 1}
+  splatterColor: {r: 1, g: 1, b: 1, a: 1}
   explosionEventFmod:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -1583673467
+      Data2: 1268684027
+      Data3: -256358221
+      Data4: -614818868
+    Path: event:/World_Barrel_Explosion
 --- !u!65 &8658054225172990594
 BoxCollider:
   m_ObjectHideFlags: 0
