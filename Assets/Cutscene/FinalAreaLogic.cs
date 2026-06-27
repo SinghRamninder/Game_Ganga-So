@@ -366,6 +366,7 @@ public class FinalAreaLogic : MonoBehaviour
             {
                 if (server != null)
                 {
+                    server.RefreshEmissionColorReferences();
                     server.ResetServer();
                 }
             }

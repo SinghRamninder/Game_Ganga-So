@@ -279,6 +279,7 @@ public class AreaLogic : MonoBehaviour
             {
                 if (server != null)
                 {
+                    server.RefreshEmissionColorReferences();
                     server.ResetServer();
                 }
             }

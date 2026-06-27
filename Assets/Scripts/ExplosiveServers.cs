@@ -143,6 +143,19 @@ public class ExplosiveServers : MonoBehaviour
         }
     }
 
+    public void RefreshEmissionColorReferences()
+    {
+        foreach (Material mat in glowMaterials)
+        {
+            if (mat != null && mat.HasProperty("_EmissionColor"))
+            {
+                Color current = mat.GetColor("_EmissionColor");
+                baseEmissionColors[mat] = current;
+                expectedEmissionColors[mat] = current;
+            }
+        }
+    }
+
     private void UpdateGlow()
     {
         if (glowMaterials.Count > 0 && !isFlickering && currentHealth > 0)
