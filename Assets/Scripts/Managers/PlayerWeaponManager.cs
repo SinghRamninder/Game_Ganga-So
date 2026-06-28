@@ -10,20 +10,26 @@ public class PlayerWeaponManager : MonoBehaviour
 
     [SerializeField] private GameObject weaponHolder;
     [SerializeField] private GameObject crosshair;
+
     public GameObject headCrosshair;
     public PlayerPortraitUI portraitUI;
+
     [HideInInspector] public List<GameObject> weaponsSpawned;
 
     private GameObject currentWeapon;
-    private Weapon currentWeaponScript;
+    [HideInInspector] public Weapon currentWeaponScript;
     private GameObject equipedWeapon;
 
     [HideInInspector] public int weaponLayerNumber = 0;
 
+    // NEW: FinalShot will set this to true.
+    // This prevents normal HandleFireInput() from also firing during the final shot.
+    [HideInInspector] public bool blockNormalWeaponInput = false;
+
     private void Awake()
     {
         instance = this;
-        
+
         if (weaponHolder == null)
         {
             WeaponsInventory inventory = GetComponentInChildren<WeaponsInventory>(true);
@@ -32,13 +38,16 @@ public class PlayerWeaponManager : MonoBehaviour
                 weaponHolder = inventory.gameObject;
             }
         }
-        
+
         weaponsSpawned = new List<GameObject>();
         ownedPrefabs = new List<GameObject>();
     }
 
     private void Update()
     {
+        if (blockNormalWeaponInput)
+            return;
+
         if (currentWeaponScript != null)
         {
             if (crosshair != null)
@@ -60,28 +69,30 @@ public class PlayerWeaponManager : MonoBehaviour
         }
 
         currentWeapon = Instantiate(weaponPrefab, weaponHolder.transform);
-        Vector3 weaponSpawnPosition = currentWeapon.GetComponent<Weapon>().weaponSpawnPosition;
-        Quaternion weaponSpawnRotation = currentWeapon.GetComponent<Weapon>().weaponSpawnRotation;
-        Vector3 weaponSpawnScale = currentWeapon.GetComponent<Weapon>().weaponSpawnScale;
+
+        Weapon weapon = currentWeapon.GetComponent<Weapon>();
+
+        Vector3 weaponSpawnPosition = weapon.weaponSpawnPosition;
+        Quaternion weaponSpawnRotation = weapon.weaponSpawnRotation;
+        Vector3 weaponSpawnScale = weapon.weaponSpawnScale;
+
         currentWeapon.transform.SetLocalPositionAndRotation(weaponSpawnPosition, weaponSpawnRotation);
         currentWeapon.transform.localScale = weaponSpawnScale;
 
-        currentWeaponScript = currentWeapon.GetComponent<Weapon>();
+        currentWeaponScript = weapon;
 
-        // 🔎 ردیاب متد EquipGun
-        Debug.Log($"[WeaponManager] متد EquipGun اجرا شد. اسکریپت اسلحه پیدا شد: {currentWeaponScript != null} | پرتره UI وصل است: {portraitUI != null}");
+        Debug.Log($"[WeaponManager] EquipGun executed. Weapon script found: {currentWeaponScript != null} | Portrait UI connected: {portraitUI != null}");
+
         if (currentWeaponScript != null)
         {
-            Debug.Log($"[WeaponManager] دیتای عکس روی این اسلحه وجود دارد: {currentWeaponScript.weaponPortraitData != null}");
+            Debug.Log($"[WeaponManager] Weapon portrait data exists: {currentWeaponScript.weaponPortraitData != null}");
         }
 
-        // تغییر پرتره
         if (currentWeaponScript != null && portraitUI != null)
         {
             portraitUI.ChangeWeaponPortrait(currentWeaponScript.weaponPortraitData);
         }
 
-        // 🟢 خط جدید: تغییر خودکار اچ‌پ‌بار مچ شده با تفنگ
         if (currentWeaponScript != null && HealthBarUI.instance != null)
         {
             HealthBarUI.instance.ChangeHealthBarVisuals(currentWeaponScript.weaponPortraitData);
@@ -91,19 +102,16 @@ public class PlayerWeaponManager : MonoBehaviour
     public void SpawnWeapon(GameObject weaponPrefab)
     {
         if (ownedPrefabs.Contains(weaponPrefab)) return;
-        
+
         GameObject spawnedWeapon = Instantiate(weaponPrefab, weaponHolder.transform);
+
         Weapon w = spawnedWeapon.GetComponent<Weapon>();
+
         spawnedWeapon.transform.SetLocalPositionAndRotation(w.weaponSpawnPosition, w.weaponSpawnRotation);
         spawnedWeapon.transform.localScale = w.weaponSpawnScale;
 
         weaponsSpawned.Add(spawnedWeapon);
-        ownedPrefabs.Add(weaponPrefab);          // keep this list parallel to weaponsSpawned
-
-        // if (weaponsSpawned.Count == 1)
-        //     ChangeWeapon(spawnedWeapon);         // first weapon becomes active
-        // else
-        //     spawnedWeapon.SetActive(false);
+        ownedPrefabs.Add(weaponPrefab);
 
         ChangeWeapon(spawnedWeapon);
     }
@@ -112,27 +120,27 @@ public class PlayerWeaponManager : MonoBehaviour
     {
         if (weaponGameobject == null) return;
         if (equipedWeapon == weaponGameobject) return;
-        
-        if (equipedWeapon != null) equipedWeapon.SetActive(false);
+
+        if (equipedWeapon != null)
+            equipedWeapon.SetActive(false);
 
         weaponGameobject.SetActive(true);
+
         currentWeaponScript = weaponGameobject.GetComponent<Weapon>();
         equipedWeapon = weaponGameobject;
 
-        // 🔎 ردیاب متد ChangeWeapon
-        Debug.Log($"[WeaponManager] متد ChangeWeapon برای اسلحه {weaponGameobject.name} اجرا شد. اسکریپت اسلحه: {currentWeaponScript != null} | پرتره UI وصل است: {portraitUI != null}");
+        Debug.Log($"[WeaponManager] ChangeWeapon executed for {weaponGameobject.name}. Weapon script: {currentWeaponScript != null} | Portrait UI connected: {portraitUI != null}");
+
         if (currentWeaponScript != null)
         {
-            Debug.Log($"[WeaponManager] دیتای عکس روی این اسلحه وجود دارد: {currentWeaponScript.weaponPortraitData != null}");
+            Debug.Log($"[WeaponManager] Weapon portrait data exists: {currentWeaponScript.weaponPortraitData != null}");
         }
 
-        // تغییر پرتره
         if (currentWeaponScript != null && portraitUI != null)
         {
             portraitUI.ChangeWeaponPortrait(currentWeaponScript.weaponPortraitData);
         }
 
-        // 🟢 خط جدید: تغییر خودکار اچ‌پ‌بار مچ شده با تفنگ
         if (currentWeaponScript != null && HealthBarUI.instance != null)
         {
             HealthBarUI.instance.ChangeHealthBarVisuals(currentWeaponScript.weaponPortraitData);
@@ -141,13 +149,13 @@ public class PlayerWeaponManager : MonoBehaviour
         currentIndex = weaponsSpawned.IndexOf(weaponGameobject);
     }
 
-    // 🔵 خطوط جدید: تابع رادار برای دادن دیتای تفنگ فعلی به اسکریپت مرگ
     public PlayerPortraitData GetCurrentWeaponPortraitData()
     {
         if (currentWeaponScript != null)
         {
             return currentWeaponScript.weaponPortraitData;
         }
+
         return null;
     }
 
@@ -157,6 +165,7 @@ public class PlayerWeaponManager : MonoBehaviour
         {
             if (WeaponLoadoutStore.Instance != null)
                 WeaponLoadoutStore.Instance.Save(ownedPrefabs, currentIndex);
+
             instance = null;
         }
     }

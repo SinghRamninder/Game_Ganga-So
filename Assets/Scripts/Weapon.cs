@@ -8,6 +8,15 @@ public enum FireMode
     FullAuto
 }
 
+public struct BarrelTraceResult
+{
+    public bool hitBarrel;
+    public Vector3 hitPosition;
+    public Vector3 trailSpawnPosition;
+    public GameObject hitTrailObject;
+    public ExplosiveBarrels barrel;
+}
+
 public class Weapon : MonoBehaviour
 {
     [HideInInspector] public bool isMeleeWeapon = false;
@@ -252,6 +261,8 @@ public class Weapon : MonoBehaviour
 
         if (GameOverManager.instance?.IsGameOver == true)
             return;
+
+        return; // This is a temporary measure to disable firing during the final shot. Remove this line when implementing the final shot logic.
 
         if (fireMode == FireMode.SemiAuto)
         {
@@ -540,6 +551,178 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(animLength * 0.5f);
     }
 
+    public BarrelTraceResult FireAndReturnBarrelHit(bool leftClick, bool rightClick)
+    {
+        var result = new BarrelTraceResult();
+
+        bool useLeftSide = true;
+        if (isDualPistol && differentShootButtons)
+        {
+            if (leftClick)
+            {
+                useLeftSide = true;
+                isSP1 = true;
+                isMP1 = true;
+            }
+            else if (rightClick)
+            {
+                useLeftSide = false;
+                isSP1 = false;
+                isMP1 = false;
+            }
+            else
+            {
+                useLeftSide = isSP1;
+            }
+        }
+
+        if (!isMeleeWeapon)
+        {
+            currentAmmo--;
+            UpdateAmmoUI();
+        }
+
+        Animator currentAnimator = gunAnimator;
+        if (isDualPistol && !useLeftSide && gunAnimator2 != null)
+        {
+            currentAnimator = gunAnimator2;
+        }
+
+        if (currentAnimator != null)
+        {
+            PlayAnimation(attackAnimString, currentAnimator);
+        }
+
+        GameObject currentAudio = audioSource;
+        if (isDualPistol && !useLeftSide && audioSource2 != null)
+        {
+            currentAudio = audioSource2;
+        }
+
+        if (currentAudio != null && shootSound != null)
+        {
+            if (isDualPistol)
+            {
+                StartCoroutine(AudioManager.Instance.PlaySound(currentAudio, shootSound, shootVolume, true));
+            }
+            else
+            {
+                StartCoroutine(AudioManager.Instance.PlaySound(currentAudio, shootSound, shootVolume, false));
+            }
+        }
+
+        if (!fireEventFmod.IsNull)
+        {
+            RuntimeManager.PlayOneShotAttached(fireEventFmod, gameObject);
+        }
+
+        if (muzzleFlash != null && !isDualPistol)
+        {
+            muzzleFlash.Play();
+        }
+        else if (isDualPistol && muzzleFlash != null)
+        {
+            if (isMP1 && shootPoint1 != null)
+            {
+                muzzleFlash.transform.position = shootPoint1.position;
+                muzzleFlash.Play();
+                if (!differentShootButtons)
+                    isMP1 = false;
+            }
+            else if (shootPoint2 != null)
+            {
+                muzzleFlash.transform.position = shootPoint2.position;
+                muzzleFlash.Play();
+                if (!differentShootButtons)
+                    isMP1 = true;
+            }
+        }
+
+        if (RumbleManager.instance != null)
+            RumbleManager.instance.RumblePulse(rumbleLeftFrequency, rumbleRightFrequency, rumbleTime);
+
+        Camera cam = null;
+        var playerController = GetComponentInParent<SimplePlayerController>();
+        if (playerController != null)
+        {
+            cam = playerController.playerCamera;
+            playerController.TriggerCameraShake(cameraShakeIntensity, cameraShakeDuration);
+            playerController.TriggerWeaponRecoil(recoilForce);
+        }
+
+        Transform spawnTransform = trailSpawnPos;
+        if (spawnTransform == null)
+        {
+            if (isDualPistol)
+            {
+                spawnTransform = useLeftSide ? shootPoint1 : shootPoint2;
+            }
+
+            if (spawnTransform == null)
+            {
+                spawnTransform = firePoint;
+            }
+
+            if (spawnTransform == null)
+            {
+                spawnTransform = transform;
+            }
+        }
+
+        Vector3 rayOrigin = (cam != null) ? cam.transform.position : (firePoint != null ? firePoint.position : transform.position);
+        Vector3 baseDirection = (cam != null) ? cam.transform.forward : ((firePoint != null) ? -firePoint.forward : transform.forward);
+
+        bool freezeTrail = false;
+        GameObject trailObjectToReturn = null;
+        for (int i = 0; i < raysPerShot; i++)
+        {
+            Vector3 fireDirection = baseDirection;
+            if (aoeSpread > 0f && raysPerShot > 1)
+            {
+                fireDirection += new Vector3(
+                    Random.Range(-aoeSpread, aoeSpread),
+                    Random.Range(-aoeSpread, aoeSpread),
+                    Random.Range(-aoeSpread, aoeSpread));
+                fireDirection.Normalize();
+            }
+
+            Vector3 hitNormal = Vector3.zero;
+            Vector3 targetPoint = rayOrigin + (fireDirection * 100000f);
+            if (Physics.Raycast(rayOrigin, fireDirection, out RaycastHit hit, Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
+            {
+                targetPoint = hit.point;
+                hitNormal = hit.normal;
+
+                ExplosiveBarrels barrel = hit.collider.GetComponent<ExplosiveBarrels>();
+                if (barrel == null)
+                {
+                    barrel = hit.collider.GetComponentInParent<ExplosiveBarrels>();
+                }
+
+                if (barrel != null && trailObjectToReturn == null)
+{
+    result.hitBarrel = true;
+    result.barrel = barrel;
+    result.hitPosition = hit.point;
+    result.trailSpawnPosition = spawnTransform.position;
+    result.hitTrailObject = null;
+
+    freezeTrail = true;
+}
+            }
+
+            GameObject spawnedTrail = SpawnTracerTrail(spawnTransform.position, targetPoint, hitNormal, fireDirection, false, null, freezeTrail);
+            if (freezeTrail && trailObjectToReturn == null)
+            {
+                trailObjectToReturn = spawnedTrail;
+                result.hitTrailObject = spawnedTrail;
+            }
+            freezeTrail = false;
+        }
+
+        return result;
+    }
+
     public void Fire()
     {
         if (!isMeleeWeapon)
@@ -766,20 +949,46 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos, Vector3 hitNormal, Vector3 bulletDirection, bool spawnSplatter, bool? isEnemyHit = null)
+    private IEnumerator SpawnTracer(Vector3 spawnPos, Vector3 targetPos, Vector3 hitNormal, Vector3 bulletDirection, bool spawnSplatter, bool? isEnemyHit = null, bool freezeTrailPosition = false)
+    {
+        TrailRenderer bulletTrailSpawned = Instantiate(bulletTrail, spawnPos, Quaternion.identity);
+        if (bulletTrailSpawned != null)
+        {
+            yield return StartCoroutine(AnimateTracer(bulletTrailSpawned, targetPos, hitNormal, bulletDirection, spawnSplatter, isEnemyHit, freezeTrailPosition));
+        }
+    }
+
+    private GameObject SpawnTracerTrail(Vector3 spawnPos, Vector3 targetPos, Vector3 hitNormal, Vector3 bulletDirection, bool spawnSplatter, bool? isEnemyHit = null, bool freezeTrailPosition = false)
+    {
+        TrailRenderer bulletTrailSpawned = Instantiate(bulletTrail, spawnPos, Quaternion.identity);
+        if (bulletTrailSpawned != null)
+        {
+            StartCoroutine(AnimateTracer(bulletTrailSpawned, targetPos, hitNormal, bulletDirection, spawnSplatter, isEnemyHit, freezeTrailPosition));
+            return bulletTrailSpawned.gameObject;
+        }
+
+        return null;
+    }
+
+    private IEnumerator AnimateTracer(TrailRenderer bulletTrailSpawned, Vector3 targetPos, Vector3 hitNormal, Vector3 bulletDirection, bool spawnSplatter, bool? isEnemyHit = null, bool freezeTrailPosition = false)
     {
         float time = 0;
 
-        TrailRenderer bulletTrailSpawned = Instantiate(bulletTrail, spawnPos, Quaternion.identity);
-
-        while (time < 1)
+        if (!freezeTrailPosition)
         {
-            bulletTrailSpawned.transform.position = Vector3.Lerp(bulletTrailSpawned.transform.position, targetPos, time);
-            time += Time.deltaTime / bulletTrailSpawned.time;
-            yield return null;
-        }
+            while (time < 1)
+            {
+                bulletTrailSpawned.transform.position = Vector3.Lerp(bulletTrailSpawned.transform.position, targetPos, time);
+                time += Time.deltaTime / bulletTrailSpawned.time;
+                yield return null;
+            }
 
-        bulletTrailSpawned.transform.position = targetPos;
+            bulletTrailSpawned.transform.position = targetPos;
+        }
+        else
+        {
+            bulletTrailSpawned.transform.position = targetPos;
+        }
 
         ParticleSystem effectToPlay = null;
 
