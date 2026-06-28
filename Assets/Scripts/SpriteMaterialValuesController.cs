@@ -70,10 +70,6 @@ public class SpriteMaterialValuesController : MonoBehaviour
                     }
                 }
             }
-            else
-            {
-                Debug.Log("Default not playing");
-            }
         }
 
         if (!isAnimationDone)

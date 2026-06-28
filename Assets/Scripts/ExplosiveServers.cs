@@ -39,6 +39,14 @@ public class ExplosiveServers : MonoBehaviour
     private float flickerThreshold;
     private Coroutine flickerCoroutine;
     private List<GameObject> activeParticles = new List<GameObject>();
+    private List<Light> pointLights = new List<Light>();
+    private Dictionary<Light, float> basePointLightIntensities = new Dictionary<Light, float>();
+    private Dictionary<Light, float> expectedPointLightIntensities = new Dictionary<Light, float>();
+    private bool hasStoredFirstHitVisualState = false;
+
+    private Dictionary<Material, Renderer> glowRenderers = new Dictionary<Material, Renderer>();
+    private static readonly Color32 resetEmissionColor = new Color32(191, 0, 0, 255);
+    private const float resetEmissionIntensity = 1.39f;
 
     void Start()
     {
@@ -58,10 +66,19 @@ public class ExplosiveServers : MonoBehaviour
                     if (mat.HasProperty("_EmissionColor") && !glowMaterials.Contains(mat))
                     {
                         glowMaterials.Add(mat);
+                        glowRenderers[mat] = renderer;
                         baseEmissionColors[mat] = mat.GetColor("_EmissionColor");
                         expectedEmissionColors[mat] = baseEmissionColors[mat];
                     }
                 }
+            }
+
+            Light pointLight = child.GetComponent<Light>();
+            if (pointLight != null && pointLight.type == LightType.Point && !pointLights.Contains(pointLight))
+            {
+                pointLights.Add(pointLight);
+                basePointLightIntensities[pointLight] = pointLight.intensity;
+                expectedPointLightIntensities[pointLight] = pointLight.intensity;
             }
         }
 
@@ -88,6 +105,12 @@ public class ExplosiveServers : MonoBehaviour
 
         if (hasExploded) return;
 
+        if (!hasStoredFirstHitVisualState)
+        {
+            StoreCurrentVisualState();
+            hasStoredFirstHitVisualState = true;
+        }
+
         currentHealth -= damage;
 
         UpdateGlow();
@@ -103,47 +126,7 @@ public class ExplosiveServers : MonoBehaviour
         }
     }
 
-    private bool ColorsAreDifferent(Color a, Color b)
-    {
-        return Mathf.Abs(a.r - b.r) > 0.05f || Mathf.Abs(a.g - b.g) > 0.05f || 
-               Mathf.Abs(a.b - b.b) > 0.05f || Mathf.Abs(a.a - b.a) > 0.05f;
-    }
-
-    private void SyncBaseColors()
-    {
-        foreach (Material mat in glowMaterials)
-        {
-            if (mat.HasProperty("_EmissionColor"))
-            {
-                Color current = mat.GetColor("_EmissionColor");
-                if (ColorsAreDifferent(current, expectedEmissionColors[mat]))
-                {
-                    // Calculate the base color as if current is divided by our last multiplier
-                    // But if it was completely turned off or changed drastically, just take the new one directly
-                    float diff = Mathf.Max(Mathf.Abs(current.r - expectedEmissionColors[mat].r), 
-                                         Mathf.Max(Mathf.Abs(current.g - expectedEmissionColors[mat].g), 
-                                                   Mathf.Abs(current.b - expectedEmissionColors[mat].b)));
-                    if (diff > 0.1f)
-                    {
-                        baseEmissionColors[mat] = current;
-                        expectedEmissionColors[mat] = current;
-                    }
-                }
-            }
-        }
-    }
-
-    private void ApplyColorMultiplier(float multiplier)
-    {
-        foreach (Material mat in glowMaterials)
-        {
-            Color newColor = baseEmissionColors[mat] * multiplier;
-            mat.SetColor("_EmissionColor", newColor);
-            expectedEmissionColors[mat] = newColor;
-        }
-    }
-
-    public void RefreshEmissionColorReferences()
+    private void StoreCurrentVisualState()
     {
         foreach (Material mat in glowMaterials)
         {
@@ -152,17 +135,65 @@ public class ExplosiveServers : MonoBehaviour
                 Color current = mat.GetColor("_EmissionColor");
                 baseEmissionColors[mat] = current;
                 expectedEmissionColors[mat] = current;
+
+                if (glowRenderers.TryGetValue(mat, out Renderer rend) && rend != null)
+{
+    var mpb = new MaterialPropertyBlock();
+    rend.GetPropertyBlock(mpb);
+    Debug.Log($"{mat.name}  material={current}  block={mpb.GetColor("_EmissionColor")}");
+}
+            }
+        }
+
+        foreach (Light pointLight in pointLights)
+        {
+            if (pointLight != null)
+            {
+                float currentIntensity = pointLight.intensity;
+                basePointLightIntensities[pointLight] = currentIntensity;
+                expectedPointLightIntensities[pointLight] = currentIntensity;
+            }
+        }
+    }
+
+    private void ApplyColorMultiplier(float multiplier)
+    {
+        foreach (Material mat in glowMaterials)
+        {
+            if (mat != null && mat.HasProperty("_EmissionColor") && baseEmissionColors.TryGetValue(mat, out Color baseColor))
+            {
+                Color newColor = baseColor * multiplier;
+                mat.SetColor("_EmissionColor", newColor);
+                expectedEmissionColors[mat] = newColor;
+            }
+        }
+    }
+
+    public void RefreshEmissionColorReferences()
+    {
+        StoreCurrentVisualState();
+    }
+
+    private void ApplyPointLightIntensityMultiplier(float multiplier)
+    {
+        foreach (Light pointLight in pointLights)
+        {
+            if (pointLight != null && basePointLightIntensities.TryGetValue(pointLight, out float baseIntensity))
+            {
+                float newIntensity = baseIntensity * multiplier;
+                pointLight.intensity = newIntensity;
+                expectedPointLightIntensities[pointLight] = newIntensity;
             }
         }
     }
 
     private void UpdateGlow()
     {
-        if (glowMaterials.Count > 0 && !isFlickering && currentHealth > 0)
+        if ((glowMaterials.Count > 0 || pointLights.Count > 0) && !isFlickering && currentHealth > 0)
         {
-            SyncBaseColors();
             float intensityMultiplier = Mathf.Clamp01(currentHealth / maxHealth);
             ApplyColorMultiplier(intensityMultiplier);
+            ApplyPointLightIntensityMultiplier(intensityMultiplier);
         }
     }
 
@@ -171,11 +202,11 @@ public class ExplosiveServers : MonoBehaviour
         isFlickering = true;
         while (currentHealth > 0 && currentHealth <= flickerThreshold)
         {
-            if (glowMaterials.Count > 0)
+            if (glowMaterials.Count > 0 || pointLights.Count > 0)
             {
-                SyncBaseColors();
                 float randomIntensity = Random.Range(0f, Mathf.Clamp01(currentHealth / maxHealth));
                 ApplyColorMultiplier(randomIntensity);
+                ApplyPointLightIntensityMultiplier(randomIntensity);
             }
             yield return new WaitForSeconds(Random.Range(0.05f, 0.5f));
         }
@@ -192,7 +223,20 @@ public class ExplosiveServers : MonoBehaviour
 
         foreach (Material mat in glowMaterials)
         {
-            mat.SetColor("_EmissionColor", Color.black);
+            if (mat != null && mat.HasProperty("_EmissionColor"))
+            {
+                mat.SetColor("_EmissionColor", Color.black);
+                expectedEmissionColors[mat] = Color.black;
+            }
+        }
+
+        foreach (Light pointLight in pointLights)
+        {
+            if (pointLight != null)
+            {
+                pointLight.intensity = 0f;
+                expectedPointLightIntensities[pointLight] = 0f;
+            }
         }
 
         if (videoScreens != null)
@@ -282,11 +326,18 @@ public class ExplosiveServers : MonoBehaviour
         }
         isFlickering = false;
 
-        foreach (Material mat in glowMaterials)
+        ApplyResetEmissionToCurrentMaterials();
+
+        foreach (Light pointLight in pointLights)
         {
-            mat.SetColor("_EmissionColor", baseEmissionColors[mat]);
-            expectedEmissionColors[mat] = baseEmissionColors[mat];
+            if (pointLight != null && basePointLightIntensities.TryGetValue(pointLight, out float baseIntensity))
+            {
+                pointLight.intensity = baseIntensity;
+                expectedPointLightIntensities[pointLight] = baseIntensity;
+            }
         }
+
+        hasStoredFirstHitVisualState = false;
 
         foreach (GameObject p in activeParticles)
         {
@@ -306,6 +357,48 @@ public class ExplosiveServers : MonoBehaviour
                     vs.gameObject.SetActive(true);
                 }
             }
+        }
+    }
+
+    private void ApplyResetEmissionToCurrentMaterials()
+    {
+        Color baseColor = resetEmissionColor;
+        float intensityMultiplier = Mathf.Pow(2f, resetEmissionIntensity);
+        Color hdrEmissionColor = new Color(
+            baseColor.r * intensityMultiplier,
+            baseColor.g * intensityMultiplier,
+            baseColor.b * intensityMultiplier,
+            baseColor.a
+        );
+
+        glowMaterials.Clear();
+        glowRenderers.Clear();
+        baseEmissionColors.Clear();
+        expectedEmissionColors.Clear();
+
+        Transform[] children = GetComponentsInChildren<Transform>(true);
+        foreach (Transform child in children)
+        {
+            if (child.name != "Glow") continue;
+
+            Renderer renderer = child.GetComponent<Renderer>();
+            if (renderer == null) continue;
+
+            Material currentMaterial = renderer.material;
+            if (currentMaterial == null || !currentMaterial.HasProperty("_EmissionColor")) continue;
+
+            currentMaterial.SetColor("_EmissionColor", hdrEmissionColor);
+
+            if (!glowMaterials.Contains(currentMaterial))
+            {
+                glowMaterials.Add(currentMaterial);
+            }
+
+            glowRenderers[currentMaterial] = renderer;
+            baseEmissionColors[currentMaterial] = hdrEmissionColor;
+            expectedEmissionColors[currentMaterial] = hdrEmissionColor;
+
+            Debug.Log($"Reset current material {currentMaterial.name} emission to {hdrEmissionColor} from RGB(191, 0, 0), intensity {resetEmissionIntensity}");
         }
     }
 
