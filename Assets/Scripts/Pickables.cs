@@ -14,6 +14,10 @@ public class Pickables : MonoBehaviour
     [HideInInspector] public GameObject weaponToEquip;
     [HideInInspector] public int healAmount = 25;
 
+    [Header("Key Card Settings")]
+    [SerializeField] private string keyCardID;
+    [SerializeField] private Sprite keyCardSprite;
+
     [Header("Animation settings")]
     [SerializeField] private float maxUpAnimPos = 0.5f;
     [SerializeField] private float animationSpeed = 0.5f;
@@ -64,14 +68,20 @@ public class Pickables : MonoBehaviour
                 case PickableType.KeyCard:
                     if (InventoryManager.Instance != null)
                     {
-                        InventoryManager.Instance.keyCards.Add(gameObject.name);
-                        Debug.Log("Key added into inventory: " +  gameObject.name);
+                        InventoryManager.Instance.keyCards.Add(keyCardID);
+                        Debug.Log("Key added into inventory: " + keyCardID);
+                    }
+
+                    if (KeyCardUIManager.Instance != null)
+                    {
+                        KeyCardUIManager.Instance.ShowKeyCard(keyCardID, keyCardSprite);
                     }
 
                     if (!pickupEventFmod.IsNull)
                     {
                         RuntimeManager.PlayOneShotAttached(pickupEventFmod, gameObject);
                     }
+
                     Destroy(gameObject);
                     break;
 
@@ -86,7 +96,7 @@ public class Pickables : MonoBehaviour
                         Destroy(gameObject);
                     }
                     break;
-                    }
             }
         }
     }
+}

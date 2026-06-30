@@ -8,24 +8,44 @@ public class PickableInspectorEditor : Editor
     {
         Pickables pickables = (Pickables)target;
 
-        pickables.Type = (PickableType)EditorGUILayout.EnumPopup(new GUIContent("Pickable Type"), pickables.Type);
+        serializedObject.Update();
 
-        if (pickables.Type == PickableType.Weapon)
+        SerializedProperty typeProperty = serializedObject.FindProperty("Type");
+        SerializedProperty weaponProperty = serializedObject.FindProperty("weaponToEquip");
+        SerializedProperty healAmountProperty = serializedObject.FindProperty("healAmount");
+        SerializedProperty keyCardIDProperty = serializedObject.FindProperty("keyCardID");
+        SerializedProperty keyCardSpriteProperty = serializedObject.FindProperty("keyCardSprite");
+
+        EditorGUILayout.PropertyField(typeProperty, new GUIContent("Pickable Type"));
+
+        PickableType selectedType = (PickableType)typeProperty.enumValueIndex;
+
+        if (selectedType == PickableType.Weapon)
         {
-            pickables.weaponToEquip = (GameObject)EditorGUILayout.ObjectField(new GUIContent("Weapon to equip"), pickables.weaponToEquip, typeof(GameObject), true);
+            EditorGUILayout.PropertyField(weaponProperty, new GUIContent("Weapon to Equip"));
         }
-        else if (pickables.Type == PickableType.HealthPack)
+        else if (selectedType == PickableType.KeyCard)
         {
-            pickables.healAmount = EditorGUILayout.IntField(new GUIContent("Heal Amount"), pickables.healAmount);
+            EditorGUILayout.PropertyField(keyCardIDProperty, new GUIContent("Key Card ID"));
+            EditorGUILayout.PropertyField(keyCardSpriteProperty, new GUIContent("Key Card Sprite"));
+        }
+        else if (selectedType == PickableType.HealthPack)
+        {
+            EditorGUILayout.PropertyField(healAmountProperty, new GUIContent("Heal Amount"));
         }
 
         EditorGUILayout.Space(10);
 
-        if (GUI.changed)
-        {
-            EditorUtility.SetDirty(pickables);
-        }
+        DrawPropertiesExcluding(
+            serializedObject,
+            "m_Script",
+            "Type",
+            "weaponToEquip",
+            "healAmount",
+            "keyCardID",
+            "keyCardSprite"
+        );
 
-        base.OnInspectorGUI();
+        serializedObject.ApplyModifiedProperties();
     }
 }

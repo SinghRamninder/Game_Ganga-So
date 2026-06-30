@@ -18,6 +18,9 @@ public class AreaLogic : MonoBehaviour
     private bool startLateUpdate = false;
     private List<Material> entryExitMaterials = new List<Material>();
     private Coroutine transitionCoroutine;
+    private Coroutine enemiesSpawnCoroutine;
+    private Coroutine endAreaCoroutine;
+    private Coroutine[] appearAnimationCoroutines;
     private ExplosiveServers[] managedServers;
     private bool isSubscribedToReset = false;
 
@@ -46,19 +49,9 @@ public class AreaLogic : MonoBehaviour
         isSubscribedToReset = false;
     }
 
-    private void OnEnable()
-    {
-        SubscribeToResetEvent();
-    }
-
     private void OnDisable()
     {
         UnsubscribeFromResetEvent();
-    }
-
-    private void Start()
-    {
-        SubscribeToResetEvent();
     }
 
     private void Awake()
@@ -69,6 +62,7 @@ public class AreaLogic : MonoBehaviour
         {
             enemiesStartPosition = new Vector3[allEnemies.Length];
             allEnemiesAnimClone = new GameObject[allEnemies.Length];
+            appearAnimationCoroutines = new Coroutine[allEnemies.Length];
 
             for (int i = 0; i < allEnemies.Length; i++)
             {
@@ -117,7 +111,13 @@ public class AreaLogic : MonoBehaviour
             if (!areEnemiesActive)
             {
                 startLateUpdate = false;
-                StartCoroutine(EndAreaSequence());
+
+                if (endAreaCoroutine != null)
+                {
+                    StopCoroutine(endAreaCoroutine);
+                }
+
+                endAreaCoroutine = StartCoroutine(EndAreaSequence());
             }
         }
     }
@@ -129,14 +129,11 @@ public class AreaLogic : MonoBehaviour
             CheckpointManager.Instance.spawnPosition = checkpointAfterEnd;
         }
 
-        if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
-        yield return StartCoroutine(TransitionEntryExitMaterials(0f, false));
-
         foreach (GameObject obj in entryExit)
         {
             if (obj != null)
             {
-                Destroy(obj);
+                Destroy(obj.GetComponent<Collider>());
             }
         }
 
@@ -145,6 +142,18 @@ public class AreaLogic : MonoBehaviour
             if (enemy != null)
             {
                 Destroy(enemy.gameObject);
+            }
+        }
+
+        if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
+        transitionCoroutine = StartCoroutine(TransitionEntryExitMaterials(0f, false));
+        yield return transitionCoroutine;
+
+        foreach (GameObject obj in entryExit)
+        {
+            if (obj != null)
+            {
+                Destroy(obj);
             }
         }
 
@@ -172,15 +181,26 @@ public class AreaLogic : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && !isFighting)
         {
+            SubscribeToResetEvent();
+
             if (CheckpointManager.Instance != null)
             {
                 CheckpointManager.Instance.spawnPosition = checkpointBeforeStart;
             }
 
-            if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
+            if (transitionCoroutine != null)
+            {
+                StopCoroutine(transitionCoroutine);
+            }
+            
             transitionCoroutine = StartCoroutine(TransitionEntryExitMaterials(1f, false));
 
-            StartCoroutine(EnemiesSpawnWaitTime());
+            if (enemiesSpawnCoroutine != null)
+            {
+                StopCoroutine(enemiesSpawnCoroutine);
+            }
+
+            enemiesSpawnCoroutine = StartCoroutine(EnemiesSpawnWaitTime());
         }
     }
 
@@ -204,7 +224,12 @@ public class AreaLogic : MonoBehaviour
                     Animator animator = allEnemiesAnimClone[i].GetComponent<Animator>();
                     float animationTime = animator != null ? animator.GetCurrentAnimatorClipInfo(0)[0].clip.length : 0;
 
-                    StartCoroutine(AppearAnimationWait(animationTime, enemy.gameObject, allEnemiesAnimClone[i]));
+                    if (appearAnimationCoroutines[i] != null)
+                    {
+                        StopCoroutine(appearAnimationCoroutines[i]);
+                    }
+
+                    appearAnimationCoroutines[i] = StartCoroutine(AppearAnimationWait(animationTime, enemy.gameObject, allEnemiesAnimClone[i], i));
                 }
             }
 
@@ -214,7 +239,7 @@ public class AreaLogic : MonoBehaviour
         startLateUpdate = true;
     }
 
-    private IEnumerator AppearAnimationWait(float time, GameObject enemyObject, GameObject enemyCloneObject)
+    private IEnumerator AppearAnimationWait(float time, GameObject enemyObject, GameObject enemyCloneObject, int coroutineIndex)
     {
         yield return new WaitForSeconds(time);
 
@@ -227,12 +252,26 @@ public class AreaLogic : MonoBehaviour
         {
             enemyCloneObject.SetActive(false);
         }
+
+        if (appearAnimationCoroutines != null && coroutineIndex >= 0 && coroutineIndex < appearAnimationCoroutines.Length)
+        {
+            appearAnimationCoroutines[coroutineIndex] = null;
+        }
     }
 
     private void ResetThisArea()
     {
         startLateUpdate = false;
         isFighting = false;
+
+        StopCoroutine(enemiesSpawnCoroutine);
+        foreach (Coroutine coroutine in appearAnimationCoroutines)
+        {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+        }
 
         for (int i = 0; i < allEnemies.Length; i++)
         {
@@ -331,5 +370,10 @@ public class AreaLogic : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ProvideBeforeStartCheckpoint(Transform checkpoint)
+    {
+        checkpointBeforeStart = checkpoint;
     }
 }

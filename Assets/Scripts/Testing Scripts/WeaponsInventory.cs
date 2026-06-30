@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WeaponsInventory : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class WeaponsInventory : MonoBehaviour
     {
         var store = WeaponLoadoutStore.Instance;
 
-        if (store != null && store.HasData)
+        if (store != null && store.HasData && SceneManager.GetActiveScene().name != "TrainingCamp")
         {
             foreach (GameObject weaponPrefab in store.OwnedWeaponPrefabs)
             {

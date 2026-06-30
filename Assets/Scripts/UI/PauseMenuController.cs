@@ -116,6 +116,35 @@ public class PauseMenuController : MonoBehaviour
         }
     }
 
+    public void RestartFromCheckpoint()
+    {
+        if (CheckpointManager.Instance != null)
+        {
+            CheckpointManager.Instance.SpawnAtCheckpoint();
+        }
+
+        if (pauseMenuPanel != null)
+        {
+            pauseMenuPanel.SetActive(false);
+        }
+        
+        if (settingsPanel != null)
+        {
+            settingsPanel.SetActive(false);
+        }
+
+        Time.timeScale = 1f; // Run time at normal speed
+        IsGamePaused = false;
+        allAudioChecked = false;
+
+        // Hide and lock cursor for first-person gameplay
+        if (autoManageCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
     /// <summary>
     /// Toggles the visibility of the Settings Panel inside the pause overlay.
     /// </summary>

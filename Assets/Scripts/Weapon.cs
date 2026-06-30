@@ -262,8 +262,6 @@ public class Weapon : MonoBehaviour
         if (GameOverManager.instance?.IsGameOver == true)
             return;
 
-        return; // This is a temporary measure to disable firing during the final shot. Remove this line when implementing the final shot logic.
-
         if (fireMode == FireMode.SemiAuto)
         {
             if (isDualPistol && differentShootButtons)

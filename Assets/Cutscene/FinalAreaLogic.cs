@@ -48,19 +48,9 @@ public class FinalAreaLogic : MonoBehaviour
         isSubscribedToReset = false;
     }
 
-    private void OnEnable()
-    {
-        SubscribeToResetEvent();
-    }
-
     private void OnDisable()
     {
         UnsubscribeFromResetEvent();
-    }
-
-    private void Start()
-    {
-        SubscribeToResetEvent();
     }
 
     private void Awake()
@@ -251,6 +241,8 @@ public class FinalAreaLogic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        SubscribeToResetEvent();
+        
         if (other.gameObject.CompareTag("Player") && !isFighting)
         {
             if (CheckpointManager.Instance != null)
