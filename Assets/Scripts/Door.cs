@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using FMODUnity;
+using TMPro;
 
 public class Door : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Door : MonoBehaviour
     [SerializeField] private GameObject indicator;
     [SerializeField] private GameObject instructionKey;
     [SerializeField] private GameObject highlighter;
+    [SerializeField] private GameObject keyCardNotCanvas;
+    [SerializeField] private TMP_Text keyCardNotText;
 
     [Header("FMOD")]
     public EventReference unlockEventFmod;
@@ -26,6 +29,7 @@ public class Door : MonoBehaviour
 
     private Renderer _rend;
     private Material _material;
+    private Coroutine keyCardNotFoundCoroutine;
 
     private void Awake()
     {
@@ -82,6 +86,13 @@ public class Door : MonoBehaviour
                 if (!isUnlocked)
                 {
                     Debug.LogWarning($"[{Time.frameCount}] Required Key card not found on {gameObject.name} (id {gameObject.GetInstanceID()})");
+
+                    if (keyCardNotFoundCoroutine != null)
+                        {
+                            StopCoroutine(keyCardNotFoundCoroutine);
+                        }
+
+                    keyCardNotFoundCoroutine = StartCoroutine(KeyCardNotFoundWarning());
 
                     if (!deniedEventFmod.IsNull)
                     {
@@ -171,5 +182,15 @@ public class Door : MonoBehaviour
             if (doorAnimator != null)
                 doorAnimator.SetBool("isOpen", false);
         }
+    }
+
+    IEnumerator KeyCardNotFoundWarning()
+    {
+        keyCardNotText.text = string.Empty;
+        keyCardNotText.text = $"{KeyCardName} required to unlock.";
+
+        keyCardNotCanvas.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        keyCardNotCanvas.SetActive(false);
     }
 }
