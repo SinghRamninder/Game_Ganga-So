@@ -21,6 +21,8 @@ public class MainMenuController : MonoBehaviour
     {
         // Ensure only the main menu is visible when the game starts
         ShowMainMenu();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     /// <summary>

@@ -63,6 +63,9 @@ public class Enemy : MonoBehaviour
     private Vector3 positionLastFrameForSound;
     private float nextWalkSoundTime = 0f;
     private NavMeshAgent navAgent;
+    private Rigidbody enemyRigidbody;
+    private Vector3 movementDirection;
+    private Quaternion desiredRotation;
 
     [Header("LayerMask")]
     public LayerMask layerMask;
@@ -70,8 +73,28 @@ public class Enemy : MonoBehaviour
     [Header("Spawn Animation clone")]
     public GameObject spawnAnimClone;
 
+    private void Awake()
+    {
+        enemyRigidbody = GetComponent<Rigidbody>();
+        if (enemyRigidbody != null)
+        {
+            enemyRigidbody.constraints |= RigidbodyConstraints.FreezeRotation;
+            if (enemyRigidbody.collisionDetectionMode == CollisionDetectionMode.Discrete)
+            {
+                enemyRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+            }
+        }
+    }
+
+    private void OnEnable()
+    {
+        movementDirection = Vector3.zero;
+        desiredRotation = transform.rotation;
+    }
+
     private void OnDisable()
     {
+        movementDirection = Vector3.zero;
         PlayAnimation("Default");
     }
 
@@ -113,6 +136,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        movementDirection = Vector3.zero;
         if (isDead) return;
 
         if (mainCam != null)
@@ -121,7 +145,11 @@ public class Enemy : MonoBehaviour
             lookDirection.y = 0;
             if (lookDirection != Vector3.zero)
             {
-                transform.rotation = Quaternion.LookRotation(lookDirection);
+                desiredRotation = Quaternion.LookRotation(lookDirection);
+                if (enemyRigidbody == null || enemyRigidbody.isKinematic || navAgent != null)
+                {
+                    transform.rotation = desiredRotation;
+                }
             }
         }
 
@@ -162,7 +190,7 @@ public class Enemy : MonoBehaviour
                         }
                         else
                         {
-                            transform.position += moveDirection * speed * Time.deltaTime;
+                            MoveInDirection(moveDirection);
                         }
                     }
 
@@ -192,7 +220,7 @@ public class Enemy : MonoBehaviour
                         }
                         else
                         {
-                            transform.position += moveDirection * speed * Time.deltaTime;
+                            MoveInDirection(moveDirection);
                         }
 
                         if (!walkAnimPlaying && !isAttacking)
@@ -231,7 +259,7 @@ public class Enemy : MonoBehaviour
                     }
                     else
                     {
-                        transform.position += newMoveDirection * speed * Time.deltaTime;
+                        MoveInDirection(newMoveDirection);
                     }
 
                     if (!walkAnimPlaying && !isAttacking)
@@ -264,7 +292,7 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    transform.position += newMoveDirection * speed * Time.deltaTime;
+                    MoveInDirection(newMoveDirection);
                 }
 
                 if (!walkAnimPlaying)
@@ -284,6 +312,32 @@ public class Enemy : MonoBehaviour
         }
 
         CheckAndPlayWalkSound();
+    }
+
+    private void MoveInDirection(Vector3 direction)
+    {
+        if (enemyRigidbody != null && !enemyRigidbody.isKinematic)
+        {
+            movementDirection = direction;
+        }
+        else
+        {
+            transform.position += direction * speed * Time.deltaTime;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isDead || navAgent != null || enemyRigidbody == null || enemyRigidbody.isKinematic)
+        {
+            return;
+        }
+
+        Vector3 velocity = enemyRigidbody.linearVelocity;
+        velocity.x = movementDirection.x * speed;
+        velocity.z = movementDirection.z * speed;
+        enemyRigidbody.linearVelocity = velocity;
+        enemyRigidbody.MoveRotation(desiredRotation);
     }
 
     private void CheckAndPlayWalkSound()
