@@ -11,6 +11,7 @@ public class Door : MonoBehaviour
     [Header("Other References")]
     [SerializeField] private Animator doorAnimator;
     [SerializeField] private GameObject indicator;
+    [SerializeField] private Collider cardReaderCollider;
     [SerializeField] private GameObject instructionKey;
     [SerializeField] private GameObject highlighter;
     [SerializeField] private GameObject keyCardNotCanvas;
@@ -62,6 +63,30 @@ public class Door : MonoBehaviour
     {
         if (!isUnlocked)
         {
+            LayerMask mask = ~LayerMask.GetMask("Player", "Weapon");
+
+            if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit hit, 20f, mask, QueryTriggerInteraction.Ignore))
+            {
+                if (hit.collider == cardReaderCollider)
+                {
+                    canUnlock = true;
+                    highlighter.SetActive(true);
+                    instructionKey.SetActive(true);
+                }
+                else
+                {
+                    canUnlock = false;
+                    highlighter.SetActive(false);
+                    instructionKey.SetActive(false);
+                }
+            }
+            else
+            {
+                canUnlock = false;
+                highlighter.SetActive(false);
+                instructionKey.SetActive(false);
+            }
+
             if (canUnlock && InputManager.instance.controls.Player.Interaction.WasPressedThisFrame() && InventoryManager.Instance != null)
             {
                 foreach(string currentKeyName in InventoryManager.Instance.keyCards)
@@ -103,30 +128,6 @@ public class Door : MonoBehaviour
                 {
                     return;
                 }
-            }
-
-            LayerMask mask = ~LayerMask.GetMask("Player", "Weapon");
-
-            if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit hit, 20f, mask, QueryTriggerInteraction.Ignore))
-            {
-                if (hit.collider.CompareTag("Card Reader"))
-                {
-                    canUnlock = true;
-                    highlighter.SetActive(true);
-                    instructionKey.SetActive(true);
-                }
-                else
-                {
-                    canUnlock = false;
-                    highlighter.SetActive(false);
-                    instructionKey.SetActive(false);
-                }
-            }
-            else
-            {
-                canUnlock = false;
-                highlighter.SetActive(false);
-                instructionKey.SetActive(false);
             }
         }
     }

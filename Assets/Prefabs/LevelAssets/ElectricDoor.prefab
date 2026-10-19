@@ -951,7 +951,6 @@ GameObject:
   - component: {fileID: 4555326890294870016}
   - component: {fileID: 3010959420350228597}
   - component: {fileID: 6488829587002532064}
-  - component: {fileID: 3198108662213470171}
   m_Layer: 11
   m_Name: Indicator
   m_TagString: Card Reader
@@ -1271,28 +1270,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2882169334896313045}
-  m_Mesh: {fileID: 0}
---- !u!64 &3198108662213470171
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2882169334896313045}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: 0}
 --- !u!1 &2927875418049493738
 GameObject:
@@ -2624,11 +2601,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74c023747ee64a54fbd717b20f9b89df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
-  KeyCardName: RedKeycard
+  KeyCardName: 
   doorAnimator: {fileID: 0}
   indicator: {fileID: 2882169334896313045}
+  cardReaderCollider: {fileID: 0}
   instructionKey: {fileID: 6690447707505501301}
   highlighter: {fileID: 8455336029968710751}
+  keyCardNotCanvas: {fileID: 0}
+  keyCardNotText: {fileID: 0}
+  unlockEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  deniedEventFmod:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &6690447707505501301
 GameObject:
   m_ObjectHideFlags: 0
@@ -4303,7 +4297,7 @@ GameObject:
   - component: {fileID: 4817944134231453617}
   - component: {fileID: 8636423102561329209}
   - component: {fileID: 8279971107844707153}
-  - component: {fileID: 6558432632321862666}
+  - component: {fileID: 6717560269390054115}
   m_Layer: 11
   m_Name: CardReader
   m_TagString: Card Reader
@@ -4626,8 +4620,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8360595469575422714}
   m_Mesh: {fileID: 0}
---- !u!64 &6558432632321862666
-MeshCollider:
+--- !u!65 &6717560269390054115
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4644,10 +4638,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 1.2188656, y: 37.328228, z: 100.85394}
+  m_Center: {x: -0.1435336, y: 0, z: -0.000059173464}
 --- !u!1 &8455336029968710751
 GameObject:
   m_ObjectHideFlags: 0
